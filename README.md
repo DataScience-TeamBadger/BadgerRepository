@@ -1,3 +1,5 @@
 # BadgerRepository
-Team Badger's blasting off again
-Steven
+This is our team Repository
+Contributors:
+Michael von der Lippe
+Steven Proctor
