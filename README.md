@@ -1,4 +1,8 @@
 # BadgerRepository
 This is our team Repository
 
-name=Alex.Kerzner
+Contributors:
+Michael von der Lippe
+Steven Proctor
+John DeMey
+Alex Kerzner
