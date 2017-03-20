@@ -1,2 +1,6 @@
 # BadgerRepository
-Team Badger's blasting off again
+
+This is our team Repository
+Contributors:
+Michael von der Lippe
+
