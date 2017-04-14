@@ -22,6 +22,7 @@ class Main_Window(QMainWindow):
 	# Construct GUI elements
 	def initialize(self):
 		self.resize(640, 480)
+		self.setWindowTitle("Badger Data Science")
 		self.show()
 	
 
