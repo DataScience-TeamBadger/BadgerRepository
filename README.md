@@ -6,3 +6,4 @@ Michael von der Lippe
 Steven Proctor
 John DeMey
 Alex Kerzner
+Deonarine Sahdeo
