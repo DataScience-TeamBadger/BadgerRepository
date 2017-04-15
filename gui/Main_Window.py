@@ -14,7 +14,18 @@ from PyQt5.QtWidgets import \
  QMainWindow,\
  QWidget,\
  QPushButton,\
- QAction
+ QAction,\
+ QGraphicsWidget,\
+ QGraphicsView,\
+ QGridLayout
+
+# Import PyQtGraph library
+import pyqtgraph as pg
+
+# Import NumPy
+import numpy as np
+
+
 
 # Import Qt main gui components
 from PyQt5.QtGui import QIcon
@@ -29,6 +40,12 @@ class Main_Window(QMainWindow):
 	# Store all actions for this window in a dictionary
 	action = {}
 	
+	# Central widget
+	central_widget = 0
+	
+	# Central layout
+	central_layout = 0
+	
 	# Mandatory initialization - calls initialize()
 	def __init__(self):
 		super(self.__class__, self).__init__()
@@ -41,6 +58,8 @@ class Main_Window(QMainWindow):
 		self.resize(640, 480)
 		self.setWindowTitle("Badger Data Science")
 		
+		
+		
 		# Create the menu bar
 		menu_bar = self.menuBar()
 		
@@ -50,9 +69,49 @@ class Main_Window(QMainWindow):
 		# Add exit action to file menu
 		self.action["exit"] = QAction(QIcon('exit.png'), '&Exit', self)
 		self.action["exit"].setShortcut('Ctrl+Shift+C')
-		self.action["exit"].setStatusTip('Exit')
+		self.action["exit"].setStatusTip('Close this application')
 		self.action["exit"].triggered.connect(self.close)
 		self.menu["file"].addAction(self.action["exit"])
+		
+		# Create and add help menu
+		self.menu["help"] = menu_bar.addMenu('&Help')
+		
+		# Add about action to file menu
+		self.action["about"] = QAction(QIcon('exit.png'), '&Exit', self)
+		self.action["about"].setShortcut('F1')
+		self.action["about"].setStatusTip('About this application')
+		#self.action["about"].triggered.connect()
+		self.menu["help"].addAction(self.action["about"])
+		
+		# Create status bar
+		self.statusBar()
+		
+		# Set the central widget
+		self.central_widget = QWidget()
+		self.setCentralWidget(self.central_widget)
+		self.central_widget.setStatusTip('Central widget')
+		
+		
+		# Set central layout
+		self.central_layout = QGridLayout()
+		self.central_widget.setLayout(self.central_layout)
+		
+		plot_widget = pg.PlotWidget(parent=self.central_widget)
+		
+		
+		#central_widget = pg.PlotWidget(parent=self.widget)
+		#self.setCentralWidget(widget)
+		
+		
+		# Show demonstration graph
+		x = np.random.normal(size=1000)
+		y = np.random.normal(size=1000)
+		
+		plot_widget.plot(x, y, pen=None, symbol='o')
+		#plot_widget.autoPixelRange()
+		
+		#graph = pg.PlotWidget(x, y, pen=None, symbol='o')
+		#self.addDockWidget(graph)
 		
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
@@ -61,6 +120,7 @@ class Main_Window(QMainWindow):
 
 # 
 if (__name__ == "__main__"):
+	app = 0
 	app = QApplication(sys.argv)
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = Main_Window()
