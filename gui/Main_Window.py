@@ -20,6 +20,7 @@ from PyQt5.QtWidgets import \
  QTabWidget,\
  QSplitter,\
  QListWidget,\
+ QListWidgetItem,\
  QGridLayout
 
 # Import PyQtGraph library
@@ -50,6 +51,9 @@ class Main_Window(QMainWindow):
 	
 	# Store all widgets for this window in a dictionary
 	widget = {}
+	
+	# Store all operations
+	op = {}
 	
 	# Mandatory initialization - calls initialize()
 	def __init__(self):
@@ -136,8 +140,12 @@ class Main_Window(QMainWindow):
 		self.show()
 	
 	# Add plot
-	def addPlot(self,title, plot):
-		self.widget["ops"].addItem(title)
+	def addPlot(self, title, plot):
+		self.op[title] = QListWidgetItem(title)
+		self.widget["ops"].addItem(self.op[title])
+		self.op[title].setStatusTip("Hellawifno")
+		#self.widget["ops"]
+		self.widget["ops"].itemClicked.connect(self.close)
 		return
 	
 
