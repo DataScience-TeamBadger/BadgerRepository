@@ -105,7 +105,6 @@ class Main_Window(QMainWindow):
 		self.setCentralWidget(self.widget["central"])
 		self.widget["central"].setStatusTip('central widget')
 		
-		
 		# Add the predict tab
 		self.widget["predict"] = QSplitter()
 		self.widget["predict"].setStatusTip('predict widget')
@@ -125,7 +124,6 @@ class Main_Window(QMainWindow):
 		x = np.random.normal(size=1000)
 		y = np.random.normal(size=1000)
 		
-		
 		# Add plot widget to visualize panel
 		self.widget["plot"] = pg.PlotWidget()
 		self.widget["plot"].plot(x, y, pen=None, symbol='o')
@@ -137,6 +135,11 @@ class Main_Window(QMainWindow):
 		#button.move(100, 100)
 		self.show()
 	
+	# Add plot
+	def addPlot(self,title, plot):
+		self.widget["ops"].addItem(title)
+		return
+	
 
 # 
 if (__name__ == "__main__"):
@@ -145,6 +148,7 @@ if (__name__ == "__main__"):
 	app = QApplication(sys.argv)
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = Main_Window()
+	mw.addPlot("Hello world!", 0)
 	
 	# Results in an exception in IPython
 	sys.exit(app.exec_())
