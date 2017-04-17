@@ -91,31 +91,7 @@ class Main_Window(QMainWindow):
 		self.central_widget = QWidget()
 		self.setCentralWidget(self.central_widget)
 		self.central_widget.setStatusTip('Central widget')
-		
-		
-		# Set central layout
-		#self.central_layout = QGridLayout()
-		#self.central_widget.setLayout(self.central_layout)
-		
-		#plot_widget = pg.PlotWidget(parent=self.central_widget)
-		
-		
-		#central_widget = pg.PlotWidget(parent=self.widget)
-		#self.setCentralWidget(widget)
-		
-		
-		# Show demonstration graph
-		#x = np.random.normal(size=1000)
-		#y = np.random.normal(size=1000)
-		
-		#plot_widget.plot(x, y, pen=None, symbol='o')
-		#plot_widget.autoPixelRange()
-		
-		#graph = pg.PlotWidget(x, y, pen=None, symbol='o')
-		#self.addDockWidget(graph)
-		
-		#button = QPushButton("Button", self)
-		#button.move(100, 100)
+
 		self.show()
 	
 

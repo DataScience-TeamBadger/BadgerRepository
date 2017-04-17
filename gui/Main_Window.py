@@ -29,14 +29,14 @@ import pyqtgraph as pg
 import numpy as np
 
 
-
 # Import Qt main gui components
 from PyQt5.QtGui import QIcon
+
+from PyQt5.QtPrintSupport import *
 
 
 # Import Help_Window
 import Help_Window
-
 
 
 # Class for main window
@@ -140,6 +140,7 @@ class Main_Window(QMainWindow):
 
 # 
 if (__name__ == "__main__"):
+	# IPython override
 	app = 0
 	app = QApplication(sys.argv)
 	app.aboutToQuit.connect(app.deleteLater)
