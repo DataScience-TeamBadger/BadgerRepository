@@ -1,3 +1,3 @@
 
 
-Installing "pyqt" is necessary for this GUI
+Installing both "pyqt" and "pyqtgraph" is necessary for this GUI
