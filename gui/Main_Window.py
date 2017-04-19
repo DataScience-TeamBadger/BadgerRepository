@@ -21,7 +21,7 @@ from PyQt5.QtWidgets import \
  QSplitter,\
  QListWidget,\
  QListWidgetItem,\
- QGridLayout
+ QStackedWidget
 
 # Import PyQtGraph library
 import pyqtgraph as pg
@@ -41,6 +41,7 @@ import Help_Window
 
 # Import Model
 import Model
+import Scatter_Model
 
 
 # Class for main window
@@ -130,61 +131,37 @@ class Main_Window(QMainWindow):
 		self.widget["ops"] = QListWidget()
 		self.widget["ops"].setStatusTip('Operations')
 		self.widget["visualize"].addWidget(self.widget["ops"])
-		self.widget["ops"].currentItemChanged.connect(lambda current, previous: self.switchPlot(current.text()))
-		
-		#x = np.random.normal(size=1000)
-		#y = np.random.normal(size=1000)
+		self.widget["ops"].currentItemChanged.connect(lambda current, previous: self.switchModel(current, previous))
 		
 		# Add plot widget to visualize panel
-		self.widget["plot"] = pg.PlotWidget()
-		#self.widget["plot"].plot(x, y, pen=None, symbol='o')
-		self.widget["plot"].setBackground([255,255,255,255])
-		self.widget["plot"].setStatusTip('Plot')
+		self.widget["plot"] = QStackedWidget()
 		self.widget["visualize"].addWidget(self.widget["plot"])
 		
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
 		
-		# Add model 1
-		m = Model.Model()
-		m.setX(np.random.normal(size=1000))
-		m.setY(np.random.normal(size=1000))
-		self.addModel("1", m)
-		
-		
-		# Add model 2
-		m = Model.Model()
-		m.setX(np.random.normal(size=1000))
-		m.setY(np.random.normal(size=1000))
-		self.addModel("2", m)
+		# Add a number of scatter plot models
+		for x in range(0, 50):
+			m = Scatter_Model.Scatter_Model(str(x))
+			self.addModel(m)
 		
 		self.show()
 	
-	# Add model
-	def addModel(self, name, model):
-		self.op[name] = QListWidgetItem(name)
-		self.widget["ops"].addItem(self.op[name])
-		self.op[name].setStatusTip(name)
+	# Add model to application
+	def addModel(self, model):
+		name = model.name
+		item = QListWidgetItem(name)
+		item.setStatusTip(name)
+		self.widget["ops"].addItem(item)
 		self.model[name] = model
+		self.widget["plot"].addWidget(self.model[name].plot)
+	
+	# Switch from previously selected model to the current selected model
+	def switchModel(self, current, previous):
+		self.widget["plot"].setCurrentWidget(self.model[current.text()].plot)
 		
-	
-	# Add plot
-	def addPlot(self, title, plot):
-		self.op[title] = QListWidgetItem(title)
-		self.widget["ops"].addItem(self.op[title])
-		self.op[title].setStatusTip("Hellawifno")
-		#self.widget["ops"]
-		self.widget["ops"].itemClicked.connect(self.close)
-		return
-	
-	# Switch the currently plotted plot in the plot window to a new plot
-	def switchPlot(self, model_name):
-		self.widget["plot"].clear()
-		self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
-	
-	# Plot a plot
-	def plot(self, model_name):
-		self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
+		# Old code
+		#self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
 	
 
 # Run only if top-level class *assumed definition*
@@ -194,7 +171,6 @@ if (__name__ == "__main__"):
 	app = QApplication(sys.argv)
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = Main_Window()
-	#mw.addPlot("Hello world!", 0)
 	
 	# Results in an exception in IPython, so removed
 	#sys.exit(app.exec_())

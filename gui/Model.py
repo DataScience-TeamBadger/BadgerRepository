@@ -8,22 +8,19 @@ Created on Wed Apr 19 11:13:37 2017
 # Import NumPy
 import numpy as np
 
+# Import PyQtGraph library
+import pyqtgraph as pg
 
-class Model():
-	def __init__(self):
-		self.X = np.empty(1)
-		self.Y = np.empty(1)
+class Model(object):
 	
-	def setX(self, X):
-		self.X = X
+	def __init__(self, name = "Empty Model"):
+		self.name = name
+		self.plot = pg.PlotWidget()
+		
+		# Set white background
+		self.plot.setBackground([255,255,255,255])
 	
-	def setY(self, Y):
-		self.Y = Y
-	
-	def getX(self):
-		return self.X
-	
-	def getY(self):
-		return self.Y
-	
+	# Returns name of plot
+	def getName(self):
+		return self.name
 	
