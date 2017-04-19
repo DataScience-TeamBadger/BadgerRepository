@@ -39,6 +39,9 @@ from PyQt5.QtPrintSupport import *
 # Import Help_Window
 import Help_Window
 
+# Import Model
+import Model
+
 
 # Class for main window
 class Main_Window(QMainWindow):
@@ -54,6 +57,9 @@ class Main_Window(QMainWindow):
 	
 	# Store all operations
 	op = {}
+	
+	# Store all models
+	model = {}
 	
 	# Mandatory initialization - calls initialize()
 	def __init__(self):
@@ -124,20 +130,43 @@ class Main_Window(QMainWindow):
 		self.widget["ops"] = QListWidget()
 		self.widget["ops"].setStatusTip('Operations')
 		self.widget["visualize"].addWidget(self.widget["ops"])
+		self.widget["ops"].currentItemChanged.connect(lambda current, previous: self.switchPlot(current.text()))
 		
-		x = np.random.normal(size=1000)
-		y = np.random.normal(size=1000)
+		#x = np.random.normal(size=1000)
+		#y = np.random.normal(size=1000)
 		
 		# Add plot widget to visualize panel
 		self.widget["plot"] = pg.PlotWidget()
-		self.widget["plot"].plot(x, y, pen=None, symbol='o')
+		#self.widget["plot"].plot(x, y, pen=None, symbol='o')
 		self.widget["plot"].setBackground([255,255,255,255])
 		self.widget["plot"].setStatusTip('Plot')
 		self.widget["visualize"].addWidget(self.widget["plot"])
 		
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
+		
+		# Add model 1
+		m = Model.Model()
+		m.setX(np.random.normal(size=1000))
+		m.setY(np.random.normal(size=1000))
+		self.addModel("1", m)
+		
+		
+		# Add model 2
+		m = Model.Model()
+		m.setX(np.random.normal(size=1000))
+		m.setY(np.random.normal(size=1000))
+		self.addModel("2", m)
+		
 		self.show()
+	
+	# Add model
+	def addModel(self, name, model):
+		self.op[name] = QListWidgetItem(name)
+		self.widget["ops"].addItem(self.op[name])
+		self.op[name].setStatusTip(name)
+		self.model[name] = model
+		
 	
 	# Add plot
 	def addPlot(self, title, plot):
@@ -148,15 +177,25 @@ class Main_Window(QMainWindow):
 		self.widget["ops"].itemClicked.connect(self.close)
 		return
 	
+	# Switch the currently plotted plot in the plot window to a new plot
+	def switchPlot(self, model_name):
+		self.widget["plot"].clear()
+		self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
+	
+	# Plot a plot
+	def plot(self, model_name):
+		self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
+	
 
-# 
+# Run only if top-level class *assumed definition*
 if (__name__ == "__main__"):
 	# IPython override
 	app = 0
 	app = QApplication(sys.argv)
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = Main_Window()
-	mw.addPlot("Hello world!", 0)
+	#mw.addPlot("Hello world!", 0)
 	
-	# Results in an exception in IPython
-	sys.exit(app.exec_())
+	# Results in an exception in IPython, so removed
+	#sys.exit(app.exec_())
+	app.exec_()
