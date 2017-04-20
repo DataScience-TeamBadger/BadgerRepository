@@ -21,7 +21,7 @@ from PyQt5.QtWidgets import \
  QSplitter,\
  QListWidget,\
  QListWidgetItem,\
- QGridLayout
+ QStackedWidget
 
 # Import PyQtGraph library
 import pyqtgraph as pg
@@ -39,6 +39,10 @@ from PyQt5.QtPrintSupport import *
 # Import Help_Window
 import Help_Window
 
+# Import Model
+import Model
+import Scatter_Model
+
 
 # Class for main window
 class Main_Window(QMainWindow):
@@ -54,6 +58,9 @@ class Main_Window(QMainWindow):
 	
 	# Store all operations
 	op = {}
+	
+	# Store all models
+	model = {}
 	
 	# Mandatory initialization - calls initialize()
 	def __init__(self):
@@ -124,39 +131,47 @@ class Main_Window(QMainWindow):
 		self.widget["ops"] = QListWidget()
 		self.widget["ops"].setStatusTip('Operations')
 		self.widget["visualize"].addWidget(self.widget["ops"])
-		
-		x = np.random.normal(size=1000)
-		y = np.random.normal(size=1000)
+		self.widget["ops"].currentItemChanged.connect(lambda current, previous: self.switchModel(current, previous))
 		
 		# Add plot widget to visualize panel
-		self.widget["plot"] = pg.PlotWidget()
-		self.widget["plot"].plot(x, y, pen=None, symbol='o')
-		self.widget["plot"].setBackground([255,255,255,255])
-		self.widget["plot"].setStatusTip('Plot')
+		self.widget["plot"] = QStackedWidget()
 		self.widget["visualize"].addWidget(self.widget["plot"])
 		
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
+		
+		# Add a number of scatter plot models
+		for x in range(0, 50):
+			m = Scatter_Model.Scatter_Model(str(x))
+			self.addModel(m)
+		
 		self.show()
 	
-	# Add plot
-	def addPlot(self, title, plot):
-		self.op[title] = QListWidgetItem(title)
-		self.widget["ops"].addItem(self.op[title])
-		self.op[title].setStatusTip("Hellawifno")
-		#self.widget["ops"]
-		self.widget["ops"].itemClicked.connect(self.close)
-		return
+	# Add model to application
+	def addModel(self, model):
+		name = model.name
+		item = QListWidgetItem(name)
+		item.setStatusTip(name)
+		self.widget["ops"].addItem(item)
+		self.model[name] = model
+		self.widget["plot"].addWidget(self.model[name].plot)
+	
+	# Switch from previously selected model to the current selected model
+	def switchModel(self, current, previous):
+		self.widget["plot"].setCurrentWidget(self.model[current.text()].plot)
+		
+		# Old code
+		#self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
 	
 
-# 
+# Run only if top-level class *assumed definition*
 if (__name__ == "__main__"):
 	# IPython override
 	app = 0
 	app = QApplication(sys.argv)
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = Main_Window()
-	mw.addPlot("Hello world!", 0)
 	
-	# Results in an exception in IPython
-	sys.exit(app.exec_())
+	# Results in an exception in IPython, so removed
+	#sys.exit(app.exec_())
+	app.exec_()
