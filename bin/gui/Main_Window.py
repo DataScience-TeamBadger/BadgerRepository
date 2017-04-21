@@ -21,7 +21,7 @@ from PyQt5.QtWidgets import \
  QSplitter,\
  QListWidget,\
  QListWidgetItem,\
- QGridLayout
+ QStackedWidget
 
 # Import PyQtGraph library
 import pyqtgraph as pg
@@ -39,8 +39,17 @@ from PyQt5.QtPrintSupport import *
 # Import Help_Window
 import Help_Window
 
+# Import Main_Application
+import Main_Application
 
-# Class for main window
+# Import Model
+import Model
+import Scatter_Model
+
+
+"""
+Class for the main GUI window.
+"""
 class Main_Window(QMainWindow):
 	
 	# Store all menues for this window in a dictionary
@@ -55,13 +64,33 @@ class Main_Window(QMainWindow):
 	# Store all operations
 	op = {}
 	
-	# Mandatory initialization - calls initialize()
-	def __init__(self):
-		super(self.__class__, self).__init__()
-		self.initialize()
+	# Main application
+	app = 0
 	
-	# Construct GUI elements
-	def initialize(self):
+	"""
+	Default constructor for this window.
+	Calls 
+	"""
+	def __init__(self):
+		# Call superconstructor
+		super(self.__class__, self).__init__()
+		
+		# Create application
+		self.app = Main_Application.Main_Application()
+		
+		# Initialize GUI
+		self.initializeGUI()
+		
+		# Load models from application
+		self.loadAllModels()
+		
+		# Show GUI
+		self.show()
+	
+	"""
+	Construct GUI elements
+	"""
+	def initializeGUI(self):
 		
 		# Resize and set the title of the window
 		self.resize(640, 480)
@@ -124,39 +153,55 @@ class Main_Window(QMainWindow):
 		self.widget["ops"] = QListWidget()
 		self.widget["ops"].setStatusTip('Operations')
 		self.widget["visualize"].addWidget(self.widget["ops"])
-		
-		x = np.random.normal(size=1000)
-		y = np.random.normal(size=1000)
+		self.widget["ops"].currentItemChanged.connect(lambda current, previous: self.switchModel(current, previous))
 		
 		# Add plot widget to visualize panel
-		self.widget["plot"] = pg.PlotWidget()
-		self.widget["plot"].plot(x, y, pen=None, symbol='o')
-		self.widget["plot"].setBackground([255,255,255,255])
-		self.widget["plot"].setStatusTip('Plot')
+		self.widget["plot"] = QStackedWidget()
 		self.widget["visualize"].addWidget(self.widget["plot"])
 		
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
-		self.show()
 	
-	# Add plot
-	def addPlot(self, title, plot):
-		self.op[title] = QListWidgetItem(title)
-		self.widget["ops"].addItem(self.op[title])
-		self.op[title].setStatusTip("Hellawifno")
-		#self.widget["ops"]
-		self.widget["ops"].itemClicked.connect(self.close)
-		return
+	"""
+	Add all models from application
+	"""
+	def loadAllModels(self):
+		# Add each model
+		for model_name in self.app.model_names:
+			self.addModel(model_name)
+	
+	"""
+	Add model to GUI by model_name
+	
+	"""
+	def addModel(self, model_name):
+		# Add to list box
+		item = QListWidgetItem(model_name)
+		item.setStatusTip(model_name)
+		self.widget["ops"].addItem(item)
+		
+		# Add model's plot widget to GUI plot widget
+		# EXPERIMENTAL: expected to be via reference, but may not be.
+		self.widget["plot"].addWidget(self.app.models[model_name].plot)
+	
+	"""
+	GUI: Switch from previously selected model to the current selected model
+	"""
+	def switchModel(self, current, previous):
+		self.widget["plot"].setCurrentWidget(self.app.models[current.text()].plot)
+		
+		# Old code
+		#self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
 	
 
-# 
+# Run only if top-level class *assumed definition*
 if (__name__ == "__main__"):
 	# IPython override
 	app = 0
 	app = QApplication(sys.argv)
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = Main_Window()
-	mw.addPlot("Hello world!", 0)
 	
-	# Results in an exception in IPython
-	sys.exit(app.exec_())
+	# Results in an exception in IPython, so removed
+	#sys.exit(app.exec_())
+	app.exec_()
