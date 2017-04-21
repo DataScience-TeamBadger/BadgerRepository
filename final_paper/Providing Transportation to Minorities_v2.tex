@@ -1,0 +1,77 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+
+\title{\textbf{Predictive Modeling for Public Transit Development:}\\Providing Mass Transportation to Minority Groups During Development Planning}
+
+\author{
+	von der Lippe, Michael \\ \		\texttt{msvonderlippe@smcm.edu}
+	\and
+	Sahdeo, Deonarine\\ \		\texttt{dsahdeo@smcm.edu}
+	\and
+	DeMay, John \\ \		\texttt{jtdemey@smcm.edu}
+	\and
+	Kerzner, Alex\\ \		\texttt{ajkerzner@smcm.edu}
+	\and
+	Badger, Stuart\\ \		\texttt{sbadger@smcm.edu}
+	\and
+	Stephen, Proctor\\ \		\texttt{ineedyouremail@smcm.edu}
+	}
+
+\date{St.Mary's College of Maryland\\4/28/2017}
+
+
+\begin{document}
+	\maketitle
+
+\begin{multicols}{2}
+
+\section{ABSTRACT}
+Public Transportation is an important major social issue as the movement of people from one place to another allows them access to societal necessities such as proper education, adequate and fulfilling work, as well as many other public services. The allocation of spending on public transportation has shifted towards a focus on suburban movement, with large expansive highways and long railways, which provide little to no advantages for the minority groups within the metropolitan center. This paper justify the problem we will be attempting to solve, provide a predictive model that uses data from three major and distinct cities, in order to estimate the best way to allocate budget during the planning of future urban development projects. The end result of this study will be an application that provides predictions based on our training set, as well as a template method for cleaning up future transportation data in order to strengthen the training set information for more accurate and representative models. 
+
+\section{JUSTIFICATION}
+Throughout the twenty-first century, we have seen public transportation play an increasingly important role in developing societies with economic vitality. Mass transit can be broken down into two parts: the movement of people and the movement of goods. On the one hand, multinational corporations like Google and Amazon have studied the transportation of goods, looking for ways to improve that system. On the other hand, not much research has been done into the movement of people despite recent advancements in data science and data analytics. The Civil Rights Project at Harvard performed research to show that “where people live can greatly affect what types of transportation options are available to them to travel to work and to carry out their daily activities.” This is supported by the claim that “since 1960, people of color have increasingly populated metropolitan areas. Only 52 of the 100 largest cities have a majority white population, according to the 2000 census data” (Moving to Equity, 7). 
+	With this information, we decided that society’s need for efficient public transportation may not be fulfilled by our current infrastructure. “People’s income levels generally correspond with their ability to own a car and the type of transportation they use” (Moving to Equity, 9). This provoked the thought that efficient public transportation would be able to benefit minorities and may assist in providing equal advantages when attempting to gain access to the working world. As shown in this figure, public transportation use is much higher among minority groups. This means that as we improve public transportation, the impact of those improvements is much more valuable to the community who uses it. 
+As a team, we began sifting through some of the many available data sets on public transportation. We started analyzing public transportation infrastructure in aspiration of spotting inefficiencies in transportation. We found that there were three monolithic providers of public transport service: taxis, buses, and underground rail systems such as metro and subway. We decided that a taxi service, although public, is for personal consumption, not mass transit. Therefore, the two services we are most interested in are the public bus system and the metro system (subway). We began to ask questions about what could be done to improve the implementation of these two services. The final question that we reached is: depending on the population density, which is more efficient, underground rail or public bus routes?
+We predict that there will be a trend in our data that will show as population density increases, larger systems of transportation infrastructure, such as metro, will be more cost-effective than smaller systems such as bus routes. Conversely, as population density decreases, we predict that bus routes will be more cost-effective than larger systems of transportation. The goal of our research is to first distinguish the effectiveness between the two systems based on the average annual spending, usage, transportation coverage, and cost for citizens. The second goal of our research is to create a predictive model to properly allocate spending on public transportation infrastructure to minimize annual spending (and in turn the money spent by citizens for public transport), while simultaneously maximizing transportation coverage and hopefully improving public transportation usage. By finding a way to improve public transportation infrastructure, we can provide a better transit system for minority groups which would allow them to achieve higher economic vitality and a more fulfilling social life.
+
+\section{SCOPE}
+To define the scope of our project we conducted research into what constitutes as Public Mass Transportation. Merriam-Webster defines Mass Transit as the following:\\
+	"the transportation of large numbers of people by means of buses, subway trains, etc., especially within urban areas; also : the system, vehicles, or facilities engaged in such transportation"\\
+From this definition we gathered that the elements of mass transportation include the following:\\
+1.) How Many People are Being Moved\\
+2.) How These People are Being Moved\\
+3.) How The System is Operated\\
+In order to reduce the scope of this project to a manageable size we did research on these questions in order to properly identify significant factors for each element of mass transportation. The significant factors for the quantity of people moved included the number of people in the metropolitan center, the number of people that are covered by the transportation infrastructure, and the amount of people that use the infrastructure. Significant factors for modes of transportation included Bus and Metro statistics. Consideration was given to taxis however the scope of this project is Mass Transportation, and although taxis are a public service, they provide limited mobility for a large crowd. Other modes of transportation such as faeries and bike shares was given consideration as well, the issue with these modes however is a lack of consistency across other major cities. Significant factors for how this system operated was determined to be budget that pertains to the maintenance and distribution of the service and the infrastructure required for its operation.
+
+	
+\section{DEFINING VARIABLES}
+This section pertains to all relevant factors identified during research of the current transportation infrastructures, and the guidelines we set for proper measurement. Due to a lack of preconceived methodology for analyzing and understanding transportation information, the following definitions are those pertinent to the understanding of our projects goals and measurement specifications.\\
+1.)Transportation Coverage - The total area that a transportation infrastructure operates over a metropolitan center. That is, the effective radius of a transportation stations influence on the movement of people around it.\\
+2.)Effective Ridership - The quantity of people that are transported through the given public transportation.\\
+3.)Goal Ridership - The assumed quantity of people that accounted for that require the use of transportation services using public transportation use statics provided by The Civil Rights Project.\\
+4.)Budget - The money spent on transportation efforts. Inclusive to staff management, construction of infrastructure, and yearly extremities. Exclusive to dept payments, and revenue (Consideration for profits is included during concluding thoughts and suggestions for further research).\\
+	a.) Allocation - The way the budget is divided among the two predefined categories of transportation, bus and metro.\\
+5.) Transportation Efficiency - The total coverage of a transportation system and the ratio of effective ridership to goal ridership, in comparison with the budget for the transportation infrastructure. A high transportation efficiency would imply that there is a larger effective coverage area, a significant percentage of effective ridership, and a budget with properly allocated spending to maximize these variables.
+
+\section{Current Approaches}
+Little to no work is being conducted in order to remedy the issues that have been presented by this project. Currently urban development is regulated by government policies that take little account for the entire population of an urban complex. Since World War II there has only been a few outstanding policy changes that benefit the minority groups within the United States. "In the 1990s, the primary federal transportation funding law, the Intermodal Surface Transportation Efficiency Act (ISTEA), changed the way funding was allocated and began to erode the long-standing preference for highway funding."(\textit{The Civil Rights Project}, 2). This article goes on to discuss a history of policy changes, and inevitably, all major minority transportation aide laws were subsided in the early 2000s. In London however, a recognition that there was a spatial disparity in access to public transportation for minority groups was recognized and an amendment to policy was made in order to increase the development of bus routes in lower income areas.
+\subsection{Errors with current approaches}
+The current issue with transportation development issues is highlighted by \textit{The Civil Rights Project} when discussing who is planning the development of these systems and the factors that those people are concerned about:\\
+"There are significant inequities between bus service, which tends to serve more low-income riders, and rail service, which tends to serve higher-income riders. These inequities pale in comparison to the differences between governmental financial and political support for highway systems and for public transit systems. Many transportation planners and policymakers, concerned primarily with the needs of suburban commuters, have focused on constructing highways and commuter rail lines that do little to serve the needs of minority and low-income communities that depend on public transportation."\\
+This inequities impact are validated by the research into the spending priorities that indicates vast spending on suburban transportation rather than inside the city. One claim that the article from Harvard University made in accordance to this is that "more research examining geographically coded data on spending between cities and other areas would provide a better understanding of how transportation spending patterns impact minority and low-income communities". This geographical is one part of our data collection process that we will discuss in the Data Collections and Methods.
+
+\section{Data Collection and Collection Methods}
+
+\subsection{Data Collection Errors}
+
+\section{CONCLUSION}
+
+\subsection{Further Research Opportunities}
+
+	\end{multicols}
+\end{document} 
