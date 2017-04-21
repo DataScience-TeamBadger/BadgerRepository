@@ -5,8 +5,6 @@ Created on Fri Apr 14 14:01:56 2017
 @author: Alex Kerzner
 """
 
-# Import system library
-import sys
 
 # Import Qt widget components
 from PyQt5.QtWidgets import \
@@ -21,38 +19,31 @@ from PyQt5.QtWidgets import \
  QSplitter,\
  QListWidget,\
  QListWidgetItem,\
- QStackedWidget
+ QStackedWidget,\
+ QLabel,\
+ QSlider,\
+ QSpinBox
 
 # Import PyQtGraph library
 import pyqtgraph as pg
 
 # Import NumPy
-import numpy as np
-
+#import numpy as np
 
 # Import Qt main gui components
 from PyQt5.QtGui import QIcon
 
-from PyQt5.QtPrintSupport import *
-
-
-# Import Help_Window
-import Help_Window
+#from PyQt5.QtPrintSupport import *
 
 # Import Main_Application
-import Main_Application
-
-# Import Model
-import Model
-import Scatter_Model
-
+from Main_Application import Main_Application
 
 """
 Class for the main GUI window.
 """
 class Main_Window(QMainWindow):
 	
-	# Store all menues for this window in a dictionary
+	# Store all menus for this window in a dictionary
 	menu = {}
 	
 	# Store all actions for this window in a dictionary
@@ -76,7 +67,7 @@ class Main_Window(QMainWindow):
 		super(self.__class__, self).__init__()
 		
 		# Create application
-		self.app = Main_Application.Main_Application()
+		self.app = Main_Application()
 		
 		# Initialize GUI
 		self.initializeGUI()
@@ -192,16 +183,3 @@ class Main_Window(QMainWindow):
 		
 		# Old code
 		#self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
-	
-
-# Run only if top-level class *assumed definition*
-if (__name__ == "__main__"):
-	# IPython override
-	app = 0
-	app = QApplication(sys.argv)
-	app.aboutToQuit.connect(app.deleteLater)
-	mw = Main_Window()
-	
-	# Results in an exception in IPython, so removed
-	#sys.exit(app.exec_())
-	app.exec_()
