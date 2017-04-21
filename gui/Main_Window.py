@@ -17,6 +17,10 @@ from PyQt5.QtWidgets import \
  QAction,\
  QGraphicsWidget,\
  QGraphicsView,\
+ QTabWidget,\
+ QSplitter,\
+ QListWidget,\
+ QListWidgetItem,\
  QGridLayout
 
 # Import PyQtGraph library
@@ -26,9 +30,14 @@ import pyqtgraph as pg
 import numpy as np
 
 
-
 # Import Qt main gui components
 from PyQt5.QtGui import QIcon
+
+from PyQt5.QtPrintSupport import *
+
+
+# Import Help_Window
+import Help_Window
 
 
 # Class for main window
@@ -40,11 +49,11 @@ class Main_Window(QMainWindow):
 	# Store all actions for this window in a dictionary
 	action = {}
 	
-	# Central widget
-	central_widget = 0
+	# Store all widgets for this window in a dictionary
+	widget = {}
 	
-	# Central layout
-	central_layout = 0
+	# Store all operations
+	op = {}
 	
 	# Mandatory initialization - calls initialize()
 	def __init__(self):
@@ -57,8 +66,15 @@ class Main_Window(QMainWindow):
 		# Resize and set the title of the window
 		self.resize(640, 480)
 		self.setWindowTitle("Badger Data Science")
+		#self.setStyleSheet(open("./style.qss", "r").read())
+		
+		# Create status bar
+		self.statusBar()
 		
 		
+		#######################
+		# Create the menu bar #
+		#######################
 		
 		# Create the menu bar
 		menu_bar = self.menuBar()
@@ -83,47 +99,64 @@ class Main_Window(QMainWindow):
 		#self.action["about"].triggered.connect()
 		self.menu["help"].addAction(self.action["about"])
 		
-		# Create status bar
-		self.statusBar()
 		
-		# Set the central widget
-		self.central_widget = QWidget()
-		self.setCentralWidget(self.central_widget)
-		self.central_widget.setStatusTip('Central widget')
+		######################
+		# Create the widgets #
+		######################
 		
+		# Create the central widget
+		self.widget["central"] = QTabWidget()
+		self.setCentralWidget(self.widget["central"])
+		self.widget["central"].setStatusTip('central widget')
 		
-		# Set central layout
-		self.central_layout = QGridLayout()
-		self.central_widget.setLayout(self.central_layout)
+		# Add the predict tab
+		self.widget["predict"] = QSplitter()
+		self.widget["predict"].setStatusTip('predict widget')
+		self.widget["central"].addTab(self.widget["predict"], 'Predict')
 		
-		plot_widget = pg.PlotWidget(parent=self.central_widget)
+		# Add the visualize tab
+		self.widget["visualize"] = QSplitter()
+		self.widget["visualize"].setHandleWidth(2)
+		self.widget["visualize"].setStatusTip('visualize widget')
+		self.widget["central"].addTab(self.widget["visualize"], 'Visualize')
 		
+		# Add ops widget to visualize panel
+		self.widget["ops"] = QListWidget()
+		self.widget["ops"].setStatusTip('Operations')
+		self.widget["visualize"].addWidget(self.widget["ops"])
 		
-		#central_widget = pg.PlotWidget(parent=self.widget)
-		#self.setCentralWidget(widget)
-		
-		
-		# Show demonstration graph
 		x = np.random.normal(size=1000)
 		y = np.random.normal(size=1000)
 		
-		plot_widget.plot(x, y, pen=None, symbol='o')
-		#plot_widget.autoPixelRange()
-		
-		#graph = pg.PlotWidget(x, y, pen=None, symbol='o')
-		#self.addDockWidget(graph)
+		# Add plot widget to visualize panel
+		self.widget["plot"] = pg.PlotWidget()
+		self.widget["plot"].plot(x, y, pen=None, symbol='o')
+		self.widget["plot"].setBackground([255,255,255,255])
+		self.widget["plot"].setStatusTip('Plot')
+		self.widget["visualize"].addWidget(self.widget["plot"])
 		
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
 		self.show()
 	
+	# Add plot
+	def addPlot(self, title, plot):
+		self.op[title] = QListWidgetItem(title)
+		self.widget["ops"].addItem(self.op[title])
+		self.op[title].setStatusTip("Hellawifno")
+		#self.widget["ops"]
+		self.widget["ops"].itemClicked.connect(self.close)
+		return
+	
 
 # 
 if (__name__ == "__main__"):
+	# IPython override
 	app = 0
 	app = QApplication(sys.argv)
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = Main_Window()
+	mw.addPlot("Hello world!", 0)
 	
 	# Results in an exception in IPython
 	sys.exit(app.exec_())
