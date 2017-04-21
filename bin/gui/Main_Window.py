@@ -39,12 +39,17 @@ from PyQt5.QtPrintSupport import *
 # Import Help_Window
 import Help_Window
 
+# Import Main_Application
+import Main_Application
+
 # Import Model
 import Model
 import Scatter_Model
 
 
-# Class for main window
+"""
+Class for the main GUI window.
+"""
 class Main_Window(QMainWindow):
 	
 	# Store all menues for this window in a dictionary
@@ -59,16 +64,33 @@ class Main_Window(QMainWindow):
 	# Store all operations
 	op = {}
 	
-	# Store all models
-	model = {}
+	# Main application
+	app = 0
 	
-	# Mandatory initialization - calls initialize()
+	"""
+	Default constructor for this window.
+	Calls 
+	"""
 	def __init__(self):
+		# Call superconstructor
 		super(self.__class__, self).__init__()
-		self.initialize()
+		
+		# Create application
+		self.app = Main_Application.Main_Application()
+		
+		# Initialize GUI
+		self.initializeGUI()
+		
+		# Load models from application
+		self.loadAllModels()
+		
+		# Show GUI
+		self.show()
 	
-	# Construct GUI elements
-	def initialize(self):
+	"""
+	Construct GUI elements
+	"""
+	def initializeGUI(self):
 		
 		# Resize and set the title of the window
 		self.resize(640, 480)
@@ -139,26 +161,34 @@ class Main_Window(QMainWindow):
 		
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
-		
-		# Add a number of scatter plot models
-		for x in range(0, 50):
-			m = Scatter_Model.Scatter_Model(str(x))
-			self.addModel(m)
-		
-		self.show()
 	
-	# Add model to application
-	def addModel(self, model):
-		name = model.name
-		item = QListWidgetItem(name)
-		item.setStatusTip(name)
+	"""
+	Add all models from application
+	"""
+	def loadAllModels(self):
+		# Add each model
+		for model_name in self.app.model_names:
+			self.addModel(model_name)
+	
+	"""
+	Add model to GUI by model_name
+	
+	"""
+	def addModel(self, model_name):
+		# Add to list box
+		item = QListWidgetItem(model_name)
+		item.setStatusTip(model_name)
 		self.widget["ops"].addItem(item)
-		self.model[name] = model
-		self.widget["plot"].addWidget(self.model[name].plot)
+		
+		# Add model's plot widget to GUI plot widget
+		# EXPERIMENTAL: expected to be via reference, but may not be.
+		self.widget["plot"].addWidget(self.app.models[model_name].plot)
 	
-	# Switch from previously selected model to the current selected model
+	"""
+	GUI: Switch from previously selected model to the current selected model
+	"""
 	def switchModel(self, current, previous):
-		self.widget["plot"].setCurrentWidget(self.model[current.text()].plot)
+		self.widget["plot"].setCurrentWidget(self.app.models[current.text()].plot)
 		
 		# Old code
 		#self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')
