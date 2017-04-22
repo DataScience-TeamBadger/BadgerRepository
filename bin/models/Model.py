@@ -16,6 +16,7 @@ class Model(object):
 	def __init__(self, name = "Empty Model"):
 		self.name = name
 		self.plot = pg.PlotWidget()
+		self.description = "no description"
 		
 		# Set white background
 		self.plot.setBackground([255,255,255,255])
