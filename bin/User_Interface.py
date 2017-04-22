@@ -145,8 +145,7 @@ class Main_Window(QMainWindow):
 		
 		
 		
-		# Resize and set the title of the window
-		self.resize(640, 480)
+		# Set the title of the window
 		self.setWindowTitle("Badger Data Science")
 		#self.setStyleSheet(open("./style.qss", "r").read())
 		
