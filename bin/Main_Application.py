@@ -5,8 +5,8 @@ Created on Fri Apr 21 09:39:19 2017
 @author: Alex Kerzner
 """
 
-# Scatter model
-import Scatter_Model
+# Import models
+from models import Scatter_Model
 
 
 
