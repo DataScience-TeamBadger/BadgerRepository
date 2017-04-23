@@ -8,7 +8,8 @@ Created on Fri Apr 21 09:39:19 2017
 # Import models
 from models import Scatter_Model
 
-
+# Import config parser
+from lib import Config
 
 """
 This is the Main Application class used by the GUI.
