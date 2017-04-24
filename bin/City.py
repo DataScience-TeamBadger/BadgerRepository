@@ -56,10 +56,20 @@ class City():
             self.metro_budget.append(splitline[2])
             self.metro_coverage.append(splitline[3])
 
+    """""
+    So this is what took me so long. I don't know if we can create the Branching Structure
+    This method will generate a list of models, for the city you want
+    """""
     def createModels(self):
-        new_model = Scatter_Model.Scatter_Model(str("New Model Test"))
-        self.model_names.append(new_model.getName())
-        self.models[new_model.getName()] = new_model
+        model_list = []
+        sample_model_one = Scatter_Model.Scatter_Model(str("New York City: Bus vs Metro(Ridership)"), self.metro_ridership, self.bus_ridership)
+        sample_model_two = Scatter_Model.Scatter_Model(str("New York City: Bus Budget vs Bus Ridership"), self.metro_ridership, self.bus_ridership)
+        model_list.append(sample_model_one)
+        model_list.append(sample_model_two)
+        return model_list
 
     def get_model_names(self):
         return self.model_names
+
+    def get_models(self):
+        return self.models
