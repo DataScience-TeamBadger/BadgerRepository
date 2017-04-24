@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import \
  QTabWidget,\
  QSplitter,\
  QTreeWidget,\
- QListWidgetItem,\
+ QTreeWidgetItem,\
  QStackedWidget,\
  QLabel,\
  QSpinBox,\
@@ -133,8 +133,6 @@ class Main_Window(QMainWindow):
 	app = 0
 	
 	model_viewer = 0
-	model_names = []
-	models = {}
 	
 	
 	"""
@@ -209,7 +207,7 @@ class Main_Window(QMainWindow):
 		
 		# Create Help->About menu
 		current_item = "about"
-		action[current_item] = QAction(QIcon('exit.png'), '&Exit', self)
+		action[current_item] = QAction(QIcon('about.png'), '&About', self)
 		action[current_item].setShortcut('F1')
 		action[current_item].setStatusTip('About this application')
 		#self.action["about"].triggered.connect()
@@ -330,9 +328,21 @@ class Main_Window(QMainWindow):
 	"""
 	Add a city
 	"""
-	def addCity(self,):
+	def addCity(self):
 		return
 	
+	"""
+	Add UI item for a city by its id
+	"""
+	def _addCityItem(self, city_id):
+		# Add top-level-entry for city
+		city_container = QTreeWidgetItem()
+		
+		# Add name
+		city_container.setText(0, self.app.cities[city_id].getName())
+		
+		# Add all models under city
+		
 	
 	"""
 	Add all models from application

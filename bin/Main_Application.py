@@ -58,7 +58,10 @@ class Main_Application(object):
 	Delete a city given its name.
 	"""
 	def delCity(self, city_name):
-		city_names = [city. for city in self.cities]
+		# TODO: del functionality
+		# Warning: you probably need to get index of city, then
+		# delete city at that index.
+		return
 	
 	
 	def gen_models(self):
