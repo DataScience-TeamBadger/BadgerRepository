@@ -93,6 +93,8 @@ class ModelViewer(QSplitter):
 		# Create Model Tree widget
 		self.listbox = QTreeWidget()
 		self.listbox.setColumnCount(1)
+		self.listbox.setAnimated(True)
+		self.listbox.setHeaderLabel("List of models by city")
 		self.listbox.setStatusTip('Select a model')
 		left_pane.addWidget(self.listbox)
 		
@@ -337,7 +339,7 @@ class Main_Window(QMainWindow):
 	"""
 	def _addCityItem(self, city_id):
 		# Add top-level-entry for city
-		city_container = QTreeWidgetItem()
+		city_container = QTreeWidgetItem(self.model_viewer.listbox)
 		
 		# Add name
 		city_container.setText(0, self.app.cities[city_id].name)
@@ -354,28 +356,6 @@ class Main_Window(QMainWindow):
 	def _loadAllCities(self):
 		for city_id in range(len(self.app.cities)):
 			self._addCityItem(city_id)
-	
-	"""
-	Add all models from application
-	"""
-	def loadAllModels(self):
-		# Add each model
-		for model_name in self.app.model_names:
-			self.addModel(model_name)
-	
-	"""
-	Add model to GUI by model_name
-	DEPRECATED
-	"""
-	def addModel(self, model_name):
-		# Add listbox item
-		item = QListWidgetItem(model_name)
-		item.setStatusTip(model_name)
-		self.model_viewer.listbox.addItem(item)
-		
-		# Add plot
-		# EXPERIMENTAL: expected to be via reference, but may not be.
-		self.model_viewer.plot.addWidget(self.app.models[model_name].plot)
 	
 	"""
 	GUI: Switch from previously selected model to the current selected model
