@@ -10,26 +10,25 @@ from PyQt5.QtCore import Qt
 
 # Import Qt widget components
 from PyQt5.QtWidgets import \
- QApplication,\
  QMainWindow,\
  QWidget,\
  QPushButton,\
  QAction,\
- QGraphicsWidget,\
- QGraphicsView,\
  QTabWidget,\
  QSplitter,\
- QListWidget,\
- QListWidgetItem,\
+ QTreeWidget,\
+ QTreeWidgetItem,\
  QStackedWidget,\
  QLabel,\
- QSlider,\
  QSpinBox,\
  QFormLayout,\
- QLineEdit
+ QLineEdit,\
+ QWizard,\
+ QWizardPage,\
+ QFileDialog
 
 # Import PyQtGraph library
-import pyqtgraph as pg
+#import pyqtgraph as pg
 
 # Import NumPy
 #import numpy as np
@@ -41,6 +40,37 @@ from PyQt5.QtGui import QIcon
 
 # Import Main_Application
 from Main_Application import Main_Application
+
+"""
+Wizard page for adding a city
+"""
+#class AddCity_Page(QWizardPage):
+#	
+#	def __init__(self,  parent = 0):
+#		# Call superconstructor
+#		super(self.__class__,  self).__init__(parent)
+#		
+#		self.setTitle("Add a city")
+#		self.setSubTitle("Add a city by importing the associated *.csv files.")
+#		
+#		label = QLabel()
+#		label.setText("")
+#		label.setWordWrap(True)
+#		self.
+#		
+
+
+"""
+Wizard for adding a city
+"""
+#class City_Wizard(QWizard):
+#	
+#	def __init__(self, parent):
+#		# Call superconstructor
+#		super(self.__class__,  self).__init__(parent)
+#		
+#		self._initial_page_ = 
+
 
 """
 Class for viewing models
@@ -60,8 +90,11 @@ class ModelViewer(QSplitter):
 		right_pane.setOrientation(Qt.Vertical)
 		
 		
-		# Create Model List widget
-		self.listbox = QListWidget()
+		# Create Model Tree widget
+		self.listbox = QTreeWidget()
+		self.listbox.setColumnCount(1)
+		self.listbox.setAnimated(True)
+		self.listbox.setHeaderLabel("List of models by city")
 		self.listbox.setStatusTip('Select a model')
 		left_pane.addWidget(self.listbox)
 		
@@ -102,8 +135,6 @@ class Main_Window(QMainWindow):
 	app = 0
 	
 	model_viewer = 0
-	model_names = []
-	models = {}
 	
 	
 	"""
@@ -120,8 +151,9 @@ class Main_Window(QMainWindow):
 		# Initialize GUI
 		self.initUI()
 		
+		self._loadAllCities()
 		# Load models from application
-		self.loadAllModels()
+		#self.loadAllModels()
 		
 		# Show GUI
 		self.show()
@@ -178,7 +210,7 @@ class Main_Window(QMainWindow):
 		
 		# Create Help->About menu
 		current_item = "about"
-		action[current_item] = QAction(QIcon('exit.png'), '&Exit', self)
+		action[current_item] = QAction(QIcon('about.png'), '&About', self)
 		action[current_item].setShortcut('F1')
 		action[current_item].setStatusTip('About this application')
 		#self.action["about"].triggered.connect()
@@ -295,37 +327,57 @@ class Main_Window(QMainWindow):
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
 	
-	"""
-	Add all models from application
-	"""
-	def loadAllModels(self):
-		# Add each model
-		for model_name in self.app.model_names:
-			self.addModel(model_name)
 	
 	"""
-	Add model to GUI by model_name
+	Add a city
+	"""
+	def addCity(self):
+		return
 	
 	"""
-	def addModel(self, model_name):
-		# Add listbox item
-		item = QListWidgetItem(model_name)
-		item.setStatusTip(model_name)
-		self.model_viewer.listbox.addItem(item)
+	Add UI item for a city by its id
+	"""
+	def _addCityItem(self, city_id):
+		# Add top-level-entry for city
+		city_container = QTreeWidgetItem(self.model_viewer.listbox)
 		
-		# Add plot
-		# EXPERIMENTAL: expected to be via reference, but may not be.
-		self.model_viewer.plot.addWidget(self.app.models[model_name].plot)
+		# Add name
+		city_container.setText(0, self.app.cities[city_id].name)
+		
+		# Add all models under city
+		for model_name in self.app.model_names:
+			model_item = QTreeWidgetItem(city_container)
+			model_item.setText(0, model_name)
+			self.model_viewer.plot.addWidget(self.app.cities[city_id].models[model_name].plot)
+		self.model_viewer.listbox.addTopLevelItem(city_container)
+	"""
+	Load all cities
+	"""
+	def _loadAllCities(self):
+		for city_id in range(len(self.app.cities)):
+			self._addCityItem(city_id)
 	
 	"""
 	GUI: Switch from previously selected model to the current selected model
 	"""
 	def switchModel(self, current, previous):
-		# Update plot
-		self.model_viewer.plot.setCurrentWidget(self.app.models[current.text()].plot)
-		
-		# Update description
-		self.model_viewer.description.setText(self.app.models[current.text()].description)
+		# Verify that current is valid: current has no children
+		if (current.childCount() == 0):
+			# Model is selected
+			city_name = current.parent().text(0)
+			city_id = self.app.getCityID(city_name)
+			
+			print(city_id)
+			if (city_id == None):
+				# Redundant fail, invalid id
+				print("Error: invalid selection (city id not valid)")
+				return
+			current_model = current.text(0)
+			
+			# Update plot
+			self.model_viewer.plot.setCurrentWidget(self.app.cities[city_id].models[current_model].plot)
+			# Update description
+			self.model_viewer.description.setText(self.app.cities[city_id].models[current_model].description)
 		
 		# Old code
 		#self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')

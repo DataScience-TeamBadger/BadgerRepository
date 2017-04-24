@@ -13,7 +13,7 @@ import pyqtgraph as pg
 
 class Model(object):
 	
-	def __init__(self, name, val_one, val_two):
+	def __init__(self, name = "Unnamed City"):
 		self.name = name
 		self.plot = pg.PlotWidget()
 		self.description = "no description"

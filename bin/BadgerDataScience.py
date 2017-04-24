@@ -37,7 +37,7 @@ if (__name__ == "__main__"):
 	mw = User_Interface.Main_Window()
 	
 	# Resize window
-	mw.resize(config.getint("GUI", "width"),config.getint("GUI", "height"))
+	mw.resize(640,480)
 	
 	
 	# Results in an exception in IPython, so removed
