@@ -2,49 +2,85 @@
 """
 Created on Fri Apr 21 09:39:19 2017
 
-@author: Alex Kerzner
+@author: Alex Kerzner, Michael vonderLippe, John deMay
 """
 
-# Import models
-from models import Scatter_Model
+# Import library for parsing a configuration file
+from ConfigParser import SafeConfigParser
 
+<<<<<<< HEAD
 # Import config parser
 from lib import Config
+=======
+# Import library for simplifying OS file paths
+import os
+
+# Import the City class to store groups of models as cities
+from City import City
+
+>>>>>>> refs/remotes/origin/development
 
 """
-This is the Main Application class used by the GUI.
+This is the Main Application class used by the UI.
+
+Functions in this class may be called via the UI.
 
 """
 class Main_Application(object):
 	
-	# List of names of available models
+	# Initial configuration for cities
+	_city_config_ = None
+	
+	# List of names of available models in each city
 	model_names = []
 	
-	# Dictionary of available models
-	models = {}
+	# List of cities
+	cities = []
 	
 	"""
-	Constructor for this class.
+	Constructor for Main Application
 	"""
 	def __init__(self):
-		self.spawnRandomScatterPlots(count = 50)
+		# Initialize model types
+		self.model_names.append("Ridership")
+		self.model_names.append("Budget")
+		
+		
+		# Parse city configuration file to get list of initial cities
+		self._city_config_ = SafeConfigParser()
+		self._city_config_.read(os.path.relpath('etc/cities.cfg'))
+		for section in self._city_config_.sections():
+			# Add each city, where section is the name of the city
+			self.addCity(section, self._city_config_.get(section, "metro"),\
+				self._city_config_.get(section, "bus"))
+		#self.gen_models()
 	
 	"""
-	Demonstration
+	Add a city given its name, metro data, and bus data.
 	"""
-	def spawnRandomScatterPlots(self, count = 10):
-		if (count < 1):
-			count = 1
-		# Add the specifed number of scatter plot models
-		for i in range(0, count):
-			# Create model
-			new_model = Scatter_Model.Scatter_Model(str(i))
-			self.model_names.append(new_model.getName())
-			self.models[new_model.getName()] = new_model
+	def addCity(self, city_name, path_to_metro_data, path_to_bus_data):
+		# Append city to list of cities
+		new_city = City(city_name, os.path.normpath(path_to_metro_data), os.path.normpath(path_to_bus_data))
+		new_city.createModels()
+		self.cities.append(new_city)
 	
 	"""
-	Returns the list of names of each model
+	Delete a city given its name.
 	"""
-	def getAllModelNames(self):
-		return self.model_names
+	def delCity(self, city_name):
+		# TODO: del functionality
+		# Warning: you probably need to get index of city, then
+		# delete city at that index.
+		return
 	
+	"""
+	Get id for given city name
+	"""
+	def getCityID(self, city_name):
+		# Loop through all cities, looking for the city with the specified name.
+		for city_id in range(len(self.cities)):
+			if (self.cities[city_id].name == city_name):
+				# Return id, as city name was found
+				return city_id
+		# The city was not found
+		return None

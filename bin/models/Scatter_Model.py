@@ -17,13 +17,13 @@ import Model
 
 class Scatter_Model(Model.Model):
 	
-	def __init__(self, name = "Scatter Model"):
+	def __init__(self, name, val_one, val_two):
 		# Use superclass constructor to set name and generate default plot
 		super(Scatter_Model, self).__init__(name)
-		
+
 		# Generate X and Y
-		self.X = np.random.normal(size=1000)
-		self.Y = np.random.normal(size=1000)
+		self.X = np.asarray(val_one)
+		self.Y = np.asarray(val_two)
 		
 		# Plot
 		self.plot.plot(self.X, self.Y, pen=None, symbol='o')
