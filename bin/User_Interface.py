@@ -13,6 +13,7 @@ from PyQt5.QtCore import Qt
 
 # Import Qt widget components
 from PyQt5.QtWidgets import \
+ QApplication,\
  QMainWindow,\
  QMessageBox,\
  QWidget,\
@@ -263,12 +264,9 @@ class Main_Window(QMainWindow):
 		
 		# Create Help->About menu
 		current_item = "about"
-<<<<<<< HEAD
 		#"""QIcon('exit.png'), """
 		action[current_item] = QAction('&About', self)
-=======
 		action[current_item] = QAction(QIcon('about.png'), '&About', self)
->>>>>>> refs/remotes/origin/development
 		action[current_item].setShortcut('F1')
 		action[current_item].setStatusTip('About this application')
 		action[current_item].triggered.connect(self.showAboutWindow)
@@ -387,7 +385,6 @@ class Main_Window(QMainWindow):
 	
 	
 	"""
-<<<<<<< HEAD
 	Show about window
 	"""
 	def showAboutWindow(self):
@@ -401,10 +398,7 @@ class Main_Window(QMainWindow):
 		self.about_window.exec_()
 	
 	"""
-	Add all models from application
-=======
 	Add a city
->>>>>>> refs/remotes/origin/development
 	"""
 	def addCity(self):
 		return

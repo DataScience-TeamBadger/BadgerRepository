@@ -8,17 +8,16 @@ Created on Fri Apr 21 09:39:19 2017
 # Import library for parsing a configuration file
 from ConfigParser import SafeConfigParser
 
-<<<<<<< HEAD
+
 # Import config parser
 from lib import Config
-=======
+
 # Import library for simplifying OS file paths
 import os
 
 # Import the City class to store groups of models as cities
 from City import City
 
->>>>>>> refs/remotes/origin/development
 
 """
 This is the Main Application class used by the UI.
