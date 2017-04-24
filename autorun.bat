@@ -16,3 +16,4 @@ ECHO Working directory: '%BADGER_ROOT%'
 REM Run the program
 @ECHO ON
 python.exe %BADGER_ROOT%\bin\BadgerDataScience.py
+pause

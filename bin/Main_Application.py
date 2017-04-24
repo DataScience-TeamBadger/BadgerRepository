@@ -44,10 +44,17 @@ class Main_Application(object):
 		# Parse city configuration file to get list of initial cities
 		self._city_config_ = SafeConfigParser()
 		self._city_config_.read(os.path.relpath('etc/cities.cfg'))
+		print("Reading cities.cfg")
 		for section in self._city_config_.sections():
 			# Add each city, where section is the name of the city
+			print("Loading city: " + section)
+			print(" - metro: " + self._city_config_.get(section, "metro"))
+			print(" - bus: " + self._city_config_.get(section, "bus"))
 			self.addCity(section, self._city_config_.get(section, "metro"),\
 				self._city_config_.get(section, "bus"))
+		# TODO: Remove DEBUG:
+		#print(self.cities[0].models)
+		#print(self.cities[1].models)
 		#self.gen_models()
 	
 	"""
@@ -55,9 +62,8 @@ class Main_Application(object):
 	"""
 	def addCity(self, city_name, path_to_metro_data, path_to_bus_data):
 		# Append city to list of cities
-		new_city = City(city_name, os.path.normpath(path_to_metro_data), os.path.normpath(path_to_bus_data))
-		new_city.createModels()
-		self.cities.append(new_city)
+		self.cities.append(City(city_name, os.path.normpath(path_to_metro_data),\
+			os.path.normpath(path_to_bus_data)))
 	
 	"""
 	Delete a city given its name.
