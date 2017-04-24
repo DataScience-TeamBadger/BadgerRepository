@@ -37,7 +37,9 @@ class Main_Application(object):
 	"""
 	def __init__(self):
 		# Initialize model types
-		self.model_names.append("sample")
+		self.model_names.append("Ridership")
+		self.model_names.append("Budget")
+		
 		
 		# Parse city configuration file to get list of initial cities
 		self._city_config_ = SafeConfigParser()
@@ -77,18 +79,3 @@ class Main_Application(object):
 				return city_id
 		# The city was not found
 		return None
-		
-	
-	def gen_models(self):
-		for city in self.cities:
-			city_model_list = city.createModels()
-			for model in city_model_list:
-				new_model = model
-				self.model_names.append(new_model.getName())
-				self.models[new_model.getName()] = new_model
-
-
-
-
-
-

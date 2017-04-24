@@ -5,8 +5,7 @@ Created on Sun Apr 23 18:51:58 2017
 @author: jd
 """
 import numpy as np
-from models import Scatter_Model
-
+from models import Scatter_Model,Ridership_Model,Budget_Model
 
 class City():
     model_names = []
@@ -61,8 +60,12 @@ class City():
     This method will generate a list of models, for the city you want
     """""
     def createModels(self):
-        self.model_names.append("sample")
-        self.models["sample"] = Scatter_Model.Scatter_Model("sample",self.metro_ridership, self.bus_ridership)
+        model_name = "Ridership"
+        self.model_names.append(model_name)
+        self.models[model_name] = Ridership_Model.Ridership_Model(model_name,self.metro_ridership, self.bus_ridership)
+        model_name = "Budget"
+        self.model_names.append(model_name)
+        self.models[model_name] = Budget_Model.Budget_Model(model_name,self.metro_budget, self.bus_budget)
         #sample_model_one = Scatter_Model.Scatter_Model(str("New York City: Bus vs Metro(Ridership)"), self.metro_ridership, self.bus_ridership)
         #sample_model_two = Scatter_Model.Scatter_Model(str("New York City: Bus Budget vs Bus Ridership"), self.metro_ridership, self.bus_ridership)
         #model_list.append(sample_model_one)
