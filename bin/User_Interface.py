@@ -340,7 +340,6 @@ class Main_Window(QMainWindow):
 	def _addCityItem(self, city_id):
 		# Add top-level-entry for city
 		city_container = QTreeWidgetItem(self.model_viewer.listbox)
-		
 		# Add name
 		city_container.setText(0, self.app.cities[city_id].name)
 		
@@ -367,7 +366,6 @@ class Main_Window(QMainWindow):
 			city_name = current.parent().text(0)
 			city_id = self.app.getCityID(city_name)
 			
-			print(city_id)
 			if (city_id == None):
 				# Redundant fail, invalid id
 				print("Error: invalid selection (city id not valid)")

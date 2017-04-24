@@ -7,9 +7,7 @@ Created on Sun Apr 23 18:51:58 2017
 import numpy as np
 from models import Scatter_Model,Ridership_Model,Budget_Model
 
-class City():
-    model_names = []
-    models = {}
+class City(object):
     
     metro_time = []
     metro_ridership = []
@@ -30,6 +28,9 @@ class City():
         self._bcsv = bcsv
         self.metro_parseCSV()
         self.bus_parseCSV()
+        self.models = {}
+        self.model_names = []
+        self.createModels()
     
     
     # parsecsvintonparrays()
@@ -44,6 +45,7 @@ class City():
             self.bus_ridership.append(splitline[1])
             self.bus_budget.append(splitline[2])
             self.bus_coverage.append(splitline[3])
+        f.close()
     
     def metro_parseCSV(self):
         f = open(self._bcsv)
@@ -54,6 +56,7 @@ class City():
             self.metro_ridership.append(splitline[1])
             self.metro_budget.append(splitline[2])
             self.metro_coverage.append(splitline[3])
+        f.close()
     
     """""
     So this is what took me so long. I don't know if we can create the Branching Structure
