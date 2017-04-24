@@ -5,12 +5,17 @@ Created on Fri Apr 14 14:01:56 2017
 @author: Alex Kerzner
 """
 
+# Import config parser
+from lib import Config
+
 # Import core
 from PyQt5.QtCore import Qt
 
 # Import Qt widget components
 from PyQt5.QtWidgets import \
+ QApplication,\
  QMainWindow,\
+ QMessageBox,\
  QWidget,\
  QPushButton,\
  QAction,\
@@ -40,6 +45,7 @@ from PyQt5.QtGui import QIcon
 
 # Import Main_Application
 from Main_Application import Main_Application
+
 
 """
 Wizard page for adding a city
@@ -124,6 +130,34 @@ class Form(object):
 		self.widget = {}
 
 
+"""
+Class for the about window
+"""
+class About_Window(QMessageBox):
+	
+	def __init__(self, parent):
+		# Call superconstructor
+		super(self.__class__, self).__init__(parent)
+		self.setWindowTitle("Badger Data Science")
+		text = "<h2>Badger Data Science</h2>"
+		text += "<h3>Version 1.0.0</h3>"
+		text += "<p>This data science project was written to analyze\
+		bus and metro infrastructure in three major cities.</p>"
+		text += "Created by:<ul>"
+		text += "<li>mvonderlippe</li>"
+		text += "<li>sproctor</li>"
+		text += "<li>dsahdeo</li>"
+		text += "<li>sbadger</li>"
+		text += "<li>jdemey</li>"
+		text += "<li>akerzner</li>"
+		text += "</ul>"
+		
+		#widget = QLabel()
+		#widget.setText(text)
+		
+		self.setText(text)
+		#self.setInformativeText("informative text")
+		#self.setDetailedText("detailed text")
 
 
 """
@@ -136,6 +170,7 @@ class Main_Window(QMainWindow):
 	
 	model_viewer = 0
 	
+	config = 0
 	
 	"""
 	Default constructor for this window.
@@ -144,6 +179,12 @@ class Main_Window(QMainWindow):
 	def __init__(self):
 		# Call superconstructor
 		super(self.__class__, self).__init__()
+		
+		# Load configuration
+		self.config = Config.getConfig()
+		
+		# Create About Window
+		self.about_window = None
 		
 		# Create application
 		self.app = Main_Application()
@@ -179,6 +220,12 @@ class Main_Window(QMainWindow):
 		
 		# Set the title of the window
 		self.setWindowTitle("Badger Data Science")
+		
+		# Resize window
+		self.resize(self.config.getint("GUI", "width"),\
+			self.config.getint("GUI", "height"))
+		
+		
 		#self.setStyleSheet(open("./style.qss", "r").read())
 		
 		# Create status bar
@@ -208,12 +255,21 @@ class Main_Window(QMainWindow):
 		menu["help"] = menu_bar.addMenu('&Help')
 		
 		
+		# Create Help->AboutQt menu
+		current_item = "about_qt"
+		action[current_item] = QAction('About &Qt', self)
+		action[current_item].setStatusTip('About Qt')
+		action[current_item].triggered.connect(QApplication.aboutQt)
+		menu["help"].addAction(action[current_item])
+		
 		# Create Help->About menu
 		current_item = "about"
+		#"""QIcon('exit.png'), """
+		action[current_item] = QAction('&About', self)
 		action[current_item] = QAction(QIcon('about.png'), '&About', self)
 		action[current_item].setShortcut('F1')
 		action[current_item].setStatusTip('About this application')
-		#self.action["about"].triggered.connect()
+		action[current_item].triggered.connect(self.showAboutWindow)
 		menu["help"].addAction(action[current_item])
 		
 		
@@ -327,6 +383,19 @@ class Main_Window(QMainWindow):
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
 	
+	
+	"""
+	Show about window
+	"""
+	def showAboutWindow(self):
+		# Delete about window if already shown
+		self.about_window = None
+		
+		# Create about window
+		self.about_window = About_Window(self)
+		
+		# Show about window
+		self.about_window.exec_()
 	
 	"""
 	Add a city

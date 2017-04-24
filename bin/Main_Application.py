@@ -8,6 +8,10 @@ Created on Fri Apr 21 09:39:19 2017
 # Import library for parsing a configuration file
 from ConfigParser import SafeConfigParser
 
+
+# Import config parser
+from lib import Config
+
 # Import library for simplifying OS file paths
 import os
 
