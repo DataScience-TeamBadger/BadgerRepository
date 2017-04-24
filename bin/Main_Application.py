@@ -36,10 +36,13 @@ class Main_Application(object):
 	Constructor for Main Application
 	"""
 	def __init__(self):
+		# Initialize model types
+		self.model_names.append("sample")
+		
 		# Parse city configuration file to get list of initial cities
 		self._city_config_ = SafeConfigParser()
 		self._city_config_.read(os.path.relpath('etc/cities.cfg'))
-		for section in self._city_config_.sections:
+		for section in self._city_config_.sections():
 			# Add each city, where section is the name of the city
 			self.addCity(section, self._city_config_.get(section, "metro"),\
 				self._city_config_.get(section, "bus"))
@@ -50,7 +53,7 @@ class Main_Application(object):
 	"""
 	def addCity(self, city_name, path_to_metro_data, path_to_bus_data):
 		# Append city to list of cities
-		new_city = City(city_name, path_to_metro_data, path_to_bus_data)
+		new_city = City(city_name, os.path.normpath(path_to_metro_data), os.path.normpath(path_to_bus_data))
 		new_city.createModels()
 		self.cities.append(new_city)
 	
@@ -63,6 +66,18 @@ class Main_Application(object):
 		# delete city at that index.
 		return
 	
+	"""
+	Get id for given city name
+	"""
+	def getCityID(self, city_name):
+		# Loop through all cities, looking for the city with the specified name.
+		for city_id in range(len(self.cities)):
+			if (self.cities[city_id].name == city_name):
+				# Return id, as city name was found
+				return city_id
+		# The city was not found
+		return None
+		
 	
 	def gen_models(self):
 		for city in self.cities:

@@ -149,8 +149,9 @@ class Main_Window(QMainWindow):
 		# Initialize GUI
 		self.initUI()
 		
+		self._loadAllCities()
 		# Load models from application
-		self.loadAllModels()
+		#self.loadAllModels()
 		
 		# Show GUI
 		self.show()
@@ -339,10 +340,20 @@ class Main_Window(QMainWindow):
 		city_container = QTreeWidgetItem()
 		
 		# Add name
-		city_container.setText(0, self.app.cities[city_id].getName())
+		city_container.setText(0, self.app.cities[city_id].name)
 		
 		# Add all models under city
-		
+		for model_name in self.app.model_names:
+			model_item = QTreeWidgetItem(city_container)
+			model_item.setText(0, model_name)
+			self.model_viewer.plot.addWidget(self.app.cities[city_id].models[model_name].plot)
+		self.model_viewer.listbox.addTopLevelItem(city_container)
+	"""
+	Load all cities
+	"""
+	def _loadAllCities(self):
+		for city_id in range(len(self.app.cities)):
+			self._addCityItem(city_id)
 	
 	"""
 	Add all models from application
@@ -354,7 +365,7 @@ class Main_Window(QMainWindow):
 	
 	"""
 	Add model to GUI by model_name
-	
+	DEPRECATED
 	"""
 	def addModel(self, model_name):
 		# Add listbox item
@@ -370,11 +381,23 @@ class Main_Window(QMainWindow):
 	GUI: Switch from previously selected model to the current selected model
 	"""
 	def switchModel(self, current, previous):
-		# Update plot
-		self.model_viewer.plot.setCurrentWidget(self.app.models[current.text()].plot)
-		
-		# Update description
-		self.model_viewer.description.setText(self.app.models[current.text()].description)
+		# Verify that current is valid: current has no children
+		if (current.childCount() == 0):
+			# Model is selected
+			city_name = current.parent().text(0)
+			city_id = self.app.getCityID(city_name)
+			
+			print(city_id)
+			if (city_id == None):
+				# Redundant fail, invalid id
+				print("Error: invalid selection (city id not valid)")
+				return
+			current_model = current.text(0)
+			
+			# Update plot
+			self.model_viewer.plot.setCurrentWidget(self.app.cities[city_id].models[current_model].plot)
+			# Update description
+			self.model_viewer.description.setText(self.app.cities[city_id].models[current_model].description)
 		
 		# Old code
 		#self.widget["plot"].plot(self.model[model_name].getX(), self.model[model_name].getY(), pen=None, symbol='o')

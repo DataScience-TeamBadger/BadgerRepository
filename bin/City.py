@@ -24,9 +24,9 @@ class City():
     bus_coverage = []
     bus_model_names = []
     
-    def __init__(self, cityid, cityname, mcsv, bcsv):
-        self._id = cityid
-        self._name = cityname
+    def __init__(self, cityname, mcsv, bcsv):
+        #self._id = cityid
+        self.name = cityname
         self._mcsv = mcsv
         self._bcsv = bcsv
         self.metro_parseCSV()
@@ -61,15 +61,16 @@ class City():
     This method will generate a list of models, for the city you want
     """""
     def createModels(self):
-        model_list = []
-        sample_model_one = Scatter_Model.Scatter_Model(str("New York City: Bus vs Metro(Ridership)"), self.metro_ridership, self.bus_ridership)
-        sample_model_two = Scatter_Model.Scatter_Model(str("New York City: Bus Budget vs Bus Ridership"), self.metro_ridership, self.bus_ridership)
-        model_list.append(sample_model_one)
-        model_list.append(sample_model_two)
-        return model_list
-    
+        self.model_names.append("sample")
+        self.models["sample"] = Scatter_Model.Scatter_Model("sample",self.metro_ridership, self.bus_ridership)
+        #sample_model_one = Scatter_Model.Scatter_Model(str("New York City: Bus vs Metro(Ridership)"), self.metro_ridership, self.bus_ridership)
+        #sample_model_two = Scatter_Model.Scatter_Model(str("New York City: Bus Budget vs Bus Ridership"), self.metro_ridership, self.bus_ridership)
+        #model_list.append(sample_model_one)
+        #model_list.append(sample_model_two)
+        #return model_list
+    # unnecessary - city.model_names from outside
     def get_model_names(self):
         return self.model_names
-    
+    # unnecessary - city.models from outside.
     def get_models(self):
         return self.models
