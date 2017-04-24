@@ -13,15 +13,13 @@ class City(object):
     metro_ridership = []
     metro_budget = []
     metro_coverage = []
-    metro_model_names = []
     
     bus_time = []
     bus_ridership = []
     bus_budget = []
     bus_coverage = []
-    bus_model_names = []
     
-    def __init__(self, cityname, metro_csv, bus_csv, metro_coverage, bus_coverage):
+    def __init__(self, cityname, metro_csv, bus_csv):#, metro_coverage, bus_coverage):
         #self._id = cityid
         self.name = cityname
         self._mcsv = metro_csv

@@ -41,8 +41,8 @@ class Main_Application(object):
 	"""
 	def __init__(self):
 		# Initialize model types
-		self.model_names.append("Ridership")
-		self.model_names.append("Budget")
+		self.model_names.append("Ridershisaodinasfoinbadsgfoibp")
+		#self.model_names.append("Budget")
 		
 		
 		# Parse city configuration file to get list of initial cities

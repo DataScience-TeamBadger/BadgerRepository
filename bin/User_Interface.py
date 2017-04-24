@@ -413,7 +413,7 @@ class Main_Window(QMainWindow):
 		city_container.setText(0, self.app.cities[city_id].name)
 		
 		# Add all models under city
-		for model_name in self.app.model_names:
+		for model_name in self.app.cities[city_id].model_names:
 			model_item = QTreeWidgetItem(city_container)
 			model_item.setText(0, model_name)
 			self.model_viewer.plot.addWidget(self.app.cities[city_id].models[model_name].plot)
@@ -430,7 +430,7 @@ class Main_Window(QMainWindow):
 	"""
 	def switchModel(self, current, previous):
 		# Verify that current is valid: current has no children
-		if (current.childCount() == 0):
+		if (current.childCount() == 0 and not current.parent() == None):
 			# Model is selected
 			city_name = current.parent().text(0)
 			city_id = self.app.getCityID(city_name)
