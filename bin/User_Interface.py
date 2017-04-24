@@ -10,26 +10,25 @@ from PyQt5.QtCore import Qt
 
 # Import Qt widget components
 from PyQt5.QtWidgets import \
- QApplication,\
  QMainWindow,\
  QWidget,\
  QPushButton,\
  QAction,\
- QGraphicsWidget,\
- QGraphicsView,\
  QTabWidget,\
  QSplitter,\
- QListWidget,\
+ QTreeWidget,\
  QListWidgetItem,\
  QStackedWidget,\
  QLabel,\
- QSlider,\
  QSpinBox,\
  QFormLayout,\
- QLineEdit
+ QLineEdit,\
+ QWizard,\
+ QWizardPage,\
+ QFileDialog
 
 # Import PyQtGraph library
-import pyqtgraph as pg
+#import pyqtgraph as pg
 
 # Import NumPy
 #import numpy as np
@@ -41,6 +40,37 @@ from PyQt5.QtGui import QIcon
 
 # Import Main_Application
 from Main_Application import Main_Application
+
+"""
+Wizard page for adding a city
+"""
+#class AddCity_Page(QWizardPage):
+#	
+#	def __init__(self,  parent = 0):
+#		# Call superconstructor
+#		super(self.__class__,  self).__init__(parent)
+#		
+#		self.setTitle("Add a city")
+#		self.setSubTitle("Add a city by importing the associated *.csv files.")
+#		
+#		label = QLabel()
+#		label.setText("")
+#		label.setWordWrap(True)
+#		self.
+#		
+
+
+"""
+Wizard for adding a city
+"""
+#class City_Wizard(QWizard):
+#	
+#	def __init__(self, parent):
+#		# Call superconstructor
+#		super(self.__class__,  self).__init__(parent)
+#		
+#		self._initial_page_ = 
+
 
 """
 Class for viewing models
@@ -60,8 +90,9 @@ class ModelViewer(QSplitter):
 		right_pane.setOrientation(Qt.Vertical)
 		
 		
-		# Create Model List widget
-		self.listbox = QListWidget()
+		# Create Model Tree widget
+		self.listbox = QTreeWidget()
+		self.listbox.setColumnCount(1)
 		self.listbox.setStatusTip('Select a model')
 		left_pane.addWidget(self.listbox)
 		
@@ -294,6 +325,14 @@ class Main_Window(QMainWindow):
 		
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
+	
+	
+	"""
+	Add a city
+	"""
+	def addCity(self,):
+		return
+	
 	
 	"""
 	Add all models from application
