@@ -38,6 +38,9 @@ from PyQt5.QtWidgets import \
 # Import NumPy
 #import numpy as np
 
+# Import Core Qt components
+from PyQt5.QtCore import qDebug,qInf,qWarning,qCritical,qFatal
+
 # Import Qt main gui components
 from PyQt5.QtGui import QIcon
 

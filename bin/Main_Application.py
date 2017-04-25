@@ -45,12 +45,9 @@ class Main_Application(object):
 			print(" - metro: " + self._city_config_.get(section, "metro"))
 			print(" - bus: " + self._city_config_.get(section, "bus"))
 			self.addCity(section, self._city_config_.get(section, "metro"),\
-<<<<<<< HEAD
-				self._city_config_.get(section, "bus"))
-		
-=======
-				self._city_config_.get(section, "bus"),self._city_config_.get(section, "metromap"),self._city_config_.get(section, "busmap"))
->>>>>>> refs/remotes/origin/development
+				self._city_config_.get(section, "bus"),\
+				self._city_config_.get(section, "metromap"),\
+				self._city_config_.get(section, "busmap"))
 		# TODO: Remove DEBUG:
 		#self.gen_models()
 	
