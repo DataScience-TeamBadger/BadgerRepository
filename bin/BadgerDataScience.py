@@ -30,10 +30,6 @@ if (__name__ == "__main__"):
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = User_Interface.Main_Window()
 	
-
-	# Resize window
-	mw.resize(640,480)
-	
 	
 	# Results in an exception in IPython, so removed
 	#sys.exit(app.exec_())
