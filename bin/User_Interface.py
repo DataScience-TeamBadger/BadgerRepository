@@ -30,7 +30,8 @@ from PyQt5.QtWidgets import \
  QLineEdit,\
  QWizard,\
  QWizardPage,\
- QFileDialog
+ QFileDialog,\
+ QScrollArea
 
 # Import PyQtGraph library
 #import pyqtgraph as pg
@@ -111,10 +112,17 @@ class ModelViewer(QSplitter):
 		self.plot = QStackedWidget()
 		right_pane.addWidget(self.plot)
 		
+		# Create scroll area for Model Description widget
+		scroll_area = QScrollArea()
+		scroll_area.setWidgetResizable(True)
+		left_pane.addWidget(scroll_area)
+		
 		# Create Model Description widget
 		self.description = QLabel()
-		self.description.setText("This is <b>the</b> description of the model.")
-		left_pane.addWidget(self.description)
+		self.description.setWordWrap(True)
+		#self.description.setText("This is <b>the</b> description of the model.")
+		scroll_area.setWidget(self.description)
+		self.description.show()
 		
 		# Create Model Table widget (to be developed)
 		self.table = QWidget()
@@ -178,9 +186,8 @@ class Main_Window(QMainWindow):
 		# Main application
 		self.app = 0
 		
+		# Model viewer
 		self.model_viewer = 0
-		
-		self.config = 0
 			
 		# Load configuration
 		self.config = Config.getConfig()
@@ -390,7 +397,7 @@ class Main_Window(QMainWindow):
 	
 	"""
 	Add UI item for a city by its id
-	@param 
+	@param city_id the id of the city
 	"""
 	def _addCityItem(self, city_id):
 		# Add top-level-entry for city
@@ -413,6 +420,9 @@ class Main_Window(QMainWindow):
 	
 	"""
 	GUI: Switch from previously selected model to the current selected model
+	
+	@param current = the current selected model
+	@param previous = the previous valid selected model
 	"""
 	def switchModel(self, current, previous):
 		# Verify that current is valid: current has no children
