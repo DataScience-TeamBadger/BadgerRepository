@@ -54,13 +54,18 @@ class Main_Application(object):
 	"""
 	Add a city given its name, metro data, and bus data.
 	"""
-	def addCity(self, city_name, path_to_metro_data, path_to_bus_data,path_to_metro_map,path_to_bus_map):
+	def addCity(self, city_name, path_to_metro_data,\
+	 path_to_bus_data, path_to_metro_map, path_to_bus_map):
 		# Append city to list of cities
-		self.cities.append(City(city_name, os.path.normpath(path_to_metro_data),\
-			os.path.normpath(path_to_bus_data),os.path.normpath(path_to_metro_map),os.path.normpath(path_to_bus_map)))
+		self.cities.append(City(city_name,\
+			os.path.normpath(path_to_metro_data),\
+			os.path.normpath(path_to_bus_data),\
+			os.path.normpath(path_to_metro_map),\
+			os.path.normpath(path_to_bus_map)))
 	
 	"""
 	Delete a city given its name.
+	@param city_name the name of the city
 	"""
 	def delCity(self, city_name):
 		# TODO: del functionality
@@ -70,6 +75,7 @@ class Main_Application(object):
 	
 	"""
 	Get id for given city name
+	@param city_name the name of the city for which to return the city_id
 	"""
 	def getCityID(self, city_name):
 		# Loop through all cities, looking for the city with the specified name.
