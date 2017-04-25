@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+<idinfo>
+<citation>
+<citeinfo>
+<origin/>
+<title>WMATA Bus Stop</title>
+<geoform>vector digital data</geoform>
+<pubinfo>
+<pubplace/>
+<publish>Washington Metropolitan Area Transit Authority</publish>
+</pubinfo>
+<onlink>http://www.wmata.com</onlink>
+<onlink>http://intranet</onlink>
+</citeinfo>
+</citation>
+<descript>
+<abstract>This dataset represents Washington Metropolitan Area Transit Authority (WMATA) Regional Bus Stop locations (permanent and temporary). The dataset includes bus stop identification, location, and inventory information (KFH bus stop inventory survey). All WMATA GIS data is stored and exported in WMATA LDP NAD 1983 [NSRS2007] US Feet.</abstract>
+<purpose>Planning and analysis. Feed information to Trapeze, Clever, ATIS, Orbital, Cubic (Farebox), Next Bus, WMATA Website, and Metroview (ArcGIS Server Flex Web applications).</purpose>
+</descript>
+<timeperd>
+<timeinfo>
+<sngdate>
+<caldate>20070820</caldate>
+</sngdate>
+</timeinfo>
+<current>Publication date</current>
+</timeperd>
+<status>
+<progress>In work</progress>
+<update>Quarterly</update>
+</status>
+<spdom>
+<bounding>
+<westbc>-77.176</westbc>
+<eastbc>-76.896</eastbc>
+<northbc>39.035</northbc>
+<southbc>38.755</southbc>
+</bounding>
+</spdom>
+<keywords>
+<theme>
+<themekt>None</themekt>
+<themekey>Transit</themekey>
+<themekey>METRO</themekey>
+<themekey>WMATA</themekey>
+<themekey>Bus</themekey>
+<themekey>Transit Operation</themekey>
+<themekey>Planning</themekey>
+<themekey>MetroAccess</themekey>
+<themekey>Paratransit</themekey>
+</theme>
+<theme>
+<themekt>ISO 19115 Topic Categories</themekt>
+<themekey>transportation</themekey>
+</theme>
+<place>
+<placekt>None</placekt>
+<placekey>Arlington County</placekey>
+<placekey>City of Alexandria</placekey>
+<placekey>City of Fairfax</placekey>
+<placekey>City of Falls Church</placekey>
+<placekey>District of Columbia</placekey>
+<placekey>Fairfax County</placekey>
+<placekey>Loudoun County</placekey>
+<placekey>Montgomery County</placekey>
+<placekey>Prince George's County</placekey>
+<placekey>Prince William County</placekey>
+<placekey>Washington DC</placekey>
+<placekey>Washington DC Metropolitan Area</placekey>
+<placekey>WMATA Service Area</placekey>
+</place>
+</keywords>
+<accconst>None</accconst>
+<useconst>This work is licensed under a Creative Commons Attribution 4.0 International License.</useconst>
+<ptcontac>
+<cntinfo>
+<cntorgp>
+<cntorg>Washington Metropolitan Area Transit Authority</cntorg>
+<cntper>Ed Wells</cntper>
+</cntorgp>
+<cntpos>GIS Manager</cntpos>
+<cntaddr>
+<addrtype>unknown</addrtype>
+<address>600 Fifth St NW</address>
+<city>Washington</city>
+<state>DC</state>
+<postal>20001</postal>
+</cntaddr>
+<cntvoice>202-962-1540</cntvoice>
+<cntemail>ewells@wmata.com</cntemail>
+<hours>9am - 5pm</hours>
+</cntinfo>
+</ptcontac>
+<native>Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; Esri ArcGIS 10.2.2.3574</native>
+</idinfo>
+<dataqual>
+<logic>Bus stop (Bus Planning) data is verifed through a series of routines checking for duplicate, street name, location (Longitude/Latitude and On/At street), jurisdiction, regional ID, bus stop position, and bus stop heading. The data is then imported into the database or updated.</logic>
+<complete>The data set was initially derived from Gscan and later reconciled and integrated with Bus Planning Access DB, KFH Bus stop survey, and BusTool DB. The data set includes all compact jurisdictions WMATA bus stops.</complete>
+<lineage>
+<procstep>
+<procdesc>Project to WMATA LDP NAD 1983 [NSRS2007] US Feet</procdesc>
+<procdate>20100629</procdate>
+<proccont>
+<cntinfo>
+<cntorgp>
+<cntorg>Washington Metropolitan Area Transit Authority</cntorg>
+</cntorgp>
+<cntpos>GIS Data Coordinator</cntpos>
+<cntaddr>
+<addrtype>unknown</addrtype>
+<address>600 Fifth St NW</address>
+<city>Washington</city>
+<state>DC</state>
+<postal>20001</postal>
+</cntaddr>
+<cntvoice>202-962-1653</cntvoice>
+<cntemail>syoo@wmata.com</cntemail>
+</cntinfo>
+</proccont>
+</procstep>
+</lineage>
+</dataqual>
+<spdoinfo>
+<direct>Vector</direct>
+<ptvctinf>
+<sdtsterm>
+<sdtstype>Entity point</sdtstype>
+<ptvctcnt>12208</ptvctcnt>
+</sdtsterm>
+</ptvctinf>
+</spdoinfo>
+<eainfo>
+<detailed>
+<enttyp>
+<enttypl>GIS_BSTP_PNT</enttypl>
+<enttypd>Bus stop locations and information</enttypd>
+<enttypds>WMATA</enttypds>
+</enttyp>
+<attr>
+<attrlabl>OBJECTID</attrlabl>
+<attrdef>Internal feature number.</attrdef>
+<attrdefs>Esri</attrdefs>
+<attrdomv>
+					<udom>Sequential unique whole numbers that are automatically generated.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_GEO_ID</attrlabl>
+<attrdef>Bus stop geographical identification</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>A unique integer ID assigned to each WMATA bus stop within the Clever Devices bus stop database.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_OPS_TCD</attrlabl>
+<attrdef>Bus stop operating status type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>ABS</edomv>
+						<edomvd>Abolished Stop</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>The lifecycle status of the bus stop</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_POS_TCD</attrlabl>
+<attrdef>Bus stop position type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>NEA</edomv>
+						<edomvd>Near Side</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>The location of the bus stop relative to the AtStreet. Whether the bus crosses the AtStreet just after reaching the stop ("near"), just before ('far"), or somewhere in the middle of the block ("mid").</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>AT_STR</attrlabl>
+<attrdef>At street</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The name of the closest cross-street to the stop; or the nearest landmark or address, if there is no nearby cross-street; or the bus bay designator if the stop is in a transit station.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_OPS_FTU_TCD</attrlabl>
+<attrdef>Operating future status type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Bus stop operating future status type code</udom>
+				</attrdomv>
+<attrdomv>
+					<edom>
+						<edomv>DUM</edomv>
+						<edomvd>Dummy Stop</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_EFF_DATE</attrlabl>
+<attrdef>Service Effective Date</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Bus stop service start date</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>ON_STR</attrlabl>
+<attrdef>On street</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The name of the street the bus is on while serving the stop; or the landmark or transit station where the stop is located, if it is not on a named road.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HDG</attrlabl>
+<attrdef>Bus stop heading</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The compass orientation (in degrees) of the bus when it is stopped at the stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>REG_ID</attrlabl>
+<attrdef>Bus Stop Regional Identifier</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>A unique seven-digit integer assigned to each bus stop of each transit agency in the WMATA service area.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_LDC</attrlabl>
+<attrdef>Bus stop location description</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>A text description providing more detail on the exact loaction of the bus stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_MSG_TEXT</attrlabl>
+<attrdef>Bus stop message text</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The bus stop description as given in bus on-board displays, usually the OnStreet and AtStreet names with a plus sign between them.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_LON</attrlabl>
+<attrdef>Bus stop longitude</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The longitude (X coordinate) of the bus stop, as referenced to the WGS 1984</udom>
+				</attrdomv>
+<attrdomv>
+					<rdom>
+						<rdommin>-77.54</rdommin>
+						<rdommax>-76.485</rdommax>
+					</rdom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_LAT</attrlabl>
+<attrdef>Bus stop latitude</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The latitude (Y coordinate) of the bus stop, as referenced to the WGS 1984</udom>
+				</attrdomv>
+<attrdomv>
+					<rdom>
+						<rdommin>38.47</rdommin>
+						<rdommax>39.32</rdommax>
+					</rdom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_TCD</attrlabl>
+<attrdef>Bus stop type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>ANP</edomv>
+						<edomvd>Announcement Point</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>The operational type of bus stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_INV_SYR_TCD</attrlabl>
+<attrdef>Bus stop inventory surveyor type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>FCO</edomv>
+						<edomvd>Fairfax County</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Person who recorded information about the bus stop. Note:  All stops will have multiple surveyors.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_LAT_LON_TCD</attrlabl>
+<attrdef>Location (Lat and Long) Type Status</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Bus stop location (latitude and longitude) status</udom>
+				</attrdomv>
+<attrdomv>
+					<edom>
+						<edomv>TMP</edomv>
+						<edomvd>Temporary</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_INV_SRV_DATE</attrlabl>
+<attrdef>Bus stop inventory survey date</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The date that the person recorded information about the bus stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_BNH_CNT</attrlabl>
+<attrdef>Bus stop bench count</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The number of benches at the bus stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_BST_TCD</attrlabl>
+<attrdef>Bus stop bench seat type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>BOT</edomv>
+						<edomvd>Inside Shelter and Free Standing</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the benches at a bus stop are part of a shelter, or freestanding, or both</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_IFC_OWN</attrlabl>
+<attrdef>Bus stop infocase owner</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>ARTA</edomv>
+						<edomvd>Arlington Transit</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>An agency or party responsible for maintaining the infocase.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HAS_BKRS</attrlabl>
+<attrdef>Bus stop has bike racks</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether a bike rack is at the bus stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HAS_PRS</attrlabl>
+<attrdef>Bus stop has posted route schedule</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether route schedules are posted at the stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HAS_PVM</attrlabl>
+<attrdef>Bus stop has posted vicinity map</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether a map of the surrounding area is posted at the stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HAS_PRM</attrlabl>
+<attrdef>Bus stop has posted route map</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether a route map is posted at the stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>EGIS_ID</attrlabl>
+<attrdef>Enterprise geographic information system identification</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Unique geographic feature identifer assigned within the WMATA enterprise GIS.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_PDP_SIZE_TCD</attrlabl>
+<attrdef>Bus stop pedestrian pad size type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>58U</edomv>
+						<edomvd>5' x 8' pad, unobstructed</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>The usable size of the pedestrian pad (as reduced by any obstructions).</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_PDP_MTR_TCD</attrlabl>
+<attrdef>Bus stop pedestrian pad material type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>ASP</edomv>
+						<edomvd>Asphalt</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>The material that the pedestrian pad is made of.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_PDP_OBS_TCD</attrlabl>
+<attrdef>Bus stop pedestrian pad obstruction type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>BLL</edomv>
+						<edomvd>Bollards</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Type of permanent obstruction that impedes use of the pedestrian pad or reduce its usable area to less than 5'x8'.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_PDP_HAS_CCN</attrlabl>
+<attrdef>Bus stop pedestrian pad has curb connection</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the pedestrian pad connects to the on-street curb.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HAS_BDR_PDP</attrlabl>
+<attrdef>Bus stop has bus rear door pedestrian pad</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the bus stop has a distinct, paved area for rear door alighting (not recorded if the area is part of the sidewalk).</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_BDR_PDP_OBS</attrlabl>
+<attrdef>Bus stop bus rear door pedestrian pad obstruction</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the rear door pedestrian pad is 5'x8' and unobstructed.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_SWK_WDT</attrlabl>
+<attrdef>Bus stop sidewalk width</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The width of the above sidewalk at its narrowest part at the stop, taking into consideration planters, tree boxes, shelters, and other types of permanent obstructions (0 = no sidewalk).</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_SWK_HAS_CCN</attrlabl>
+<attrdef>Bus stop sidewalk has curb connection</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the on-street sidewalk connects with on-street curb (no grassy/dirt area between sidewalk and curb).</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_SWK_HAS_PPC</attrlabl>
+<attrdef>Bus stop sidewalk has pedestrian pad connection</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Whether the sidewalk connects to the pedestrian pad at the stop (Only applies to stop with pedestrian pad).</udom>
+				</attrdomv>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_SWK_SLP_WVL</attrlabl>
+<attrdef>Bus stop sidewalk slope wheelchair viable</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the slope of the sidewalk appears to present difficulty for wheelchair navigation (&gt;5% is too steep; goal is 2% or less).</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_SWK_OBS_TCD</attrlabl>
+<attrdef>bus stop sidewalk obstruction type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>BNH</edomv>
+						<edomvd>Bench</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>The type of streetside furnishing, construction, or landscaping that impedes pedestrian access to the bus stop via the sidewalk.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_SWK_IPD_TCD</attrlabl>
+<attrdef>Bus stop sidewalk impedance type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>CRK</edomv>
+						<edomvd>Major Cracks</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>The type of sidewalk condition that impedes pedestrian access to the bus stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>ONS_CRP_SLP</attrlabl>
+<attrdef>On street near side curb ramp slope</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The average of three measurements (CurbRampSlope1, CurbRampSlope2, CurbRampSlope3) taken at the ramp nearest to the stop: one at the top of the ramp, one in the middle of the ramp, one at the bottom of the ramp.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>ONS_CRP</attrlabl>
+<attrdef>On street near side curb ramp</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a curb ramp to the on-street at the near-side of the intersection.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>OFS_CRP</attrlabl>
+<attrdef>On street far side curb ramp</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a curb ramp to the on-street onfar-side of the intersection.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>AT_STR_ABS_CRP</attrlabl>
+<attrdef>At street at bus stop curb ramp</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a curb ramp to the at-street on the near side of the intersection.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>AT_STR_OSS_CRP</attrlabl>
+<attrdef>At street opposite bus stop curb ramp</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a curb ramp to the at-street on the far side of the intersection.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>ONS_CWK</attrlabl>
+<attrdef>On street near side crosswalk</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a crosswalk across the on-street on the near side of the intersection (or at the stop, for a mid-block bus stop).</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>OFS_CWK</attrlabl>
+<attrdef>On street far side crosswalk</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a crosswalk across the on-street on the far side of the intersection.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>AT_STR_ABS_CWK</attrlabl>
+<attrdef>At street at bus stop crosswalk</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a crosswalk across the at-street on the near side of the intersection.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>AT_STR_OSS_CWK</attrlabl>
+<attrdef>At street opposite bus stop crosswalk</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a crosswalk across the at-street on the far side of the intersection.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>ON_STR_STS_OR_TFL</attrlabl>
+<attrdef>On street stop sign or traffic light</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a traffic light or stop sign at the bus stop at the on-street location.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>ON_STR_PDC_SGL</attrlabl>
+<attrdef>On street pedestrian crossing signal</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a pedestrian crossing signal to cross the on-street</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>AT_STR_PDC_SGL</attrlabl>
+<attrdef>At street pedestrian crossing signal</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a pedestrian crossing signal to cross the at-street</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_PRK_RST_TCD</attrlabl>
+<attrdef>Bus stop parking restriction type code</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>NPL</edomv>
+						<edomvd>Parking restricted by travel lane</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>How parking is allowed or restricted at the bus stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_NPK_ZNE_LTH</attrlabl>
+<attrdef>Bus stop no parking zone length</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>The length of the no parking zone at the stop (0 = none).</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>CNF_NPK_SNS</attrlabl>
+<attrdef>Conflicting no parking signs</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is contradictory information on multiple no-parking signs at the bus stop.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>STR_LGT_WTN_30_FT</attrlabl>
+<attrdef>Street light within 30 ft</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether there is a street light within 30 feet of the bus stop pole on the same side of the street.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HAS_LED_DSP</attrlabl>
+<attrdef>Bus stop has LED display</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the bus stop has a LED display showing the next bus arrival.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_ACC_RATING</attrlabl>
+<attrdef>Bus Stop Accessibility Rating</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Bus Stop Accessibility</udom>
+				</attrdomv>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Stop is Accessible</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_BRDG_STP</attrlabl>
+<attrdef>Bus Bridge Stop</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Bus Bridge Stop</udom>
+				</attrdomv>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HAS_LUM_SIGN</attrlabl>
+<attrdef>bus stop has luminator sign</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the bus stop has a luminator sign</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BSTP_HAS_PWR_SRC</attrlabl>
+<attrdef>bus stop has power source</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the bus stop has power source</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>METRO_ACCS_STP</attrlabl>
+<attrdef>MetroAccess Stop</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<edom>
+						<edomv>Y</edomv>
+						<edomvd>Yes</edomvd>
+						<edomvds>WMATA</edomvds>
+					</edom>
+				</attrdomv>
+<attrdomv>
+					<udom>Whether the bus stop is MetroAccess Stop</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>CREATED_DATE</attrlabl>
+<attrdef>Created date</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Date in which the feature was created</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>LAST_EDITED_DATE</attrlabl>
+<attrdef>Last edited date</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Date in which feature was edited</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BX_UPDATE_DATE</attrlabl>
+<attrdef>Last edited date</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Bus stop update mobile app last edited date</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>BX_UPDATE_USER</attrlabl>
+<attrdef>Editor User ID</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Bus stop update mobile app editor User ID</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>LAST_UPDATE_DATE</attrlabl>
+<attrdef>Last updated date</attrdef>
+<attrdefs>WMATA</attrdefs>
+<attrdomv>
+					<udom>Last updated date for Maximo feed.</udom>
+				</attrdomv>
+</attr>
+<attr>
+<attrlabl>SHAPE</attrlabl>
+<attrdef>Feature geometry.</attrdef>
+<attrdefs>Esri</attrdefs>
+<attrdomv>
+					<udom>Coordinates defining the features.</udom>
+				</attrdomv>
+</attr>
+</detailed>
+</eainfo>
+<metainfo>
+<metd>20160128</metd>
+<metfrd>20160327</metfrd>
+<metc>
+<cntinfo>
+<cntorgp>
+<cntorg>Washington Metropolitan Area Transit Authority</cntorg>
+<cntper>Sanghong Yoo</cntper>
+</cntorgp>
+<cntpos>GIS Data Coordinator</cntpos>
+<cntaddr>
+<addrtype>unknown</addrtype>
+<address>600 Fifth St NW</address>
+<city>Washington</city>
+<state>DC</state>
+<postal>20001</postal>
+</cntaddr>
+<cntvoice>202-962-1653</cntvoice>
+<cntemail>syoo@wmata.com</cntemail>
+</cntinfo>
+</metc>
+<metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+<metstdv>FGDC-STD-001-1998</metstdv>
+<mettc>local time</mettc>
+</metainfo>
+</metadata>
