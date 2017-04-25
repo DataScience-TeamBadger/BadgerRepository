@@ -53,6 +53,8 @@ class Main_Application(object):
 			print("Loading city: " + section)
 			print(" - metro: " + self._city_config_.get(section, "metro"))
 			print(" - bus: " + self._city_config_.get(section, "bus"))
+			print(" - metro_coverage: " + self._city_config_.get(section, "metromap"))
+			print(" - bus_coverage: " + self._city_config_.get(section, "busmap"))
 			self.addCity(section, self._city_config_.get(section, "metro"),\
 				self._city_config_.get(section, "bus"),self._city_config_.get(section, "metromap"),self._city_config_.get(section, "busmap"))
 		# TODO: Remove DEBUG:

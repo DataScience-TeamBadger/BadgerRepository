@@ -81,7 +81,7 @@ def getShape(path):
     points=[]
     for shp in shapefile.Reader(path).shapes():
         for p in shp.points:
-            points.append(p);
+            points.append(p)
     return points
     #except Exception:
         #print path +"\t"+"Not found!"
