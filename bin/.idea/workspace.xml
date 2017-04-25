@@ -12,56 +12,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="User_Interface.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/User_Interface.py">
+      <file leaf-file-name="ShapeHandler.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/ShapeHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4046">
-              <caret line="309" column="8" lean-forward="false" selection-start-line="309" selection-start-column="8" selection-end-line="309" selection-end-column="8" />
-              <folding>
-                <element signature="e#764#1696#0" expanded="false" />
-                <element signature="e#1698#1734#1" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BadgerDataScience.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BadgerDataScience.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="City.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/City.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-              <folding>
-                <element signature="e#103#121#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="15" column="47" lean-forward="false" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scatter_Model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Scatter_Model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state relative-caret-position="761">
+              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -91,8 +46,9 @@
       <list>
         <option value="$PROJECT_DIR$/models/Model.py" />
         <option value="$PROJECT_DIR$/models/Scatter_Model.py" />
-        <option value="$PROJECT_DIR$/City.py" />
         <option value="$PROJECT_DIR$/Main_Application.py" />
+        <option value="$PROJECT_DIR$/City.py" />
+        <option value="$PROJECT_DIR$/lib/ShapeHandler.py" />
       </list>
     </option>
   </component>
@@ -115,25 +71,26 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BadgerDataScience" />
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BadgerDataScience" />
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BadgerDataScience" />
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BadgerDataScience" />
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -143,11 +100,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BadgerDataScience" />
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BadgerDataScience" />
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -158,7 +115,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -400,12 +356,52 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/User_Interface.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4607">
+          <caret line="309" column="8" lean-forward="false" selection-start-line="309" selection-start-column="8" selection-end-line="309" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BadgerDataScience.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <marker date="1493086811654" expanded="true" signature="338:600" ph="..." />
+            <marker date="1493086811654" expanded="true" signature="515:587" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="15" column="46" lean-forward="true" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Scatter_Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/City.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/User_Interface.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4046">
           <caret line="309" column="8" lean-forward="false" selection-start-line="309" selection-start-column="8" selection-end-line="309" selection-end-column="8" />
-          <folding>
-            <element signature="e#764#1696#0" expanded="false" />
-            <element signature="e#1698#1734#1" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -413,7 +409,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1493086811654" expanded="true" signature="338:600" ph="..." />
+            <marker date="1493086811654" expanded="true" signature="515:587" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -437,9 +436,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1224">
           <caret line="73" column="25" lean-forward="true" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-          <folding>
-            <element signature="e#103#121#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -452,20 +449,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/User_Interface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4046">
+        <state relative-caret-position="4607">
           <caret line="309" column="8" lean-forward="false" selection-start-line="309" selection-start-column="8" selection-end-line="309" selection-end-column="8" />
-          <folding>
-            <element signature="e#764#1696#0" expanded="false" />
-            <element signature="e#1698#1734#1" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BadgerDataScience.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="425">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <marker date="1493086811654" expanded="true" signature="338:600" ph="..." />
+            <marker date="1493086811654" expanded="true" signature="515:587" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -480,7 +477,7 @@
     <entry file="file://$PROJECT_DIR$/models/Model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="15" column="47" lean-forward="false" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
+          <caret line="15" column="46" lean-forward="false" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -489,19 +486,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="665">
           <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <element signature="e#108#140#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/City.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="744">
-          <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-          <folding>
-            <element signature="e#103#121#0" expanded="true" />
-          </folding>
+          <caret line="82" column="8" lean-forward="false" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ShapeHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="761">
+          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

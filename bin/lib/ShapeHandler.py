@@ -101,9 +101,10 @@ def _hi_(param,colnumLat,colnumLong,kmlName):
             matches = re.findall("<"+kmlName+">.+?</"+kmlName+">", data, re.DOTALL)
             points=[]
             for m in matches:
-                temp = m[len(kmlName)+2:-len(kmlName)+2].split(",")
-                points.append((float(temp[0]),float(temp[1])))
-            return [points]
+                temp = m[len(param)+2:-len(param)+2].split(",")
+                print m[-len(param)+2:len(param)+2]
+                points.append(float(temp[0]),float(temp[1]))
+            return [[points]]
         return [getShape(param)]
     elif type (param) is list:
         out = []
@@ -146,4 +147,3 @@ def getArea(shapefilelst,radius,decimaldigits=14.0,utmZone=None,utmNorHemi=True,
                         if newpoint:
                             area.append((x,y))
     return len(area)
-print getPoints("C:\\Users\\Steven Proctor\\Downloads\\stations.kml",4,5)
