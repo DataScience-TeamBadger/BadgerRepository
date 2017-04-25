@@ -27,27 +27,18 @@ Functions in this class may be called via the UI.
 """
 class Main_Application(object):
 	
-	# Initial configuration for cities
-	_city_config_ = None
-	
-	# List of names of available models in each city
-	model_names = []
-	
-	# List of cities
-	cities = []
-	
 	"""
 	Constructor for Main Application
 	"""
 	def __init__(self):
-		# Initialize model types
-		self.model_names.append("Ridershisaodinasfoinbadsgfoibp")
-		#self.model_names.append("Budget")
 		
+		# Initialize list of cities
+		self.cities = []
 		
 		# Parse city configuration file to get list of initial cities
 		self._city_config_ = SafeConfigParser()
 		self._city_config_.read(os.path.relpath('etc/cities.cfg'))
+		
 		print("Reading cities.cfg")
 		for section in self._city_config_.sections():
 			# Add each city, where section is the name of the city
@@ -56,9 +47,8 @@ class Main_Application(object):
 			print(" - bus: " + self._city_config_.get(section, "bus"))
 			self.addCity(section, self._city_config_.get(section, "metro"),\
 				self._city_config_.get(section, "bus"))
+		
 		# TODO: Remove DEBUG:
-		#print(self.cities[0].models)
-		#print(self.cities[1].models)
 		#self.gen_models()
 	
 	"""

@@ -118,6 +118,7 @@ class ModelViewer(QSplitter):
 		self.table.setStatusTip('To be created: the table')
 		right_pane.addWidget(self.table)
 		
+		# Add to this widget
 		self.addWidget(left_pane)
 		self.addWidget(right_pane)
 
@@ -151,10 +152,7 @@ class About_Window(QMessageBox):
 		text += "<li>jdemey</li>"
 		text += "<li>akerzner</li>"
 		text += "</ul>"
-		
-		#widget = QLabel()
-		#widget.setText(text)
-		
+		self.setAttribute(Qt.WA_DeleteOnClose)
 		self.setText(text)
 		#self.setInformativeText("informative text")
 		#self.setDetailedText("detailed text")
@@ -165,26 +163,24 @@ Class for the main GUI window.
 """
 class Main_Window(QMainWindow):
 	
-	# Main application
-	app = 0
-	
-	model_viewer = 0
-	
-	config = 0
 	
 	"""
 	Default constructor for this window.
-	Calls 
+	Calls the Main_Application
 	"""
 	def __init__(self):
 		# Call superconstructor
 		super(self.__class__, self).__init__()
 		
+		# Main application
+		self.app = 0
+		
+		self.model_viewer = 0
+		
+		self.config = 0
+			
 		# Load configuration
 		self.config = Config.getConfig()
-		
-		# Create About Window
-		self.about_window = None
 		
 		# Create application
 		self.app = Main_Application()
@@ -193,8 +189,6 @@ class Main_Window(QMainWindow):
 		self.initUI()
 		
 		self._loadAllCities()
-		# Load models from application
-		#self.loadAllModels()
 		
 		# Show GUI
 		self.show()
@@ -310,8 +304,6 @@ class Main_Window(QMainWindow):
 		form.label[current_item] = QLabel()
 		form.label[current_item].setText("Minimum coverage (km²)")
 		form.widget[current_item] = QSpinBox()
-		# Only applies to QSlider()
-		#form.widget[current_item].setOrientation(Qt.Horizontal)
 		form.widget[current_item].setRange(0, 1000)
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
@@ -320,8 +312,6 @@ class Main_Window(QMainWindow):
 		form.label[current_item] = QLabel()
 		form.label[current_item].setText("Minimum population (persons)")
 		form.widget[current_item] = QSpinBox()
-		# Only applies to QSlider()
-		#form.widget[current_item].setOrientation(Qt.Horizontal)
 		form.widget[current_item].setRange(0, 1000)
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
@@ -330,8 +320,6 @@ class Main_Window(QMainWindow):
 		form.label[current_item] = QLabel()
 		form.label[current_item].setText("Maximum budget (USD, thousands)")
 		form.widget[current_item] = QSpinBox()
-		# Only applies to QSlider()
-		#form.widget[current_item].setOrientation(Qt.Horizontal)
 		form.widget[current_item].setRange(0, 1000)
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
@@ -388,14 +376,8 @@ class Main_Window(QMainWindow):
 	Show about window
 	"""
 	def showAboutWindow(self):
-		# Delete about window if already shown
-		self.about_window = None
-		
-		# Create about window
-		self.about_window = About_Window(self)
-		
-		# Show about window
-		self.about_window.exec_()
+		# Create about window, and show
+		About_Window(self).exec_()
 	
 	"""
 	Add a city
@@ -405,6 +387,7 @@ class Main_Window(QMainWindow):
 	
 	"""
 	Add UI item for a city by its id
+	@param 
 	"""
 	def _addCityItem(self, city_id):
 		# Add top-level-entry for city
