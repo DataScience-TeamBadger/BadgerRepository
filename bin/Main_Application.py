@@ -18,7 +18,6 @@ import os
 # Import the City class to store groups of models as cities
 from City import City
 
-
 """
 This is the Main Application class used by the UI.
 
@@ -55,7 +54,7 @@ class Main_Application(object):
 			print(" - metro: " + self._city_config_.get(section, "metro"))
 			print(" - bus: " + self._city_config_.get(section, "bus"))
 			self.addCity(section, self._city_config_.get(section, "metro"),\
-				self._city_config_.get(section, "bus"))
+				self._city_config_.get(section, "bus"),self._city_config_.get(section, "metromap"),self._city_config_.get(section, "busmap"))
 		# TODO: Remove DEBUG:
 		#print(self.cities[0].models)
 		#print(self.cities[1].models)
@@ -64,10 +63,10 @@ class Main_Application(object):
 	"""
 	Add a city given its name, metro data, and bus data.
 	"""
-	def addCity(self, city_name, path_to_metro_data, path_to_bus_data):
+	def addCity(self, city_name, path_to_metro_data, path_to_bus_data,path_to_metro_map,path_to_bus_map):
 		# Append city to list of cities
 		self.cities.append(City(city_name, os.path.normpath(path_to_metro_data),\
-			os.path.normpath(path_to_bus_data)))
+			os.path.normpath(path_to_bus_data),os.path.normpath(path_to_metro_map),os.path.normpath(path_to_bus_map)))
 	
 	"""
 	Delete a city given its name.

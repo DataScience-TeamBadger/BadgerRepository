@@ -8,9 +8,9 @@ Created on Sun Apr 23 18:51:58 2017
 import csv
 
 from datetime import datetime
-
+from lib import MapHandler
 # TODO: import either fastkml or pykml for kml files?
-
+# SUGGESTION: pykml is unhelpful, try fastkml or borrow the functionality off MapHandler's _hi_
 
 
 import numpy as np
@@ -25,7 +25,7 @@ class City(object):
 	"""
 	City constructor
 	"""
-	def __init__(self, city_name, path_to_metro_csv, path_to_bus_csv):#, metro_coverage, bus_coverage):
+	def __init__(self, city_name, path_to_metro_csv, path_to_bus_csv,path_to_metro_map,path_to_bus_map):
 		self.name = city_name
 		self.models = {}
 		self.model_names = []
@@ -35,6 +35,8 @@ class City(object):
 		self.budget     = {'metro':[],'bus':[]}
 		self.coverage   = {'metro':[],'bus':[]}
 		self.population = {'metro':[],'bus':[]}
+		
+		self.points     = {'metro':MapHandler.getPoints(path_to_metro_map),'bus':MapHandler.getPoints(path_to_bus_map)}
 		
 		self._parseCSV('metro',1,path_to_metro_csv)
 		self._parseCSV('bus',1,path_to_bus_csv)
