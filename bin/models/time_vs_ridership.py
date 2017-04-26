@@ -25,8 +25,6 @@ class time_vs_ridership(models.Model.Model):
 		for i in range(len(metro_time)):
 			mtime.append(int(i))
 
-
-		
 		# Generate X and Y
 		self.X = np.asarray(mtime)
 		self.Y = np.asarray(metro_ridership)
