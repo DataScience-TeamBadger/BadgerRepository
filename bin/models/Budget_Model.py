@@ -28,11 +28,15 @@ class Budget_Model(Model.Model):
 		# Call superconstructor to load defaults
 		super(self.__class__, self).__init__()
 		self.name = city_name
+  
+          #Set up X axis
+		self.X = np.arange(len(list_of_metro_data))
 		
-		# Convert metro and bus data to numpy arrays
-		self.X = np.asarray(list_of_metro_data)
+          # Convert metro and bus data to numpy arrays
 		self.Y = np.asarray(list_of_bus_data)
+		self.Y2 = np.asarray(list_of_metro_data)
 		
 		# Plot X against Y
 		self.plot.plot(self.X, self.Y, pen=None, symbol='o')
+		self.plot.plot(self.X, self.Y2, pen=None, symbol='x')
 	
