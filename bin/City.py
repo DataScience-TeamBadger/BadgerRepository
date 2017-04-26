@@ -36,6 +36,7 @@ class City(object):
 		self.coverage   = {'metro':[],'bus':[]}
 		self.population = {'metro':[],'bus':[]}
 		
+		#example usage, to get the 16th y value from metro: self.points['metro'][1][15]
 		self.points     = {'metro':MapHandler.getPoints(path_to_metro_map),'bus':MapHandler.getPoints(path_to_bus_map)}
 		
 		self._parseCSV('metro',1,path_to_metro_csv)

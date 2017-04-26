@@ -65,9 +65,12 @@ def utmToLatLng(zone, easting, northing, northernHemisphere=True):
     return (latitude, longitude)
 
 
-#returns list of all points (as two element tuples) in a parsefile, takes path or parsefile object
+#returns list of all points (as an x list and y list), takes a path and file-specific arguments as a string
+#returns None if file not found
 def getPoints(parsefile):
     sflst=_hi_(parsefile)
+    if sflst==None:
+        return None
     x=[]
     y=[]
     for sf in sflst:
@@ -75,18 +78,21 @@ def getPoints(parsefile):
             x.append(p[0])
             y.append(p[1])
     return [x,y]
+
 #takes a path, returns a parsefile or nothing if the path fails
 def getShape(path):
-    #try:
-    points=[]
-    for shp in shapefile.Reader(path).shapes():
-        for p in shp.points:
-            points.append(p);
-    return points
-    #except Exception:
-        #print path +"\t"+"Not found!"
-        #return None
-#Helper Method, lets the others take a path or a 
+    try:
+        points=[]
+        for shp in shapefile.Reader(path).shapes():
+            for p in shp.points:
+                points.append(p);
+        return points
+    except Exception:
+        print path +"\t"+"Not found!"
+        return None
+
+#Does all the file parsing, also contains some obsolete functionality
+#takes a path and file-specific arguments as a string
 def _hi_(param):
     if type(param) is str:
         temp = param[param.index(".")+4:].strip()
@@ -121,7 +127,6 @@ def _hi_(param):
     else:
         return [param]
 
-
 #Returns absolute distance between points
 def getDist(a , b,dd=0):
     getcontext().prec=32
@@ -131,10 +136,13 @@ def getDist(a , b,dd=0):
     return Decimal(math.sqrt(x*x+y*y))
 
 #Returns the area covered by all stations for a particular station coverage radius, takes a path or a parsefile object and a number
+# returns -1 if file not found
 def getArea(shapefilelst,radius,decimaldigits=14.0,utmZone=None,utmNorHemi=True,colnumLat=0,colnumLong=1,kmlName="coordinates"):
     area=[]
     decimaldigits=decimaldigits*1.0
     shapefilelst=_hi_(shapefilelst,colnumLat,colnumLong,kmlName)
+    if shapefilelst==None:
+        return -1
     for parsefile in shapefilelst:
         for point in parsefile:
             p=[]
