@@ -9,8 +9,6 @@ import csv
 from PyQt5.QtCore import qDebug,qInf,qWarning,qCritical,qFatal
 from datetime import datetime
 from lib import MapHandler
-# TODO: import either fastkml or pykml for kml files?
-# SUGGESTION: pykml is unhelpful, try fastkml or borrow the functionality off MapHandler's _hi_
 
 
 import numpy as np

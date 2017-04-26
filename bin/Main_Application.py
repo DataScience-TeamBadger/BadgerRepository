@@ -15,6 +15,9 @@ from lib import Config
 # Import library for simplifying OS file paths
 import os
 
+# Qt prints
+from PyQt5.QtCore import qDebug
+
 # Import the City class to store groups of models as cities
 from City import City
 
@@ -36,22 +39,27 @@ class Main_Application(object):
 		
 		# Parse city configuration file to get list of initial cities
 		self._city_config_ = SafeConfigParser()
-		self._city_config_.read(os.path.relpath('etc/cities.cfg'))
+		self.importCity(os.path.relpath('etc/cities.cfg'))
+	
+	"""
+	Import a city.cfg file
+	"""
+	def importCity(self, path_to_cfg_file):
+		# Parse city configuration file to get list of initial cities
+		self._city_config_.read(path_to_cfg_file)
 		
-		print("Reading cities.cfg")
+		qDebug("Reading " + path_to_cfg_file)
 		for section in self._city_config_.sections():
 			# Add each city, where section is the name of the city
-			print("Loading city: " + section)
-			print(" - metro: " + self._city_config_.get(section, "metro"))
-			print(" - bus: " + self._city_config_.get(section, "bus"))
-			print(" - metro_coverage: " + self._city_config_.get(section, "metromap"))
-			print(" - bus_coverage: " + self._city_config_.get(section, "busmap"))
+			qDebug("Loading city: " + section)
+			qDebug(" - metro: " + self._city_config_.get(section, "metro"))
+			qDebug(" - bus: " + self._city_config_.get(section, "bus"))
+			qDebug(" - metro_coverage: " + self._city_config_.get(section, "metromap"))
+			qDebug(" - bus_coverage: " + self._city_config_.get(section, "busmap"))
 			self.addCity(section, self._city_config_.get(section, "metro"),\
 				self._city_config_.get(section, "bus"),\
 				self._city_config_.get(section, "metromap"),\
 				self._city_config_.get(section, "busmap"))
-		# TODO: Remove DEBUG:
-		#self.gen_models()
 	
 	"""
 	Add a city given its name, metro data, and bus data.

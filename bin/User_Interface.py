@@ -18,8 +18,6 @@ from PyQt5.QtWidgets import \
  QWidget,\
  QApplication,\
  QMainWindow,\
- QWizard,\
- QWizardPage,\
  QFileDialog,\
  QDialog,\
  QMessageBox
@@ -38,9 +36,7 @@ from PyQt5.QtWidgets import \
 # Import Qt layout and policy widgets
 from PyQt5.QtWidgets import \
  QFormLayout,\
- QVBoxLayout,\
- QHBoxLayout,\
- QSizePolicy
+ QVBoxLayout
 
 # Import Qt form widgets
 from PyQt5.QtWidgets import \
@@ -77,6 +73,14 @@ class Add_City_Dialog(QDialog):
 		# Call superconstructor
 		super(self.__class__, self).__init__(parent)
 		
+		# Values
+		self.name = ""
+		self.file = ""
+		#self.file = {}
+		#self.file["general"]  = ""
+		#self.file["map"] = ""
+		
+		
 		# Set dialog title
 		self.setWindowTitle("Add a city")
 		
@@ -102,19 +106,17 @@ class Add_City_Dialog(QDialog):
 		form.label[current_item].setText("Name of city")
 		form.widget[current_item] = QLineEdit()
 		form.widget[current_item].setPlaceholderText("Name of city")
-		form.widget[current_item].setToolTip("Enter the name of the city.")
+		form.widget[current_item].setToolTip("Enter the name of the city")
 		inner_layout.addRow(form.label[current_item], form.widget[current_item])
 		
 		# Add entry for first file
-		current_item = "general_data"
-		form.label[current_item] = QLineEdit()
-		form.label[current_item].setReadOnly(True)
-		form.label[current_item].setText(os.path.curdir)
-		form.label[current_item].setFrame(False)
+		current_item = "city_file"
+		form.label[current_item] = QLabel()
+		form.label[current_item].setText("City Configuration file")
 		form.widget[current_item] = QPushButton()
 		form.widget[current_item].setText("Browse...")
-		#form.widget[current_item].setPlaceholderText("Name of city")
-		#form.widget[current_item].setToolTip("Enter the name of the city.")
+		form.widget[current_item].setToolTip("Browse for a city configuration file (*.cfg)")
+		form.widget[current_item].clicked.connect(self._select_file)
 		inner_layout.addRow(form.label[current_item], form.widget[current_item])
 		
 		# Finalize inner_layout - add to widget, then to outer_layout
@@ -137,7 +139,11 @@ class Add_City_Dialog(QDialog):
 		
 		# Finalize by setting the layout
 		self.setLayout(outer_layout)
-
+		
+	def _select_file(self):
+		file_chooser = QFileDialog.getOpenFileName(self, caption="City Configuration File", directory=os.path.curdir, filter="City Config File (*.cfg)")
+		qDebug(file_chooser[0])
+	
 
 """
 Class for viewing models
@@ -247,6 +253,8 @@ class Main_Window(QMainWindow):
 		self.initUI()
 		
 		self._loadAllCities()
+		
+		#
 		
 		# Show GUI
 		self.show()
