@@ -11,28 +11,40 @@ from lib import Config
 # Import core
 from PyQt5.QtCore import Qt
 
-# Import Qt widget components
+# Import Qt window widgets
 from PyQt5.QtWidgets import \
+ QWidget,\
  QApplication,\
  QMainWindow,\
- QMessageBox,\
- QWidget,\
- QPushButton,\
+ QWizard,\
+ QWizardPage,\
+ QFileDialog,\
+ QDialog,\
+ QMessageBox
+
+# Import Qt container widgets
+from PyQt5.QtWidgets import \
  QAction,\
  QTabWidget,\
  QSplitter,\
  QTreeWidget,\
  QTreeWidgetItem,\
  QStackedWidget,\
+ QScrollArea
+ 
+
+# Import Qt layout widgets
+from PyQt5.QtWidgets import \
+ QFormLayout,\
+ QVBoxLayout,\
+ QHBoxLayout
+
+# Import Qt form widgets
+from PyQt5.QtWidgets import \
+ QPushButton,\
  QLabel,\
  QSpinBox,\
- QFormLayout,\
- QLineEdit,\
- QWizard,\
- QWizardPage,\
- QFileDialog,\
- QScrollArea,\
- QDialog
+ QLineEdit
 
 # Import Core Qt components
 from PyQt5.QtCore import qDebug,qInf,qWarning,qCritical,qFatal
@@ -49,11 +61,18 @@ Dialog for importing a city
 """
 class Add_City_Dialog(QDialog):
 	
+	# Constructor for dialog
 	def __init__(self, parent = 0):
 		# Call superconstructor
 		super(self.__class__, self).__init__(parent)
 		
+		# Set dialog title
 		self.setWindowTitle("Add a city")
+		
+		# Create outer layout container
+		outer_layout = QVBoxLayout()
+		self.setLayout(outer_layout)
+		
 		
 
 """
@@ -73,19 +92,6 @@ Wizard page for adding a city
 #		label.setWordWrap(True)
 #		self.
 #		
-
-
-"""
-Wizard for adding a city
-"""
-#class City_Wizard(QWizard):
-#	
-#	def __init__(self, parent):
-#		# Call superconstructor
-#		super(self.__class__,  self).__init__(parent)
-#		
-#		self._initial_page_ = 
-
 
 """
 Class for viewing models
