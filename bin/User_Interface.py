@@ -30,14 +30,15 @@ from PyQt5.QtWidgets import \
  QTreeWidget,\
  QTreeWidgetItem,\
  QStackedWidget,\
- QScrollArea
- 
+ QScrollArea,\
+ QDialogButtonBox
 
-# Import Qt layout widgets
+# Import Qt layout and policy widgets
 from PyQt5.QtWidgets import \
  QFormLayout,\
  QVBoxLayout,\
- QHBoxLayout
+ QHBoxLayout,\
+ QSizePolicy
 
 # Import Qt form widgets
 from PyQt5.QtWidgets import \
@@ -57,6 +58,14 @@ from Main_Application import Main_Application
 
 
 """
+Class for storing form items
+"""
+class Form(object):
+	def __init__(self):
+		self.label = {}
+		self.widget = {}
+
+"""
 Dialog for importing a city
 """
 class Add_City_Dialog(QDialog):
@@ -69,29 +78,52 @@ class Add_City_Dialog(QDialog):
 		# Set dialog title
 		self.setWindowTitle("Add a city")
 		
-		# Create outer layout container
+		# Create outer layout
 		outer_layout = QVBoxLayout()
+		
+		# Add description to outer layout
+		description = QLabel()
+		description.setText("Add a city")
+		description.setWordWrap(True)
+		outer_layout.addWidget(description)
+		
+		# Create inner layout
+		inner_layout = QFormLayout()
+		
+		# Create form object
+		form = Form()
+		
+		
+		# Add entry for name of city
+		current_item = "city"
+		form.label[current_item] = QLabel()
+		form.label[current_item].setText("Name of city")
+		form.widget[current_item] = QLineEdit()
+		form.widget[current_item].setPlaceholderText("Name of city")
+		form.widget[current_item].setToolTip("Enter the name of the city.")
+		inner_layout.addRow(form.label[current_item], form.widget[current_item])
+		
+		# Finalize inner_layout - add to widget, then to outer_layout
+		inner_widget = QWidget()
+		inner_widget.setLayout(inner_layout)
+		outer_layout.addWidget(inner_widget)
+		
+		
+		# Create buttons
+		buttons = QDialogButtonBox()
+		buttons.addButton(QDialogButtonBox.Ok)
+		buttons.addButton(QDialogButtonBox.Cancel)
+		
+		# Configure buttons
+		buttons.accepted.connect(self.accept)
+		buttons.rejected.connect(self.reject)
+		
+		# Add buttons
+		outer_layout.addWidget(buttons)
+		
+		# Finalize by setting the layout
 		self.setLayout(outer_layout)
-		
-		
 
-"""
-Wizard page for adding a city
-"""
-#class AddCity_Page(QWizardPage):
-#	
-#	def __init__(self,  parent = 0):
-#		# Call superconstructor
-#		super(self.__class__,  self).__init__(parent)
-#		
-#		self.setTitle("Add a city")
-#		self.setSubTitle("Add a city by importing the associated *.csv files.")
-#		
-#		label = QLabel()
-#		label.setText("")
-#		label.setWordWrap(True)
-#		self.
-#		
 
 """
 Class for viewing models
@@ -143,15 +175,6 @@ class ModelViewer(QSplitter):
 		# Add to this widget
 		self.addWidget(left_pane)
 		self.addWidget(right_pane)
-
-"""
-Class for storing form items
-"""
-class Form(object):
-	def __init__(self):
-		self.label = {}
-		self.widget = {}
-
 
 """
 Class for the about window
