@@ -6,7 +6,7 @@ Created on Sun Apr 23 18:51:58 2017
 """
 # CSV file parsing
 import csv
-
+from PyQt5.QtCore import qDebug,qInf,qWarning,qCritical,qFatal
 from datetime import datetime
 from lib import MapHandler
 # TODO: import either fastkml or pykml for kml files?
@@ -14,7 +14,7 @@ from lib import MapHandler
 
 
 import numpy as np
-from models import Scatter_Model,Ridership_Model,Budget_Model
+from models import ridership_vs_ridership, time_vs_ridership, coverage, Budget_Model
 
 class City(object):
 	
@@ -25,22 +25,29 @@ class City(object):
 	"""
 	City constructor
 	"""
-	def __init__(self, city_name, path_to_metro_csv, path_to_bus_csv,path_to_metro_map,path_to_bus_map):
+	def __init__(self, city_name, path_to_metro_csv, path_to_bus_csv, path_to_metro_map, path_to_bus_map):
 		self.name = city_name
 		self.models = {}
 		self.model_names = []
-		
+
+		#Dictionaries For CSV Lists
 		self.time       = {'metro':[],'bus':[]}
 		self.ridership  = {'metro':[],'bus':[]}
 		self.budget     = {'metro':[],'bus':[]}
 		self.coverage   = {'metro':[],'bus':[]}
 		self.population = {'metro':[],'bus':[]}
-		
-		self.points     = {'metro':MapHandler.getPoints(path_to_metro_map),'bus':MapHandler.getPoints(path_to_bus_map)}
-		
+
+		#Dictionaries For Converage (Things that use MapHandler
+		self.m_stations = MapHandler.getPoints(path_to_metro_map)
+		self.b_stations = MapHandler.getPoints(path_to_bus_map)
+
+		#self.c_area    = {'metro':[],'bus':[]}
+
 		self._parseCSV('metro',1,path_to_metro_csv)
 		self._parseCSV('bus',1,path_to_bus_csv)
+
 		self.createModels()
+
 	
 	"""
 	Parse a given CSV file, given a data source and type.
@@ -66,7 +73,7 @@ class City(object):
 				# Another data type
 				# Parse this data type
 				return
-	
+
 	"""""
 	JD I want you to follow the examples below and mimic the creation of the models below for each of the model names given.
 	Steps:
@@ -77,31 +84,40 @@ class City(object):
 		b. So for each model name I put down add your model class and it should show up. In order to make the model class make sure it fits the constructor and fits the Qt API, Alex put some help on the slack in #samplecode
 	"""""
 	def createModels(self):
-		
 		# Bar
 		model_name = "Metro vs Bus (Ridership)"
 		self.model_names.append(model_name)
-		self.models[model_name] = Ridership_Model.Ridership_Model(model_name, self.ridership['metro'], self.ridership['bus'])
+		self.models[model_name] = ridership_vs_ridership.ridership_vs_ridership(model_name, self.ridership['metro'], self.ridership['bus'])
 		
 		# Bar
 		model_name = "Metro vs Bus (Budget)"
 		self.model_names.append(model_name)
 		self.models[model_name] = Budget_Model.Budget_Model(model_name, self.budget['metro'], self.budget['bus'])
-		
-		# Map - Leave this one to me and Steven
-		# (This may also be two seperate ones but I imagined plotting each point 
-		# in one color for bus stations and another for metro stations, and then
-		# overtop a transparant color that covers coverage area)
-		model_name = "Metro vs Bus (Coverage)"
-		
+
 		# Scatter w/ LinRegression
 		model_name = "Metro Ridership vs Time"
+		self.model_names.append(model_name)
+		self.models[model_name] = time_vs_ridership.time_vs_ridership(model_name, self.time['metro'], self.ridership['metro'])
 		
 		# Scatter w/ LinRegression
 		model_name = "Bus Ridership vs Time"
-		
+		self.model_names.append(model_name)
+		self.models[model_name] = time_vs_ridership.time_vs_ridership(model_name, self.time['bus'], self.ridership['bus'])
+
 		# Scatter w/ LinRegression
 		model_name = "Metro Ridership vs Coverage(km2)"
 		
 		# Scatter w/ LinRegression
 		model_name = "Bus Ridership vs Coverage(km2)"
+
+		# Map - Leave this one to me and Steven
+		# (This may also be two seperate ones but I imagined plotting each point
+		# in one color for bus stations and another for metro stations, and then
+		# overtop a transparant color that covers coverage area)
+		model_name = "Metro(Coverage)"
+		self.model_names.append(model_name)
+		self.models[model_name] = coverage.coverage(model_name, self.m_stations)
+
+		model_name = "Bus(Coverage)"
+		self.model_names.append(model_name)
+		self.models[model_name] = coverage.coverage(model_name, self.b_stations)
