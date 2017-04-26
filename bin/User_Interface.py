@@ -5,6 +5,8 @@ Created on Fri Apr 14 14:01:56 2017
 @author: Alex Kerzner
 """
 
+import os
+
 # Import config parser
 from lib import Config
 
@@ -101,6 +103,17 @@ class Add_City_Dialog(QDialog):
 		form.widget[current_item] = QLineEdit()
 		form.widget[current_item].setPlaceholderText("Name of city")
 		form.widget[current_item].setToolTip("Enter the name of the city.")
+		inner_layout.addRow(form.label[current_item], form.widget[current_item])
+		
+		# Add entry for first file
+		current_item = "general_data"
+		form.label[current_item] = QLineEdit()
+		form.label[current_item].setReadOnly(True)
+		form.label[current_item].setText(os.path.curdir)
+		form.widget[current_item] = QPushButton()
+		form.widget[current_item].setText("Browse...")
+		#form.widget[current_item].setPlaceholderText("Name of city")
+		#form.widget[current_item].setToolTip("Enter the name of the city.")
 		inner_layout.addRow(form.label[current_item], form.widget[current_item])
 		
 		# Finalize inner_layout - add to widget, then to outer_layout
