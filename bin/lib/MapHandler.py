@@ -10,7 +10,7 @@ import re
 from decimal import *
 
 
-#Credit for this function goes to Staale @ http://stackoverflow.com/questions/343865/how-to-convert-from-utm-to-latlng-in-python-or-javascript#344083
+#Credit for the majority of this function goes to Staale @ http://stackoverflow.com/questions/343865/how-to-convert-from-utm-to-latlng-in-python-or-javascript#344083
 #May his name live on forever
 #It converts evil utm into beautiful lat long
 def utmToLatLng(zone, easting, northing, northernHemisphere=True):
@@ -57,12 +57,22 @@ def utmToLatLng(zone, easting, northing, northernHemisphere=True):
 
     latitude = 180 * (phi1 - fact1 * (fact2 + fact3 + fact4)) / math.pi
 
+    
+    temp = ord(zone[len(zone)-1].lower())
+    if temp>110:
+        temp-=1
+    if temp>150:
+        temp-=1
+    c=8*(temp-99)-86.29
+    zone = float(zone[:len(zone)-1])
+    
     if not northernHemisphere:
         latitude = -latitude
-
+        c*=-1
+        
     longitude = ((zone > 0) and (6 * zone - 183.0) or 3.0) - _a3
 
-    return (latitude, longitude)
+    return (latitude+c, longitude)
 
 
 #returns list of all points (as an x list and y list), takes a path and file-specific arguments as a string
@@ -107,7 +117,7 @@ def _hi_(param):
                 if head:
                     head=False
                     continue
-                points.append((s[colnumLat],s[colnumLong]))
+                points.append((float(s[colnumLat]),float(s[colnumLong])))
             return [points]
         if param[-4:] ==".kml":
             kmlName=temp[0]
@@ -127,33 +137,53 @@ def _hi_(param):
     else:
         return [param]
 
-#Returns absolute distance between points
-def getDist(a , b,dd=0):
+#Returns absolute distance between points in kilometers
+def getDist(a , b,m):
+    #print (a,(b[0]/dd,b[1]/dd))
     getcontext().prec=32
-    dd=math.pow(10,dd)
-    x=Decimal(((a[0]*(111.320*math.cos(a[1])))-(b[0]/dd*(111.320*math.cos(b[1]/dd)))))
-    y=Decimal((a[1]*110.574)-(b[1]/dd*110.574))
+    x=(a[0]*(111.320*math.cos(math.radians(a[1]))))-(b[0]/m)
+    y=(a[1]*110.574)-b[1]/m
+    #print (x,y)
     return Decimal(math.sqrt(x*x+y*y))
 
-#Returns the area covered by all stations for a particular station coverage radius, takes a path or a parsefile object and a number
+def fliprange(a,b):
+    if a<=b:
+        return range(a,b+1)
+    else:
+        return range(b,a+1)
+
+#Returns the area covered by all stations for a particular station coverage radius, takes a path or a parsefile object,radius, and accuracy adjustor (advised: live that one alone)
+#also takes arguments for translating utm
 # returns -1 if file not found
-def getArea(shapefilelst,radius,decimaldigits=14.0,utmZone=None,utmNorHemi=True,colnumLat=0,colnumLong=1,kmlName="coordinates"):
+def getArea(shapefilelst,radius,accuracy=1,utmZone=None,utmNorHemi=True):
     area=[]
-    decimaldigits=decimaldigits*1.0
-    shapefilelst=_hi_(shapefilelst,colnumLat,colnumLong,kmlName)
+    mod=accuracy
+    getcontext().prec=128
+    decimaldigits=110.574
+    shapefilelst=_hi_(shapefilelst)
     if shapefilelst==None:
         return -1
     for parsefile in shapefilelst:
+        l = len(parsefile)
+        c=0.0
+        old=0
         for point in parsefile:
+            i =int(c/l*100)
+            if old!=i:
+                print str(i) +" percent calculated"
+            old=i;
+            c+=1
             p=[]
             if utmZone==None:
                 p=[point[0],point[1]]
             else:
                 p=utmToLatLng(utmZone, point[0], point[1], utmNorHemi)
                 p=[p[0],p[1]]
-            for x in range(int((p[0]-radius)*decimaldigits),int(p[0]+radius)*decimaldigits):
-                for y in range(int((p[1]-radius)*decimaldigits),int((p[1]+radius)*decimaldigits)):
-                    if getDist(p, (x,y),decimaldigits)<=radius:
+            for y in fliprange(int(round(Decimal((p[1]*decimaldigits-radius)*mod))),int(round(Decimal((p[1]*decimaldigits+radius)*mod)))):
+                dd=111.320*math.cos(math.radians(p[1]))
+                for x in fliprange(int(round(Decimal((p[0]*dd-radius)*mod))),int(round(Decimal(((p[0]*dd+radius)*mod))))):
+                    print str(getDist(p, (x,y),mod))+" "+str(x)+" "+str(y)
+                    if getDist(p, (x,y),mod)<radius:
                         newpoint=True
                         for rec in area:
                             if rec==(x,y):
@@ -161,4 +191,6 @@ def getArea(shapefilelst,radius,decimaldigits=14.0,utmZone=None,utmNorHemi=True,
                                 break
                         if newpoint:
                             area.append((x,y))
-    return len(area)
+                           
+    return int(len(area)/(mod*mod))
+print getArea([(-300000,-300000)],5)
