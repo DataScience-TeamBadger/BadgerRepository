@@ -31,13 +31,8 @@ from PyQt5.QtWidgets import \
  QWizard,\
  QWizardPage,\
  QFileDialog,\
- QScrollArea
-
-# Import PyQtGraph library
-#import pyqtgraph as pg
-
-# Import NumPy
-#import numpy as np
+ QScrollArea,\
+ QDialog
 
 # Import Core Qt components
 from PyQt5.QtCore import qDebug,qInf,qWarning,qCritical,qFatal
@@ -45,11 +40,21 @@ from PyQt5.QtCore import qDebug,qInf,qWarning,qCritical,qFatal
 # Import Qt main gui components
 from PyQt5.QtGui import QIcon
 
-#from PyQt5.QtPrintSupport import *
-
 # Import Main_Application
 from Main_Application import Main_Application
 
+
+"""
+Dialog for importing a city
+"""
+class Add_City_Dialog(QDialog):
+	
+	def __init__(self, parent = 0):
+		# Call superconstructor
+		super(self.__class__, self).__init__(parent)
+		
+		self.setWindowTitle("Add a city")
+		
 
 """
 Wizard page for adding a city
@@ -255,6 +260,19 @@ class Main_Window(QMainWindow):
 		action[current_item].triggered.connect(self.close)
 		menu["file"].addAction(action[current_item])
 		
+		# Create City menu
+		menu["city"] = menu_bar.addMenu('&City')
+		
+		# Create City->Add menu
+		current_item = "add"
+		action[current_item] = QAction(QIcon('add.png'), '&Add', self)
+		action[current_item].setShortcut('Ctrl+N')
+		action[current_item].setStatusTip('Add a new city')
+		action[current_item].triggered.connect(self.addCity)
+		menu["city"].addAction(action[current_item])
+		
+		
+		
 		# Create Help menu
 		menu["help"] = menu_bar.addMenu('&Help')
 		
@@ -393,6 +411,7 @@ class Main_Window(QMainWindow):
 	Add a city
 	"""
 	def addCity(self):
+		add_city_dialog = Add_City_Dialog(self).exec_()
 		return
 	
 	"""
