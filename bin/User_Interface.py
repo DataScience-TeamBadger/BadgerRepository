@@ -110,6 +110,7 @@ class Add_City_Dialog(QDialog):
 		form.label[current_item] = QLineEdit()
 		form.label[current_item].setReadOnly(True)
 		form.label[current_item].setText(os.path.curdir)
+		form.label[current_item].setFrame(False)
 		form.widget[current_item] = QPushButton()
 		form.widget[current_item].setText("Browse...")
 		#form.widget[current_item].setPlaceholderText("Name of city")
