@@ -21,7 +21,7 @@ class City(object):
     def __init__(self, city_name, path_to_metro_csv, path_to_bus_csv, path_to_metro_map, path_to_bus_map):
         self.name = city_name 
         self.models = {}
-        self.model_name = []
+        self.model_names = []
         
         #Dictionaries for CSV Lists
         self.time       = {'metro':[],'bus':[]}
@@ -63,8 +63,8 @@ class City(object):
         training_set = []
         metro_ridership = self.ridership["metro"]
         bus_ridership = self.ridership["bus"]
-        metro_budget = self.bus["metro"]
-        bus_budget = self.bus["bus"]
+        metro_budget = self.budget["metro"]
+        bus_budget = self.budget["bus"]
         
         #Generates each entry for our SVM Training Set by totaling ridership and appending the nth element of each list to a row
         for i in range(len(metro_ridership)):
