@@ -31,63 +31,89 @@ class City(object):
 		self.model_names = []
 
 		#Dictionaries For CSV Lists
-		self.time       = {'metro':[],'bus':[]}
+		self.time		= {'metro':[],'bus':[]}
 		self.ridership  = {'metro':[],'bus':[]}
-		self.budget     = {'metro':[],'bus':[]}
-		self.coverage   = {'metro':[],'bus':[]}
+		self.budget	= {'metro':[],'bus':[]}
+		self.coverage	= {'metro':[],'bus':[]}
 		self.population = {'metro':[],'bus':[]}
 
 		#Dictionaries For Converage (Things that use MapHandler
 		self.m_stations = MapHandler.getPoints(path_to_metro_map)
 		self.b_stations = MapHandler.getPoints(path_to_bus_map)
 
-		#self.c_area    = {'metro':[],'bus':[]}
+		#self.c_area	= {'metro':[],'bus':[]}
 
 		self._parseCSV('metro',1,path_to_metro_csv)
 		self._parseCSV('bus',1,path_to_bus_csv)
 
 		self.createModels()
-    
-    
-    def getLine(self):
-        x=[]
-        y=[]
-        z=[]
-        
-        for point in getSVMpoints():
-            x.append(p[0])
-            y.append(p[1])
-            z.append(p[2])
-            
-        x = np.array(x)
-        y = np.array(y)
-        z = np.array(z)
-        
-        data = np.concatenate((x[:, np.newaxis], 
-                       y[:, np.newaxis], 
-                       z[:, np.newaxis]), 
-                      axis=1)
-        datamean = data.mean(axis=0)
-        uu, dd, vv = np.linalg.svd(data - datamean)
-        linepts = vv[0] * np.mgrid[-7:7:2j][:, np.newaxis]
-        linepts += datamean
-        
-        #Prints 3d graph with line of best fit, used for test get rid of later
-        import matplotlib.pyplot as plt
-        import mpl_toolkits.mplot3d as m3d
+	
+	"""
+	Partial Credit to: dwf @ http://stackoverflow.com/questions/2298390/fitting-a-line-in-3d
+	"""
+	def getLine(self):
+		x=[]
+		y=[]
+		z=[]
+		
+		for p in self.getSVMpoints():
+			x.append(p[0])
+			y.append(p[1])
+			z.append(p[2])
+			
+		x = np.array(x)
+		y = np.array(y)
+		z = np.array(z)
+		
+		data = np.concatenate((x[:, np.newaxis], 
+						y[:, np.newaxis], 
+						z[:, np.newaxis]), 
+					 axis=1)
+		datamean = data.mean(axis=0)
+		uu, dd, vv = np.linalg.svd(data - datamean)
+		linepts = vv[0] * np.mgrid[-7:7:2j][:, np.newaxis]
+		linepts += datamean
+		
+		#Prints 3d graph with line of best fit, used for test get rid of later
+		import matplotlib.pyplot as plt
+		import mpl_toolkits.mplot3d as m3d
 
-        ax = m3d.Axes3D(plt.figure())
-        ax.scatter3D(*data.T)
-        ax.plot3D(*linepts.T)
-        plt.show()
-        #
-        
-        return linepts
+		ax = m3d.Axes3D(plt.figure())
+		ax.scatter3D(*data.T)
+		ax.plot3D(*linepts.T)
+		plt.show()
+		#
+		
+		return linepts
+	
+	#This function will return the ($Metro,$Bus,Ridership) tuple for the given budget
+	def getGoods(self,budget):
+		temp=self.getLine()
+		x1=temp[0][1]
+		y1=temp[0][2]
+		z1=temp[0][0]
+		x2=temp[1][1]
+		y2=temp[1][2]
+		z2=temp[1][0]
+		
+		slope=(y2-y1)/(x2-x1)
+		offset=y1-slope*x1
+		
+		slopez=(z2-z1)/(y2-y1)
+		offsetz=z1-slope*y1
+		
+		x=(-offset)/slope
+		y=x*slope+offset
+		z=y*slopez+offsetz
+		while x+y<=budget-slope-1:#move along line till we find the goods
+			x+=1
+			y=x*slope+offset
+			z=y*slopez+offsetz
+		return (x,y,z)
 
-
-    #This method will return a list of (x=Ridership,y=$Metro,z=$Bus) points
-    def getSVMpoints(self):
-        return []
+	#This function will return a list of (x=Ridership,y=$Metro,z=$Bus) points
+	def getSVMpoints(self):
+		return []
 	
 	"""
 	Parse a given CSV file, given a data source and type.

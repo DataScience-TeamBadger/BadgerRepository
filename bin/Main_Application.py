@@ -52,20 +52,34 @@ class Main_Application(object):
 				self._city_config_.get(section, "busmap"))
 		# TODO: Remove DEBUG:
 		#self.gen_models()
-        
-    """
-    The method that returns recommended metro and bus budget allocations
-    and predicted ridership for a given budget
-    Partial Credit to: dwf @ http://stackoverflow.com/questions/2298390/fitting-a-line-in-3d
-    """
-    def getTheGoods(budget):
-        
+		
+	"""
+	The method that returns recommended metro and bus budget allocations
+	and predicted ridership for a given budget. The point of the application.
+	"""
+	def getTheGoods(self,budget):
+		"""goods=[]
+		for city in self.cities:
+			goods.append(city.getGoods(budget))
+		x=0
+		y=0
+		z=0
+		for g in goods:
+			x+=g[0]
+			y+=g[1]
+			z+=g[2]
+		i=len(self.cities)
+		x/=i
+		y/=i
+		z/=i
+		return (x,y,z)"""
+		return "socketed!"#Demonstration that the function works with gui.
 	
 	"""
 	Add a city given its name, metro data, and bus data.
 	"""
 	def addCity(self, city_name, path_to_metro_data,\
-	 path_to_bus_data, path_to_metro_map, path_to_bus_map):
+	path_to_bus_data, path_to_metro_map, path_to_bus_map):
 		# Append city to list of cities
 		self.cities.append(City(city_name,\
 			os.path.normpath(path_to_metro_data),\
