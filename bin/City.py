@@ -47,7 +47,47 @@ class City(object):
 		self._parseCSV('bus',1,path_to_bus_csv)
 
 		self.createModels()
+    
+    
+    def getLine(self):
+        x=[]
+        y=[]
+        z=[]
+        
+        for point in getSVMpoints():
+            x.append(p[0])
+            y.append(p[1])
+            z.append(p[2])
+            
+        x = np.array(x)
+        y = np.array(y)
+        z = np.array(z)
+        
+        data = np.concatenate((x[:, np.newaxis], 
+                       y[:, np.newaxis], 
+                       z[:, np.newaxis]), 
+                      axis=1)
+        datamean = data.mean(axis=0)
+        uu, dd, vv = np.linalg.svd(data - datamean)
+        linepts = vv[0] * np.mgrid[-7:7:2j][:, np.newaxis]
+        linepts += datamean
+        
+        #Prints 3d graph with line of best fit, used for test get rid of later
+        import matplotlib.pyplot as plt
+        import mpl_toolkits.mplot3d as m3d
 
+        ax = m3d.Axes3D(plt.figure())
+        ax.scatter3D(*data.T)
+        ax.plot3D(*linepts.T)
+        plt.show()
+        #
+        
+        return linepts
+
+
+    #This method will return a list of (x=Ridership,y=$Metro,z=$Bus) points
+    def getSVMpoints(self):
+        return []
 	
 	"""
 	Parse a given CSV file, given a data source and type.

@@ -52,6 +52,14 @@ class Main_Application(object):
 				self._city_config_.get(section, "busmap"))
 		# TODO: Remove DEBUG:
 		#self.gen_models()
+        
+    """
+    The method that returns recommended metro and bus budget allocations
+    and predicted ridership for a given budget
+    Partial Credit to: dwf @ http://stackoverflow.com/questions/2298390/fitting-a-line-in-3d
+    """
+    def getTheGoods(budget):
+        
 	
 	"""
 	Add a city given its name, metro data, and bus data.
