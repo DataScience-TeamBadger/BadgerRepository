@@ -53,14 +53,21 @@ class Main_Application(object):
 		# TODO: Remove DEBUG:
 		#self.gen_models()
 		
+	#This function will return a list of (x=Ridership,y=$Metro,z=$Bus) points
+	def getEfficiencyPoints(self):
+		return []
+		
 	"""
 	The method that returns recommended metro and bus budget allocations
 	and predicted ridership for a given budget. The point of the application.
 	"""
 	def getTheGoods(self,budget):
-		"""goods=[]
+		goods=[]
+		sets = self.getEfficiencyPoints()
+		i=0
 		for city in self.cities:
-			goods.append(city.getGoods(budget))
+			goods.append(city.getGoods(budget,sets[i]))
+			i+=1
 		x=0
 		y=0
 		z=0
@@ -72,8 +79,7 @@ class Main_Application(object):
 		x/=i
 		y/=i
 		z/=i
-		return (x,y,z)"""
-		return "socketed!"#Demonstration that the function works with gui.
+		return (x,y,z)
 	
 	"""
 	Add a city given its name, metro data, and bus data.

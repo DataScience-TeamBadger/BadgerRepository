@@ -51,12 +51,12 @@ class City(object):
 	"""
 	Partial Credit to: dwf @ http://stackoverflow.com/questions/2298390/fitting-a-line-in-3d
 	"""
-	def getLine(self):
+	def getLine(self,points):
 		x=[]
 		y=[]
 		z=[]
 		
-		for p in self.getSVMpoints():
+		for p in points:
 			x.append(p[0])
 			y.append(p[1])
 			z.append(p[2])
@@ -87,8 +87,8 @@ class City(object):
 		return linepts
 	
 	#This function will return the ($Metro,$Bus,Ridership) tuple for the given budget
-	def getGoods(self,budget):
-		temp=self.getLine()
+	def getGoods(self,budget,points):
+		temp=self.getLine(points)
 		x1=temp[0][1]
 		y1=temp[0][2]
 		z1=temp[0][0]
@@ -111,9 +111,7 @@ class City(object):
 			z=y*slopez+offsetz
 		return (x,y,z)
 
-	#This function will return a list of (x=Ridership,y=$Metro,z=$Bus) points
-	def getSVMpoints(self):
-		return []
+	
 	
 	"""
 	Parse a given CSV file, given a data source and type.
