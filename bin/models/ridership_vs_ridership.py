@@ -28,7 +28,11 @@ class ridership_vs_ridership(models.Model.Model):
 		# Call superconstructor to load defaults
 		super(self.__class__, self).__init__()
 		self.name = city_name
-		
+		self.description = "<h3>Ridership vs Ridership</h3>"
+		self.description +="<h5>X-Axis = Time</h5>"
+		self.description +="<h5>Y-Axis = Ridership</h5>"
+		self.description +="<h5>x = Metro</h5>"
+		self.description +="<h5>o = Bus</h5>"
 		# Convert metro and bus data to numpy arrays
 		self.X = np.asarray(list_of_metro_data)
 		self.Y = np.asarray(list_of_bus_data)
