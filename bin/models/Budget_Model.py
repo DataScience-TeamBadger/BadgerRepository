@@ -32,7 +32,7 @@ class Budget_Model(Model.Model):
 		self.description += "<h5>X-Axis = Budget</h5>"
 		self.description += "<h5>Y-Axis = Time</h5>"
 		self.description += "<h5>x = Metro</h5>"
-		self.description += "<h5>o = Metro</h5>"
+		self.description += "<h5>o = Bus</h5>"
   
 		  #Set up X axis
 		self.X = np.arange(len(list_of_metro_data))
