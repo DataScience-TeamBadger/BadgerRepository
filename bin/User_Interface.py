@@ -91,10 +91,6 @@ class ModelViewer(QSplitter):
 		scroll_area.setWidget(self.description)
 		self.description.show()
 		
-		# Create Model Table widget (to be developed)
-		self.table = QWidget()
-		self.table.setStatusTip('To be created: the table')
-		right_pane.addWidget(self.table)
 		
 		# Add to this widget
 		self.addWidget(left_pane)
@@ -194,9 +190,6 @@ class Main_Window(QMainWindow):
 		self.resize(self.config.getint("GUI", "width"),\
 			self.config.getint("GUI", "height"))
 		
-		
-		#self.setStyleSheet(open("./style.qss", "r").read())
-		
 		# Create status bar
 		self.statusBar()
 		
@@ -248,25 +241,19 @@ class Main_Window(QMainWindow):
 		current_item = "tab_switcher"
 		widget[current_item] = QTabWidget()
 		self.setCentralWidget(widget[current_item])
-		widget[current_item].setStatusTip('Tab switcher')
+		widget[current_item].setStatusTip('Switch between tabs')
 		
 		# Create Optimize tab
 		current_item = "optimize"
 		tab[current_item] = QSplitter()
-		tab[current_item].setStatusTip('optimize')
+		tab[current_item].setStatusTip('Optimize your city')
 		widget["tab_switcher"].addTab(tab[current_item], 'Optimize')
 		
 		# Create Predict/IO widget
 		current_item = "predict_io"
 		widget[current_item] = QSplitter()
 		widget[current_item].setOrientation(Qt.Vertical)
-		widget[current_item].setStatusTip(current_item)
-		tab["optimize"].addWidget(widget[current_item])
-		
-		# Create Predict/Visualize widget
-		current_item = "predict_visualize"
-		widget[current_item] = QWidget()
-		widget[current_item].setStatusTip(current_item)
+		widget[current_item].setStatusTip("Predict input/output")
 		tab["optimize"].addWidget(widget[current_item])
 		
 		# Create Predict/input layout
@@ -275,12 +262,12 @@ class Main_Window(QMainWindow):
 		# Create Budget form input
 		current_item = "budget_input"
 		form.label[current_item] = QLabel()
-		form.label[current_item].setText("Maximum budget (USD)")
+		form.label[current_item].setText("Maximum budget (USD, thousands)")
 		form.widget[current_item] = QSpinBox()
-		form.widget[current_item].setSingleStep(100)
-		form.widget[current_item].setRange(0, 1000000000)
+		form.widget[current_item].setSingleStep(1000)
+		form.widget[current_item].setRange(0, 1000000)
+		form.widget[current_item].setStatusTip("Budget, in thousands of US dollars, to allocate to your city")
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
-		
 		
 		#Create Submit button
 		current_item = "submit_button"
@@ -293,18 +280,20 @@ class Main_Window(QMainWindow):
 		
 		#Create metro allocation form output
 		current_item = "metro_output"
-		form.label[current_item] = QLabel("Metro allocation (USD)")
+		form.label[current_item] = QLabel("Metro allocation (USD, thousands)")
 		form.widget[current_item] = QLineEdit()
 		form.widget[current_item].setReadOnly(True)
+		form.widget[current_item].setStatusTip("Money, in thousands of US dollars, to allocate to your city's metro system")
 		form.widget[current_item].setEnabled(False)
 		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
 		
 		#Create bus allocation form output
 		current_item = "bus_output"
-		form.label[current_item] = QLabel("Bus allocation (USD)")
+		form.label[current_item] = QLabel("Bus allocation (USD, thousands)")
 		form.widget[current_item] = QLineEdit()
 		form.widget[current_item].setReadOnly(True)
 		form.widget[current_item].setEnabled(False)
+		form.widget[current_item].setStatusTip("Money, in thousands of US dollars, to allocate to your city's bus system")
 		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
 		
 		#Create projected ridership form output
@@ -313,6 +302,7 @@ class Main_Window(QMainWindow):
 		form.widget[current_item] = QLineEdit()
 		form.widget[current_item].setReadOnly(True)
 		form.widget[current_item].setEnabled(False)
+		form.widget[current_item].setStatusTip("How many people are expected to be transported by your transit system")
 		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
 		
 		# Create Predict/input widget
@@ -341,7 +331,9 @@ class Main_Window(QMainWindow):
 	"""
 	def calculate(self):
 		# Predict the values given the budget input
-		qDebug("Value sent to function = " + str(self.form.widget['budget_input'].value()))
+		if (self.form.widget['budget_input'].value() == 0):
+			qWarning("Warning: a budget of zero was attempted. Action denied.")
+			return
 		
 		goods = self.app.getTheGoods(self.form.widget['budget_input'].value())
 		# Goods: $metro, $bus, $ridership
