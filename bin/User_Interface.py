@@ -273,36 +273,53 @@ class Main_Window(QMainWindow):
 		layout["predict_input"] = QFormLayout()
 		
 		# Create Budget form input
-		current_item = "budget"
+		current_item = "budget_input"
 		form.label[current_item] = QLabel()
-		form.label[current_item].setText("Maximum budget (USD, thousands)")
+		form.label[current_item].setText("Maximum budget (USD)")
 		form.widget[current_item] = QSpinBox()
 		form.widget[current_item].setSingleStep(100)
 		form.widget[current_item].setRange(0, 1000)
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
-		#Create Budget Button
-		current_item = "button"
-		form.widget[current_item] = QDialogButtonBox()
-		form.widget[current_item].addButton("Calculate", QDialogButtonBox.AcceptRole)
+		
+		#Create Submit button
+		current_item = "submit_button"
+		form.widget[current_item] = QPushButton("Calculate")
 		form.widget[current_item].clicked.connect(self.calculate)
 		layout["predict_input"].addRow(form.widget[current_item])
 		
-		#Create output textbox
-		current_item = "output"
-		form.label[current_item] = QLabel()
-		layout["predict_input"].addRow(form.label[current_item])
+		# Create Predict/output layout
+		layout["predict_output"] = QFormLayout()
+		
+		#Create metro allocation form output
+		current_item = "metro_output"
+		form.label[current_item] = QLabel("Metro allocation (USD)")
+		form.widget[current_item] = QLineEdit()
+		form.widget[current_item].setReadOnly(True)
+		form.widget[current_item].setEnabled(False)
+		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
+		
+		#Create bus allocation form output
+		current_item = "bus_output"
+		form.label[current_item] = QLabel("Bus allocation (USD)")
+		form.widget[current_item] = QLineEdit()
+		form.widget[current_item].setReadOnly(True)
+		form.widget[current_item].setEnabled(False)
+		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
+		
+		#Create projected ridership form output
+		current_item = "ridership_output"
+		form.label[current_item] = QLabel("Projected ridership")
+		form.widget[current_item] = QLineEdit()
+		form.widget[current_item].setReadOnly(True)
+		form.widget[current_item].setEnabled(False)
+		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
 		
 		# Create Predict/input widget
 		current_item = "predict_input"
 		widget[current_item] = QWidget()
 		widget[current_item].setLayout(layout[current_item])
 		widget["predict_io"].addWidget(widget[current_item])
-		
-		
-		# Create Predict/output layout
-		layout["predict_output"] = QFormLayout()
-		
 		
 		# Create Predict/output widget
 		current_item = "predict_output"
@@ -319,9 +336,6 @@ class Main_Window(QMainWindow):
 			lambda current, previous: self.switchModel(current, previous))
 		widget["tab_switcher"].addTab(self.model_viewer, 'Data Visualization')
 		
-		#button = QPushButton("Button", self)
-		#button.move(100, 100)
-	
 	"""
 	Gets called when the calculate button is pressed.
 	"""
