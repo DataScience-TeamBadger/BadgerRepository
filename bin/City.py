@@ -46,9 +46,13 @@ class City(object):
 		# Create all models
 		self.createModels()
 		
-		# ML Calls
-		self.training_set = self.classifier_format()
-		self.classified_points = self.run_voting_classifier()
+		# Initialize sets
+		self.training_set = []
+		self.efficiency_set = []
+		
+		# ML Calls to populate sets
+		self.classifier_format()
+		self.run_voting_classifier()
 		#self.efficient_points = self.get_efficient_points()
 	
 	def _parseCSV(self, data_source, path_to_csv):
@@ -100,7 +104,7 @@ class City(object):
 	
 	# Formats the features into entries for our ML algorithm
 	def classifier_format(self):
-		training_set = []
+		self.training_set = []
 		metro_ridership = self.ridership["metro"]
 		bus_ridership = self.ridership["bus"]
 		metro_budget = self.budget["metro"]
@@ -137,30 +141,36 @@ class City(object):
 				entry.append(ridership_total)
 				entry.append(metro_budget[i])
 				entry.append(bus_budget[i])
-				training_set.append(np.asarray(entry))
-		# Final Result is a list of lists where the inside list is a row of ridership, and budget for each bus and metro
-		return training_set
+				self.training_set.append(np.asarray(entry))
+			else:
+				# Row skipped, invalid
+				qWarning("Invalid entry[" + str(i) + "]=" + str(np.asarray(entry)))
+		# Final Result is a list of lists where the inside list is a row of 
+		#  ridership, and budget for each bus and metro
 	
 	# Develops Efficiency calculations to pass to our ML algorithm
 	def get_city_avg_efficiency(self):
-		efficiency_set = []
+		self.efficiency_set = []
+		i = 0
 		for entry in self.training_set:
-			efficiency_set.append(entry[0] / (entry[1] + entry[2]))
-		return efficiency_set
+			qDebug("Training set entry[" + str(i) + "]="+str(entry) + " :: value=" + str(entry[0] / float(entry[1] + entry[2])))
+			self.efficiency_set.append(entry[0] / (entry[1] + entry[2]))
+			i=i+1
+		
 	
-	#Classification Method For Efficient Points
-	#Sets of 3 classifiers, DecisionTreeClassifier, KNeighborsClassifier, and Gaussian Naive Bayes
-	#Gets the weighted probability from each using training set
-	#Highest weight provided to KNeightbors in order to classify consitent effiency models more heavily than what may be a 'fluke'
-	#Outputs an array of the testing size where a 1 is a high efficiency and 0 is low efficiency
+	# Classification Method For Efficient Points
+	# Sets of 3 classifiers, DecisionTreeClassifier, KNeighborsClassifier, and Gaussian Naive Bayes
+	# Gets the weighted probability from each using training set
+	# Highest weight provided to KNeightbors in order to classify consitent effiency models more heavily than what may be a 'fluke'
+	# Outputs an array of the testing size where a 1 is a high efficiency and 0 is low efficiency
 	def run_voting_classifier(self):
-		clf1 = DecisionTreeClassifier(max_depth=1)
-		clf2 = KNeighborsClassifier(n_neighbors=6)
-		clf3 = GaussianNB()
-		get_y = self.get_city_avg_efficiency() #in there cause yellow bar was pissing me off
+		dtc = DecisionTreeClassifier(max_depth=1)
+		knn = KNeighborsClassifier(n_neighbors=6)
+		gnb = GaussianNB()
+		get_y = self.efficiency_set #in there cause yellow bar was pissing me off
 		X = np.asarray(self.training_set)
 		y = np.asarray(get_y)
-		eclf = VotingClassifier(estimators=[('dtc', clf1), ('knn', clf2), ('gnb', clf3)], voting='soft', weights=[1, 4, 3])
+		eclf = VotingClassifier(estimators=[('dtc', dtc), ('knn', knn), ('gnb', gnb)], voting='soft', weights=[1, 4, 3])
 		eclf = eclf.fit(X, y)
 		return eclf
 	
