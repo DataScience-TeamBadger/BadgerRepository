@@ -40,8 +40,8 @@ class City(object):
 		self.b_stations = MapHandler.getPoints(path_to_bus_map)
 		
 		#Parsing CSV Calls
-		self._parseCSV('metro',1,path_to_metro_csv)
-		self._parseCSV('bus',1,path_to_bus_csv)
+		self._parseCSV('metro',path_to_metro_csv)
+		self._parseCSV('bus',path_to_bus_csv)
 		
 		#Call to main Model method
 		self.createModels()
@@ -51,23 +51,18 @@ class City(object):
 		self.classified_points = self.run_voting_classifier()
 		#self.efficient_points = self.get_efficient_points()
 	
-	def _parseCSV(self, data_source, data_type, path_to_csv):
+	def _parseCSV(self, data_source, path_to_csv):
 		with open(path_to_csv) as csv_file:
 			#Read the file as a csv file 
 			reader = csv.DictReader(csv_file)
-			if (data_type == 1):
-				# Parse time, ridership, budget, and coverage
+			# Parse time, ridership, budget, and coverage
+			for row in reader:
 				for row in reader:
-					for row in reader:
-						self.time[data_source].append(datetime.strptime(row["YEAR-MONTH"], self.DATE_FORMAT))
-						self.ridership[data_source].append(int(row["RIDERSHIP"]))
-						self.budget[data_source].append(int(row["BUDGET"]))
-						self.coverage[data_source].append(row["COVERAGE"])
-						self.population[data_source].append(row["POPULATION"])
-			elif (data_type == 2):
-				#Another data type 
-				#Parse this data type
-				return
+					self.time[data_source].append(datetime.strptime(row["YEAR-MONTH"], self.DATE_FORMAT))
+					self.ridership[data_source].append(int(row["RIDERSHIP"]))
+					self.budget[data_source].append(int(row["BUDGET"]))
+					self.coverage[data_source].append(row["COVERAGE"])
+					self.population[data_source].append(row["POPULATION"])
 	
 	def createModels(self):
 		# Bar
@@ -91,7 +86,7 @@ class City(object):
 		# Scatter w/ LinRegression
 		model_name = "Bus Ridership vs Coverage(km2)"
 		
-		# (This may also be two seperate ones but I imagined plotting each point
+		# (This may also be two separate ones but I imagined plotting each point
 		# in one color for bus stations and another for metro stations, and then
 		# overtop a transparant color that covers coverage area)
 		
