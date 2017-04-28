@@ -106,17 +106,38 @@ class City(object):
 		metro_budget = self.budget["metro"]
 		bus_budget = self.budget["bus"]
 		
+		# Handle the length of metro and bus data
+		data_length = {}
+		
+		# Populate data_length dictionary to store lengths of time data
+		for method in ["metro", "bus"]:
+			data_length[method] = len(self.time[method])
+		
+		if not (data_length["metro"] == data_length["bus"]):
+			qWarning("Time data is not equal in length.")
+			if (data_length["metro"] >= data_length["bus"]):
+				# Use bus data length
+				length = data_length["bus"]
+			else:
+				# Use metro data length
+				length = data_length["metro"]
+		else:
+			# Use metro - using bus would work identically
+			length = data_length["metro"]
+		
 		# Generates each entry for our SVM Training Set by totaling ridership
 		#  and appending the nth element of each list to a row
-		for i in range(len(metro_ridership)):
-			entry = []
-			ridership_metro = metro_ridership[i]
-			ridership_bus = bus_ridership[i]
-			ridership_total = ridership_metro + ridership_bus
-			entry.append(ridership_total)
-			entry.append(metro_budget[i])
-			entry.append(bus_budget[i])
-			training_set.append(np.asarray(entry))
+		for i in range(length):
+			# Verify that both bus and metro entries have matching time data
+			if (self.time["metro"][i] == self.time["bus"][i]):
+				entry = []
+				ridership_metro = metro_ridership[i]
+				ridership_bus = bus_ridership[i]
+				ridership_total = ridership_metro + ridership_bus
+				entry.append(ridership_total)
+				entry.append(metro_budget[i])
+				entry.append(bus_budget[i])
+				training_set.append(np.asarray(entry))
 		# Final Result is a list of lists where the inside list is a row of ridership, and budget for each bus and metro
 		return training_set
 	
