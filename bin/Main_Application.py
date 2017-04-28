@@ -98,7 +98,31 @@ class Main_Application(object):
 			for entry in city.training_set:
 				X.append(entry)
 		return X
-
+	
+	"""
+	The method that returns recommended metro and bus budget allocations
+	and predicted ridership for a given budget. The point of the application.
+	"""
+	def getTheGoods(self,budget):
+		goods=[]
+		sets = self.efficient_predictions
+		i=0
+		for city in self.cities:
+			goods.append(city.getGoods(budget,sets[i]))
+			i+=1
+		x=0
+		y=0
+		z=0
+		for g in goods:
+			x+=g[0]
+			y+=g[1]
+			z+=g[2]
+		i=len(self.cities)
+		x/=i
+		y/=i
+		z/=i
+		return (x,y,z)
+	
 	#Acquires the trained algorithm of each city
 	#Spits out predictions of the testing set using each cities trained algorithm
 	def test_trained_algorithm(self):

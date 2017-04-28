@@ -49,6 +49,7 @@ from PyQt5.QtGui import QIcon
 
 # Import Main_Application
 from Main_Application import Main_Application
+from PyQt5.Qt import QDialog, QDialogButtonBox, QTextDocument, QTextBlock
 
 
 """
@@ -216,7 +217,7 @@ class Main_Window(QMainWindow):
 		layout = {}
 		
 		form = Form()
-		
+		self.form=form
 		# Temporary value to simplify code
 		current_item = ""
 		
@@ -309,21 +310,6 @@ class Main_Window(QMainWindow):
 		# Create Predict/input layout
 		layout["predict_input"] = QFormLayout()
 		
-		# Create Coverage form input
-		current_item = "coverage"
-		form.label[current_item] = QLabel()
-		form.label[current_item].setText("Minimum coverage (km²)")
-		form.widget[current_item] = QSpinBox()
-		form.widget[current_item].setRange(0, 1000)
-		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
-		
-		# Create People form input
-		current_item = "people"
-		form.label[current_item] = QLabel()
-		form.label[current_item].setText("Minimum population (persons)")
-		form.widget[current_item] = QSpinBox()
-		form.widget[current_item].setRange(0, 1000)
-		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
 		# Create Budget form input
 		current_item = "budget"
@@ -333,6 +319,17 @@ class Main_Window(QMainWindow):
 		form.widget[current_item].setRange(0, 1000)
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
+		#Create Budget Button
+		current_item = "button"
+		form.widget[current_item] = QDialogButtonBox()
+		form.widget[current_item].addButton("Calculate", QDialogButtonBox.AcceptRole)
+		form.widget[current_item].clicked.connect(self.calculate)
+		layout["predict_input"].addRow(form.widget[current_item])
+		
+		#Create output textbox
+		current_item = "output"
+		form.label[current_item] = QLabel()
+		layout["predict_input"].addRow(form.label[current_item])
 		
 		# Create Predict/input widget
 		current_item = "predict_input"
@@ -343,24 +340,6 @@ class Main_Window(QMainWindow):
 		
 		# Create Predict/output layout
 		layout["predict_output"] = QFormLayout()
-		
-		# Create Bus Ridership form output
-		current_item = "bus"
-		form.label[current_item] = QLabel()
-		form.label[current_item].setText("Bus Ridership")
-		form.widget[current_item] = QLineEdit()
-		form.widget[current_item].setReadOnly(True)
-		form.widget[current_item].setText("null")
-		layout["predict_output"].addRow(form.label[current_item],form.widget[current_item])
-		
-		# Create Metro Ridership form output
-		current_item = "metro"
-		form.label[current_item] = QLabel()
-		form.label[current_item].setText("Metro Ridership")
-		form.widget[current_item] = QLineEdit()
-		form.widget[current_item].setReadOnly(True)
-		form.widget[current_item].setText("null")
-		layout["predict_output"].addRow(form.label[current_item],form.widget[current_item])
 		
 		
 		# Create Predict/output widget
@@ -381,7 +360,12 @@ class Main_Window(QMainWindow):
 		#button = QPushButton("Button", self)
 		#button.move(100, 100)
 	
-	
+	"""
+	Gets called when the calculate button is pressed.
+	"""
+	def calculate(self):
+		goods = self.app.getTheGoods(self.form.widget['budget'].value())
+		self.form.label['output'].setText(str(goods))
 	"""
 	Show about window
 	"""

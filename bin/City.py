@@ -50,7 +50,7 @@ class City(object):
         self.training_set = self.classifier_format()
         self.classified_points = self.run_voting_classifier()
         #self.efficient_points = self.get_efficient_points()
-        
+       
     def _parseCSV(self, data_source, data_type, path_to_csv):
         with open(path_to_csv) as csv_file:
             #Read the file as a csv file 
@@ -59,12 +59,11 @@ class City(object):
                 # Parse time, ridership, budget, and coverage
                 for row in reader:
                     for row in reader:
-                    # Parse data
-					self.time[data_source].append(datetime.strptime(row["YEAR-MONTH"], self.DATE_FORMAT))
-					self.ridership[data_source].append(int(row["RIDERSHIP"]))
-					self.budget[data_source].append(int(row["BUDGET"]))
-					self.coverage[data_source].append(row["COVERAGE"])
-					self.population[data_source].append(row["POPULATION"])
+                        self.time[data_source].append(datetime.strptime(row["YEAR-MONTH"], self.DATE_FORMAT))
+                        self.ridership[data_source].append(int(row["RIDERSHIP"]))
+                        self.budget[data_source].append(int(row["BUDGET"]))
+                        self.coverage[data_source].append(row["COVERAGE"])
+                        self.population[data_source].append(row["POPULATION"])
             elif (data_type == 2):
                 #Another data type 
                 #Parse this data type
@@ -152,6 +151,54 @@ class City(object):
 
     #Takes in classification input from run_voting_classifier and reshapes it to a list containing tiples of (ridership, metro_budget, bus_budget)
     #Moved this method over to main app in order to do proper testing with the three cities
+
+    #Partial Credit to: dwf @ http://stackoverflow.com/questions/2298390/fitting-a-line-in-3d
+    def getLine(self, points):
+        x, y, z = [], [], []
+
+        for p in points:
+            x.append(p[0])
+            y.append(p[1])
+            z.append(p[2])
+        x = np.array(x)
+        y = np.array(y)
+        z = np.array(z)
+        data = np.concatenate((x[:, np.newaxis], y[:, np.newaxis], z[:, np.newaxis]), axis=1)
+        datamean = data.mean(axis=0)
+        uu, dd, vv = np.linalg.svd(data - datamean)
+        linepts = vv[0] * np.mgrid[-7:7:2j][:, np.newaxis]
+        linepts += datamean
+        # Prints 3d graph with line of best fit, used for test get rid of later
+        import matplotlib.pyplot as plt
+        import mpl_toolkits.mplot3d as m3d
+        ax = m3d.Axes3D(plt.figure())
+        ax.scatter3D(*data.T)
+        ax.plot3D(*linepts.T)
+        plt.show()
+        return linepts
+
+    # This function will return the ($Metro,$Bus,Ridership) tuple for the given budget
+    def getGoods(self, budget, points):
+        temp = self.getLine(points)
+        x1 = temp[0][1]
+        y1 = temp[0][2]
+        z1 = temp[0][0]
+        x2 = temp[1][1]
+        y2 = temp[1][2]
+        z2 = temp[1][0]
+        slope = (y2 - y1) / (x2 - x1)
+        offset = y1 - slope * x1
+        slopez = (z2 - z1) / (y2 - y1)
+        offsetz = z1 - slope * y1
+        x = (-offset) / slope
+        y = x * slope + offset
+        z = y * slopez + offsetz
+        while x + y <= budget - slope - 1:  # move along line till we find the goods
+            x += 1
+            y = x * slope + offset
+            z = y * slopez + offsetz
+        return (x, y, z)
+
     """""
     def get_efficient_points(self):
         efficient_points = []
