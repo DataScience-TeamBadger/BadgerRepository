@@ -155,7 +155,7 @@ class City(object):
 		i = 0
 		for entry in self.training_set:
 			qDebug("Training set entry[" + str(i) + "]="+str(entry) + " :: value=" + str(entry[0] / float(entry[1] + entry[2])))
-			self.efficiency_set.append(entry[0] / (entry[1] + entry[2]))
+			self.efficiency_set.append(entry[0] / float(entry[1] + entry[2]))
 			i=i+1
 		
 	
