@@ -170,7 +170,7 @@ class City(object):
 		gnb = GaussianNB()
 		X = np.asarray(self.training_set)
 		y = np.asarray(self.efficiency_set)
-		eclf = VotingClassifier(estimators=[('dtc', dtc), ('knn', knn), ('gnb', gnb)], voting='soft', weights=[1, 4, 3])
+		eclf = VotingClassifier(estimators=[('dtc', dtc), ('knn', knn), ('gnb', gnb)], voting='soft', weights=[1.0, 4.0, 3.0])
 		eclf = eclf.fit(X, y)
 		return eclf
 	#Takes in classification input from run_voting_classifier and reshapes it to a list containing tiples of (ridership, metro_budget, bus_budget)

@@ -278,7 +278,7 @@ class Main_Window(QMainWindow):
 		form.label[current_item].setText("Maximum budget (USD)")
 		form.widget[current_item] = QSpinBox()
 		form.widget[current_item].setSingleStep(100)
-		form.widget[current_item].setRange(0, 1000)
+		form.widget[current_item].setRange(0, 1000000000)
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
 		
@@ -340,8 +340,20 @@ class Main_Window(QMainWindow):
 	Gets called when the calculate button is pressed.
 	"""
 	def calculate(self):
-		goods = self.app.getTheGoods(self.form.widget['budget'].value())
-		self.form.label['output'].setText(str(goods))
+		# Predict the values given the budget input
+		qDebug("Value sent to function = " + str(self.form.widget['budget_input'].value()))
+		
+		goods = self.app.getTheGoods(self.form.widget['budget_input'].value())
+		# Goods: $metro, $bus, $ridership
+		
+		# Set label for metro allocation output
+		self.form.widget["metro_output"].setText(str(goods[0]))
+		
+		# Set label for bus allocation output
+		self.form.widget["bus_output"].setText(str(goods[1]))
+		
+		# Set label for projected ridership output
+		self.form.widget["ridership_output"].setText(str(goods[2]))
 	"""
 	Show about window
 	"""

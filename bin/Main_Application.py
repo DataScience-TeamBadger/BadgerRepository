@@ -117,7 +117,7 @@ class Main_Application(object):
 			x+=g[0]
 			y+=g[1]
 			z+=g[2]
-		i=len(self.cities)
+		i=float(len(self.cities))
 		x/=i
 		y/=i
 		z/=i
