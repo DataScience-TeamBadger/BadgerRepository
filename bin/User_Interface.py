@@ -45,43 +45,10 @@ from PyQt5.QtCore import qDebug,qInf,qWarning,qCritical,qFatal
 # Import Qt main gui components
 from PyQt5.QtGui import QIcon
 
-#from PyQt5.QtPrintSupport import *
 
 # Import Main_Application
 from Main_Application import Main_Application
 from PyQt5.Qt import QDialog, QDialogButtonBox, QTextDocument, QTextBlock
-
-
-"""
-Wizard page for adding a city
-"""
-#class AddCity_Page(QWizardPage):
-#	
-#	def __init__(self,  parent = 0):
-#		# Call superconstructor
-#		super(self.__class__,  self).__init__(parent)
-#		
-#		self.setTitle("Add a city")
-#		self.setSubTitle("Add a city by importing the associated *.csv files.")
-#		
-#		label = QLabel()
-#		label.setText("")
-#		label.setWordWrap(True)
-#		self.
-#		
-
-
-"""
-Wizard for adding a city
-"""
-#class City_Wizard(QWizard):
-#	
-#	def __init__(self, parent):
-#		# Call superconstructor
-#		super(self.__class__,  self).__init__(parent)
-#		
-#		self._initial_page_ = 
-
 
 """
 Class for viewing models
@@ -121,7 +88,6 @@ class ModelViewer(QSplitter):
 		# Create Model Description widget
 		self.description = QLabel()
 		self.description.setWordWrap(True)
-		#self.description.setText("This is <b>the</b> description of the model.")
 		scroll_area.setWidget(self.description)
 		self.description.show()
 		
@@ -166,8 +132,6 @@ class About_Window(QMessageBox):
 		text += "</ul>"
 		self.setAttribute(Qt.WA_DeleteOnClose)
 		self.setText(text)
-		#self.setInformativeText("informative text")
-		#self.setDetailedText("detailed text")
 
 
 """
@@ -250,7 +214,7 @@ class Main_Window(QMainWindow):
 		
 		# Create File->Exit menu
 		current_item = "exit"
-		action[current_item] = QAction(QIcon('exit.png'), '&Exit', self)
+		action[current_item] = QAction('&Exit', self)
 		action[current_item].setShortcut('Ctrl+Shift+C')
 		action[current_item].setStatusTip('Close this application')
 		action[current_item].triggered.connect(self.close)
@@ -269,9 +233,7 @@ class Main_Window(QMainWindow):
 		
 		# Create Help->About menu
 		current_item = "about"
-		#"""QIcon('exit.png'), """
 		action[current_item] = QAction('&About', self)
-		action[current_item] = QAction(QIcon('about.png'), '&About', self)
 		action[current_item].setShortcut('F1')
 		action[current_item].setStatusTip('About this application')
 		action[current_item].triggered.connect(self.showAboutWindow)
@@ -310,37 +272,54 @@ class Main_Window(QMainWindow):
 		# Create Predict/input layout
 		layout["predict_input"] = QFormLayout()
 		
-		
 		# Create Budget form input
-		current_item = "budget"
+		current_item = "budget_input"
 		form.label[current_item] = QLabel()
-		form.label[current_item].setText("Maximum budget (USD, thousands)")
+		form.label[current_item].setText("Maximum budget (USD)")
 		form.widget[current_item] = QSpinBox()
+		form.widget[current_item].setSingleStep(100)
 		form.widget[current_item].setRange(0, 1000)
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
-		#Create Budget Button
-		current_item = "button"
-		form.widget[current_item] = QDialogButtonBox()
-		form.widget[current_item].addButton("Calculate", QDialogButtonBox.AcceptRole)
+		
+		#Create Submit button
+		current_item = "submit_button"
+		form.widget[current_item] = QPushButton("Calculate")
 		form.widget[current_item].clicked.connect(self.calculate)
 		layout["predict_input"].addRow(form.widget[current_item])
 		
-		#Create output textbox
-		current_item = "output"
-		form.label[current_item] = QLabel()
-		layout["predict_input"].addRow(form.label[current_item])
+		# Create Predict/output layout
+		layout["predict_output"] = QFormLayout()
+		
+		#Create metro allocation form output
+		current_item = "metro_output"
+		form.label[current_item] = QLabel("Metro allocation (USD)")
+		form.widget[current_item] = QLineEdit()
+		form.widget[current_item].setReadOnly(True)
+		form.widget[current_item].setEnabled(False)
+		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
+		
+		#Create bus allocation form output
+		current_item = "bus_output"
+		form.label[current_item] = QLabel("Bus allocation (USD)")
+		form.widget[current_item] = QLineEdit()
+		form.widget[current_item].setReadOnly(True)
+		form.widget[current_item].setEnabled(False)
+		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
+		
+		#Create projected ridership form output
+		current_item = "ridership_output"
+		form.label[current_item] = QLabel("Projected ridership")
+		form.widget[current_item] = QLineEdit()
+		form.widget[current_item].setReadOnly(True)
+		form.widget[current_item].setEnabled(False)
+		layout["predict_output"].addRow(form.label[current_item], form.widget[current_item])
 		
 		# Create Predict/input widget
 		current_item = "predict_input"
 		widget[current_item] = QWidget()
 		widget[current_item].setLayout(layout[current_item])
 		widget["predict_io"].addWidget(widget[current_item])
-		
-		
-		# Create Predict/output layout
-		layout["predict_output"] = QFormLayout()
-		
 		
 		# Create Predict/output widget
 		current_item = "predict_output"
@@ -357,9 +336,6 @@ class Main_Window(QMainWindow):
 			lambda current, previous: self.switchModel(current, previous))
 		widget["tab_switcher"].addTab(self.model_viewer, 'Data Visualization')
 		
-		#button = QPushButton("Button", self)
-		#button.move(100, 100)
-	
 	"""
 	Gets called when the calculate button is pressed.
 	"""
