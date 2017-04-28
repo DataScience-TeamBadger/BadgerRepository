@@ -108,7 +108,6 @@ class Main_Application(object):
 			trained_algorithm_set.append(city.run_voting_classifier())
 		for trained in trained_algorithm_set:
 			prediction_set.append(trained.predict(self.X_test))
-
 		return prediction_set
 
 	# Takes in classification input from run_voting_classifier and reshapes it to a list containing tiples of (ridership, metro_budget, bus_budget)
@@ -120,4 +119,6 @@ class Main_Application(object):
 				if set[i] > 0:
 					current_points.append(self.X_test[i])
 			efficient_points.append(current_points)
+		return efficient_points
+
 
