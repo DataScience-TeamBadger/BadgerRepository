@@ -20,7 +20,7 @@ from models import ridership_vs_ridership, time_vs_ridership, coverage, Budget_M
 
 
 class City(object):
-	#Format for date as parsed from CSV files
+	# Format for date as parsed from CSV files
 	DATE_FORMAT = "%Y-%m"
 	
 	def __init__(self, city_name, path_to_metro_csv, path_to_bus_csv, path_to_metro_map, path_to_bus_map):
@@ -28,32 +28,32 @@ class City(object):
 		self.models = {}
 		self.model_names = []
 		
-		#Dictionaries for CSV Lists
+		# Dictionaries for CSV Lists
 		self.time	   = {'metro':[],'bus':[]}
 		self.ridership  = {'metro':[],'bus':[]}
 		self.budget	 = {'metro':[],'bus':[]}
 		self.coverage   = {'metro':[],'bus':[]}
 		self.population = {'metro':[],'bus':[]}
 		
-		#Dictionaries for converage (Things that use MapHandler)
+		# Dictionaries for coverage (Things that use MapHandler)
 		self.m_stations = MapHandler.getPoints(path_to_metro_map)
 		self.b_stations = MapHandler.getPoints(path_to_bus_map)
 		
-		#Parsing CSV Calls
+		# Parsing CSV Calls
 		self._parseCSV('metro',path_to_metro_csv)
 		self._parseCSV('bus',path_to_bus_csv)
 		
-		#Call to main Model method
+		# Create all models
 		self.createModels()
 		
-		#ML Calls
+		# ML Calls
 		self.training_set = self.classifier_format()
 		self.classified_points = self.run_voting_classifier()
 		#self.efficient_points = self.get_efficient_points()
 	
 	def _parseCSV(self, data_source, path_to_csv):
 		with open(path_to_csv) as csv_file:
-			#Read the file as a csv file 
+			# Read the file as a csv file 
 			reader = csv.DictReader(csv_file)
 			# Parse time, ridership, budget, and coverage
 			for row in reader:
@@ -88,7 +88,7 @@ class City(object):
 		
 		# (This may also be two separate ones but I imagined plotting each point
 		# in one color for bus stations and another for metro stations, and then
-		# overtop a transparant color that covers coverage area)
+		# overtop a transparent color that covers coverage area)
 		
 		model_name = "Metro(Coverage)"
 		self.model_names.append(model_name)
@@ -98,7 +98,7 @@ class City(object):
 		self.model_names.append(model_name)
 		self.models[model_name] = coverage.coverage(model_name, self.b_stations)
 	
-	#Formats the features into entries for our ML algorithm
+	# Formats the features into entries for our ML algorithm
 	def classifier_format(self):
 		training_set = []
 		metro_ridership = self.ridership["metro"]
@@ -106,7 +106,8 @@ class City(object):
 		metro_budget = self.budget["metro"]
 		bus_budget = self.budget["bus"]
 		
-		# Generates each entry for our SVM Training Set by totaling ridership and appending the nth element of each list to a row
+		# Generates each entry for our SVM Training Set by totaling ridership
+		#  and appending the nth element of each list to a row
 		for i in range(len(metro_ridership)):
 			entry = []
 			ridership_metro = metro_ridership[i]
@@ -119,7 +120,7 @@ class City(object):
 		# Final Result is a list of lists where the inside list is a row of ridership, and budget for each bus and metro
 		return training_set
 	
-	#Developes Efficiency calculations to pass to our ML algorithm
+	# Develops Efficiency calculations to pass to our ML algorithm
 	def get_city_avg_efficiency(self):
 		efficiency_set = []
 		for entry in self.training_set:
