@@ -49,8 +49,6 @@ class Main_Application(object):
 				self._city_config_.get(section, "bus"),\
 				self._city_config_.get(section, "metromap"),\
 				self._city_config_.get(section, "busmap"))
-		# TODO: Remove DEBUG:
-		#self.gen_models()
 		self.X_test = self.get_testing_set()
 		self.predictions = self.test_trained_algorithm()
 		self.efficient_predictions = self.get_efficient_points()
@@ -69,16 +67,6 @@ class Main_Application(object):
 			os.path.normpath(path_to_bus_map)))
 	
 	"""
-	Delete a city given its name.
-	@param city_name the name of the city
-	"""
-	def delCity(self, city_name):
-		# TODO: del functionality
-		# Warning: you probably need to get index of city, then
-		# delete city at that index.
-		return
-	
-	"""
 	Get id for given city name
 	@param city_name the name of the city for which to return the city_id
 	"""
@@ -94,9 +82,9 @@ class Main_Application(object):
 	# Combines the training set of each city into one massive testing set
 	def get_testing_set(self):
 		X = []
-		for city in self.cities:
-			for entry in city.training_set:
-				X.append(entry)
+		# Use first city for data
+		for entry in self.cities[0].training_set:
+			X.append(entry)
 		return X
 	
 	"""
@@ -107,9 +95,9 @@ class Main_Application(object):
 		goods=[]
 		sets = self.efficient_predictions
 		i=0
-		for city in self.cities:
-			goods.append(city.getGoods(budget,sets[i]))
-			i+=1
+		# Use first city for data
+		goods.append(self.cities[0].getGoods(budget,sets[i]))
+		i+=1
 		x=0
 		y=0
 		z=0
@@ -117,7 +105,7 @@ class Main_Application(object):
 			x+=g[0]
 			y+=g[1]
 			z+=g[2]
-		i=float(len(self.cities))
+		i=1.0
 		x/=i
 		y/=i
 		z/=i
@@ -128,8 +116,8 @@ class Main_Application(object):
 	def test_trained_algorithm(self):
 		trained_algorithm_set = []
 		prediction_set = []
-		for city in self.cities:
-			trained_algorithm_set.append(city.run_voting_classifier())
+		# Use first city for data
+		trained_algorithm_set.append(self.cities[0].run_voting_classifier())
 		for trained in trained_algorithm_set:
 			prediction_set.append(trained.predict(self.X_test))
 		return prediction_set
