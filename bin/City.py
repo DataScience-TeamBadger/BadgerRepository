@@ -49,7 +49,7 @@ class City(object):
         #ML Calls
         self.training_set = self.classifier_format()
         self.classified_points = self.run_voting_classifier()
-        self.efficient_points = self.get_efficient_points()
+        #self.efficient_points = self.get_efficient_points()
         
     def _parseCSV(self, data_source, data_type, path_to_csv):
         with open(path_to_csv) as csv_file:
@@ -139,7 +139,7 @@ class City(object):
     #Outputs an array of the testing size where a 1 is a high efficiency and 0 is low efficiency
     def run_voting_classifier(self):
         clf1 = DecisionTreeClassifier(max_depth=1)
-        clf2 = KNeighborsClassifier(n_neighbors=12)
+        clf2 = KNeighborsClassifier(n_neighbors=6)
         clf3 = GaussianNB()
 
         get_y = self.get_city_avg_efficiency() #in there cause yellow bar was pissing me off
@@ -151,10 +151,12 @@ class City(object):
         return eclf
 
     #Takes in classification input from run_voting_classifier and reshapes it to a list containing tiples of (ridership, metro_budget, bus_budget)
+    #Moved this method over to main app in order to do proper testing with the three cities
+    """""
     def get_efficient_points(self):
         efficient_points = []
         for i in range(len(self.classified_points)):
             if self.classified_points[i] is 1:
                 efficient_points.append(self.training_set)
         return efficient_points
-
+    """
