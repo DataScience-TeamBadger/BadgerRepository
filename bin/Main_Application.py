@@ -124,7 +124,7 @@ class Main_Application(object):
 		return (x,y,z)
 	
 	#Acquires the trained algorithm of each city
-	#Spits out predictions of the testing set using each cities trained algorithm
+	#Spits out predictions of the testing set using each city's trained algorithm
 	def test_trained_algorithm(self):
 		trained_algorithm_set = []
 		prediction_set = []

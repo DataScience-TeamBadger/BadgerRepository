@@ -1,0 +1,12 @@
+# Required dependencies for project
+
+# Python Qt 5 wrapper
+pyqt5
+
+# Python Qt-based graphing library
+pyqtgraph
+
+# Python shapefile library
+pyshp
+
+# Configuration parser

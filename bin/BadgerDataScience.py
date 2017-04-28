@@ -6,7 +6,6 @@ Created on Fri Apr 21 15:07:09 2017
 """
 
 
-
 import sys
 from PyQt5.QtWidgets import QApplication
 
@@ -15,6 +14,8 @@ import User_Interface
 
 # Import config parser
 from lib import Config
+
+
 
 # Run the application
 
@@ -30,7 +31,4 @@ if (__name__ == "__main__"):
 	app.aboutToQuit.connect(app.deleteLater)
 	mw = User_Interface.Main_Window()
 	
-	
-	# Results in an exception in IPython, so removed
-	#sys.exit(app.exec_())
 	app.exec_()
