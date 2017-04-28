@@ -16,11 +16,14 @@ import models.Model
 
 class coverage(models.Model.Model):
 
-    def __init__(self, name, coverage_data):
-        super(coverage, self).__init__(name)
+	def __init__(self, name, coverage_data):
+		super(coverage, self).__init__(name)
+		self.description = "<h3>Coverage Map</h3>"
+		self.description += "<h5>X-Axis = East/West Coordinate</h5>"
+		self.description += "<h5>Y-Axis = North/South Coordinate</h5>"
 
 
-        self.X = np.asarray(coverage_data[0])
-        self.Y = np.asarray(coverage_data[1])
+		self.X = np.asarray(coverage_data[0])
+		self.Y = np.asarray(coverage_data[1])
 
-        self.plot.plot(self.X, self.Y, pen=None, symbol='o')
+		self.plot.plot(self.X, self.Y, pen=None, symbol='o')
