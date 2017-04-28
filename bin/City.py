@@ -35,16 +35,18 @@ class City(object):
 		self.coverage   = {'metro':[],'bus':[]}
 		self.population = {'metro':[],'bus':[]}
 		
+		
 		# Dictionaries for coverage (Things that use MapHandler)
-		self.m_stations = MapHandler.getPoints(path_to_metro_map)
-		self.b_stations = MapHandler.getPoints(path_to_bus_map)
+		if not (path_to_metro_map == "null"):
+			self.m_stations = MapHandler.getPoints(path_to_metro_map)
+			self.b_stations = MapHandler.getPoints(path_to_bus_map)
 		
 		# Parsing CSV Calls
 		self._parseCSV('metro',path_to_metro_csv)
 		self._parseCSV('bus',path_to_bus_csv)
 		
 		# Create all models
-		self.createModels()
+		self.createModels(path_to_bus_map == "null")
 		
 		# Initialize sets
 		self.training_set = []
@@ -69,7 +71,7 @@ class City(object):
 					self.coverage[data_source].append(row["COVERAGE"])
 					self.population[data_source].append(row["POPULATION"])
 	
-	def createModels(self):
+	def createModels(self, has_no_map = False):
 		# Bar
 		model_name = "Metro vs Bus (Ridership)"
 		self.model_names.append(model_name)
@@ -86,22 +88,23 @@ class City(object):
 		model_name = "Bus Ridership vs Time"
 		self.model_names.append(model_name)
 		self.models[model_name] = time_vs_ridership.time_vs_ridership(model_name, self.time['bus'], self.ridership['bus'])
-		# Scatter w/ LinRegression
-		model_name = "Metro Ridership vs Coverage(km2)"
-		# Scatter w/ LinRegression
-		model_name = "Bus Ridership vs Coverage(km2)"
-		
-		# (This may also be two separate ones but I imagined plotting each point
-		# in one color for bus stations and another for metro stations, and then
-		# overtop a transparent color that covers coverage area)
-		
-		model_name = "Metro(Coverage)"
-		self.model_names.append(model_name)
-		self.models[model_name] = coverage.coverage(model_name, self.m_stations)
-		
-		model_name = "Bus(Coverage)"
-		self.model_names.append(model_name)
-		self.models[model_name] = coverage.coverage(model_name, self.b_stations)
+		if not (has_no_map):
+			# Scatter w/ LinRegression
+			model_name = "Metro Ridership vs Coverage(km2)"
+			# Scatter w/ LinRegression
+			model_name = "Bus Ridership vs Coverage(km2)"
+			
+			# (This may also be two separate ones but I imagined plotting each point
+			# in one color for bus stations and another for metro stations, and then
+			# overtop a transparent color that covers coverage area)
+			
+			model_name = "Metro(Coverage)"
+			self.model_names.append(model_name)
+			self.models[model_name] = coverage.coverage(model_name, self.m_stations)
+			
+			model_name = "Bus(Coverage)"
+			self.model_names.append(model_name)
+			self.models[model_name] = coverage.coverage(model_name, self.b_stations)
 	
 	# Formats the features into entries for our ML algorithm
 	def classifier_format(self):

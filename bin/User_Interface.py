@@ -265,7 +265,7 @@ class Main_Window(QMainWindow):
 		form.label[current_item].setText("Maximum budget (USD, thousands)")
 		form.widget[current_item] = QSpinBox()
 		form.widget[current_item].setSingleStep(1000)
-		form.widget[current_item].setRange(0, 1000000)
+		form.widget[current_item].setRange(1, 1000000)
 		form.widget[current_item].setStatusTip("Budget, in thousands of US dollars, to allocate to your city")
 		layout["predict_input"].addRow(form.label[current_item],form.widget[current_item])
 		
