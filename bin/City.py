@@ -52,7 +52,8 @@ class City(object):
 		
 		# ML Calls to populate sets
 		self.classifier_format()
-		self.run_voting_classifier()
+		self.get_city_avg_efficiency()
+		self.classified_points = self.run_voting_classifier()
 		#self.efficient_points = self.get_efficient_points()
 	
 	def _parseCSV(self, data_source, path_to_csv):
@@ -167,13 +168,11 @@ class City(object):
 		dtc = DecisionTreeClassifier(max_depth=1)
 		knn = KNeighborsClassifier(n_neighbors=6)
 		gnb = GaussianNB()
-		get_y = self.efficiency_set #in there cause yellow bar was pissing me off
 		X = np.asarray(self.training_set)
-		y = np.asarray(get_y)
+		y = np.asarray(self.efficiency_set)
 		eclf = VotingClassifier(estimators=[('dtc', dtc), ('knn', knn), ('gnb', gnb)], voting='soft', weights=[1, 4, 3])
 		eclf = eclf.fit(X, y)
 		return eclf
-	
 	#Takes in classification input from run_voting_classifier and reshapes it to a list containing tiples of (ridership, metro_budget, bus_budget)
 	#Moved this method over to main app in order to do proper testing with the three cities
 	
