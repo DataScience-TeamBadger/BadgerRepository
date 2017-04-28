@@ -25,6 +25,11 @@ class time_vs_ridership(models.Model.Model):
 		for i in range(len(metro_time)):
 			mtime.append(int(i))
 
+		self.description = "<h3>Time vs Ridership</h3>"
+		self.description +="<h5>X-Axis = Time</h5>"
+		self.description +="<h5>Y-Axis = Ridership</h5>"
+		
+		
 		# Generate X and Y
 		self.X = np.asarray(mtime)
 		self.Y = np.asarray(metro_ridership)
